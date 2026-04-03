@@ -3,10 +3,9 @@ adobe-source-han-sans-cn-fonts
 adw-gtk-theme
 alsa-utils
 amd-ucode
+archlinuxcn-keyring
 arch-wiki-docs
 arch-wiki-docs-zh-cn
-archlinuxcn-keyring
-baidunetdisk-bin
 base
 base-devel
 bat
@@ -24,8 +23,8 @@ clash-verge-rev
 cliphist
 ddcutil
 efibootmgr
-ex-vi-compat
 exfat-utils
+ex-vi-compat
 eza
 fastfetch
 fcitx5
@@ -67,8 +66,6 @@ nautilus-open-any-terminal
 ncdu
 neovim
 networkmanager
-niri-wip-git
-noctalia-shell-git
 noto-fonts-emoji
 npm
 ntfs-3g
@@ -83,7 +80,6 @@ pipewire-pulse
 polkit-gnome
 power-profiles-daemon
 qt6ct
-realesrgan-ncnn-vulkan-bin
 resvg
 rime-ice-git
 ripgrep
@@ -97,7 +93,6 @@ sudo
 swayimg
 tmux
 tree
-tree-sitter-cli-git
 ttf-liberation
 ttf-lxgw-wenkai-mono
 ttf-sourcecodepro-nerd
@@ -116,7 +111,6 @@ xdg-desktop-portal-gnome
 xdg-terminal-exec
 xf86-video-amdgpu
 xorg-xhost
-xremap-niri-bin
 xwayland-satellite
 yazi
 yt-dlp
