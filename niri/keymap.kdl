@@ -32,15 +32,14 @@ binds {
     Shift+Alt+Q hotkey-overlay-title="wmenu qucknotes" {spawn-sh "$HOME/.local/bin/wmenu-quicknotes";}
 
     // media operation(mostly Alt+KEY)
-    // Alt+0 { spawn-sh "waypaper --random;sleep 2;$HOME/.config/noctalia/scripts/overview_background_gen.sh";}
     Alt+0 hotkey-overlay-title="Change wallpaper" { spawn-sh "qs -c noctalia-shell ipc call wallpaper random all";}
     Alt+Slash hotkey-overlay-title="Toggle dark/light mode" {spawn-sh "$HOME/.local/bin/toggle_dark_mode";}
     Alt+Equal { spawn-sh "pactl -- set-sink-mute 0 false && pactl -- set-sink-volume 0 +5%"; }
     Alt+Minus { spawn-sh "pactl -- set-sink-mute 0 false && pactl -- set-sink-volume 0 -5%"; }
     Alt+Grave { spawn "pactl" "--" "set-sink-mute" "0" "toggle"; }
-    // Shift+Alt+Equal { spawn "mpc" "next"; }
-    // Shift+Alt+Minus { spawn "mpc" "prev"; }
-    // Shift+Alt+Grave { spawn "mpc" "toggle"; }
+    Shift+Alt+Equal { spawn "mpc" "next"; }
+    Shift+Alt+Minus { spawn "mpc" "prev"; }
+    Shift+Alt+Grave { spawn "mpc" "toggle"; }
     Alt+BracketRight { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "increase"; }
     Alt+BracketLeft { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
 
