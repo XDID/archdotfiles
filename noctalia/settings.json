@@ -30,7 +30,7 @@
     "audio": {
         "mprisBlacklist": [
         ],
-        "preferredPlayer": "",
+        "preferredPlayer": "mpc, mpd, rmpc",
         "spectrumFrameRate": 60,
         "spectrumMirrored": true,
         "visualizerType": "linear",
@@ -276,7 +276,7 @@
                 "id": "weather-card"
             },
             {
-                "enabled": false,
+                "enabled": true,
                 "id": "media-sysmon-card"
             }
         ],
