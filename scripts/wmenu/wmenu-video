@@ -1,0 +1,9 @@
+#!/usr/bin/sh
+set -eu
+
+MENU="$HOME/.local/bin/wmenu-color"
+VID_DIR="$HOME/Videos"
+
+file=$(fd -e mp4 "$VID_DIR" -p -t f | sort | sed "s|^$VID_DIR/||" | "$MENU" -p "Video " -l6) || exit 0
+
+mpv $file

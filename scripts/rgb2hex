@@ -1,0 +1,9 @@
+#!/usr/bin/sh
+
+for color in "$@"; do
+    red="$(echo "$color" | cut -d',' -f1)"
+    grn="$(echo "$color" | cut -d',' -f2)"
+    blu="$(echo "$color" | cut -d',' -f3)"
+
+    printf "%02X%02X%02X\n" "$red" "$grn" "$blu"
+done

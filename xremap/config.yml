@@ -1,0 +1,41 @@
+modmap:
+  - name: default
+    remap:
+      CapsLock:
+        held: LEFTCTRL
+        alone: [LEFTCTRL, SPACE]
+        free_hold: true
+      LEFTSHIFT:
+        held: LEFTSHIFT
+        alone: ESC
+        free_hold: true
+      COMPOSE: RIGHTMETA
+      KPENTER: ENTER
+      TAB:
+        held: hangeul
+        alone: TAB
+        free_hold: true
+
+virtual_modifiers:
+  - hangeul
+
+keymap:
+  - name: firefox config
+    application:
+      only: firefox
+    remap:
+      LEFTCTRL-S: LEFTALT-LEFTCTRL-Z
+
+  - name: firefox config
+    application:
+      only: [floatterm]
+    remap:
+      SUPER-Q: SUPER-ENTER
+      SUPER-CTRL-Q: SUPER-Q
+
+  - name: direction
+    remap:
+      hangeul-H: LEFT
+      hangeul-L: RIGHT
+      hangeul-J: DOWN
+      hangeul-K: UP

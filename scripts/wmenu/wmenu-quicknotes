@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -eu
+
+MENU="$HOME/.local/bin/wmenu-color"
+DIR="${1:-$HOME/Documents/Quicknotes}"
+
+[ -d "$DIR" ] || mkdir -p "$DIR"
+
+# 构建列表：tag | filename | fullpath
+choice=$(
+  fd . "$DIR" -e md -t f | while read -r file; do
+    name=$(basename "$file")
+
+    # 提取 tag
+    tags=$(rg -m1 '^tag:' "$file" 2>/dev/null | sed 's/^tag://')
+    [ -z "$tags" ] && tags="(no-tag)"
+
+    # 输出：用于显示 + 用于解析
+    printf "%s | %s;%s\n" "$tags" "$name" "$file"
+  done \
+  | sort \
+  | { printf "new\n"; cat; } \
+  | $MENU -l6 -p "Quicknotes "
+) || exit 1
+
+[ -z "$choice" ] && exit 0
+
+# 新建文件
+if [ "$choice" = "new" ]; then
+  file="$DIR/$(date +%Y-%m-%d_%H_%M_%S).md"
+else
+  file=$(printf "%s" "$choice" | cut -d ";" -f2)
+fi
+
+# 确保后缀
+case "$file" in
+  *.md) ;;
+  *) file="$file.md" ;;
+esac
+
+# 创建目录（仅在必要时）
+mkdir -p "$(dirname "$file")"
+
+footclient nvim "$file"
+
+# 清理空目录
+rmdir --ignore-fail-on-non-empty "$(dirname "$file")" 2>/dev/null || true

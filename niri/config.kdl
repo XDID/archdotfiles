@@ -1,0 +1,5 @@
+include "./startup.kdl"
+include "./basic.kdl"
+include "./window_rule.kdl"
+include "./keymap.kdl"
+include "./noctalia.kdl"

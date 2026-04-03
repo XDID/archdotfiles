@@ -1,0 +1,31 @@
+#!/usr/bin/sh
+# use a dynamic menu to select the audio source for voice recording
+pgrep -x pw-record && pkill -x pw-record && exit 0
+
+RECORD_HOME="${HOME}/Record/Recordings"
+[ -d "$RECORD_HOME" ] || mkdir -p $RECORD_HOME
+
+menu="${HOME}/.local/bin/wmenu-color -l3 -p"
+
+filename="${RECORD_HOME}/$(date +%Y-%m-%d_%H_%M_%S).wav"
+
+notifyStart() {
+    notify-send -e -u low -r 1258 "$(basename "$0")"  "Record start"
+}
+
+notifyStop() {
+    notify-send -e -u low -r 1258 "$(basename "$0")" "Record stopped"
+}
+
+setSource() {
+    pactl list short sources | awk '{print $1,$2}' | sort | $menu 'Source ' | cut -d " " -f 1
+}
+
+source="$(setSource)"
+[ -z "$source" ] && exit 0
+
+notifyStart
+
+trap notifyStop EXIT INT TERM
+
+pw-record --target "$source" "$filename"

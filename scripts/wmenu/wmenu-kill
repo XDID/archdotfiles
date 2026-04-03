@@ -1,0 +1,6 @@
+#!/usr/bin/sh
+set -eu
+
+MENU="$HOME/.local/bin/wmenu-color"
+
+ps -u "$USER" -o pid=,comm= | "$MENU" -p "Kill " -l6 | awk '{print $1}' | xargs -r kill

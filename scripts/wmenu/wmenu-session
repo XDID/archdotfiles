@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+set -eu
+
+MENU="$HOME/.local/bin/wmenu-color"
+
+SELECTION=$(printf "Lock\nSuspend\nReboot\nShutdown" | "$MENU" -i -p "Niri ") || exit 0
+
+case "$SELECTION" in
+    "Lock")
+        qs -c noctalia-shell ipc call lockScreen lock ;;
+    "Suspend")
+        qs -c noctalia-shell ipc call sessionMenu lockAndSuspend ;;
+    "Reboot")
+        systemctl reboot ;;
+    "Shutdown")
+        systemctl poweroff ;;
+esac

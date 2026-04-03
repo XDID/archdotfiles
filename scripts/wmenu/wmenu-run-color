@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+set -eu
+
+. "$HOME/.config/wmenu/color.sh"
+
+pgrep -x wmenu > /dev/null && exit 1 ||
+wmenu-run -i \
+  -F \
+  -E "SourceCodePro regular 11.3" \
+  -C "LXGW WenKai Mono 11.3" \
+  -l 6 \
+  -N "$colorbg" \
+  -S "$colorsbg" \
+  -s "$colorbg" \
+  -M "$colorsbg" \
+  -m "$colorbg" \
+  -p "Run " \
+  "$@"

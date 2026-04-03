@@ -1,0 +1,33 @@
+[config]
+
+[templates]
+[templates.color-list]
+input_path = "~/.config/noctalia/templates/noctalia-color-list"
+output_path = "~/.config/noctalia/color-list"
+
+# [templates.qutebrowser]
+# input_path = "~/.config/noctalia/templates/qutebrowser-usertemplate.py"
+# output_path = "~/.config/qutebrowser/noctalia.py"
+
+# [templates.kitty]
+# input_path = '~/.config/noctalia/templates/kitty-color.conf'
+# output_path ='~/.config/kitty/themes/noctalia.conf'
+# post_hook = "kitty +kitten themes --reload-in=all noctalia &"
+
+[templates.gtk-folder]
+input_path = '~/.config/noctalia/templates/gtk-folder/recolor.sh'
+output_path = '~/.cache/noctalia/recoloricons.sh'
+post_hook = 'bash ~/.cache/noctalia/recoloricons.sh &'
+
+[templates.wmenu-color]
+input_path = '~/.config/noctalia/templates/wmenu-color.sh'
+output_path = '~/.config/wmenu/color.sh'
+
+[templates.rmpc]
+input_path = '~/.config/noctalia/templates/rmpc.ron'
+output_path = '~/.config/rmpc/noctalia.ron'
+
+[templates.tmux]
+input_path = '~/.config/noctalia/templates/tmux-color.conf'
+output_path = '~/.config/tmux/color.conf'
+post_hook = 'pgrep tmux && tmux source-file /home/harunato/.config/tmux/color.conf'

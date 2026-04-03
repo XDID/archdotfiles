@@ -1,0 +1,154 @@
+#!/usr/bin/env sh
+set -eu
+
+TOML_PATH="${HOME}/.config/games"
+BIN_PATH="${TOML_PATH}/bin"
+DESKTOP_PATH="${HOME}/.local/share/applications"
+WINE_PREFIX="${HOME}/.wine"
+PROTON="${HOME}/.local/share/Steam/compatibilitytools.d/GE-Proton10-34"
+STORE="steam"
+
+# ---------- util ----------
+die() {
+  printf "Error: %s\n" "$*" >&2
+  exit 1
+}
+
+ensure_dirs() {
+  mkdir -p "$TOML_PATH" "$BIN_PATH" "$DESKTOP_PATH"
+}
+
+usage() {
+  cat <<EOF
+Usage:
+  game <name> <id> <exe_path>     Add game
+  game -a <name> <id> <exe_path>  Add game
+  game -d <name>                  Delete game
+
+Examples:
+  game "Cyberpunk2077" 12345 ~/Games/cp2077.exe
+  game -d "Cyberpunk2077"
+EOF
+}
+
+make_toml() {
+  name="$1"
+  id="$2"
+  exe="$3"
+
+  file="${TOML_PATH}/${name}.toml"
+
+  cat > "$file" <<EOF
+[umu]
+prefix = "${WINE_PREFIX}"
+proton = "${PROTON}"
+game_id = "umu-${id}"
+exe = "$(realpath "$exe")"
+launch_args = []
+store = "${STORE}"
+EOF
+}
+
+make_desktop() {
+  name="$1"
+  id="$2"
+
+  file="${DESKTOP_PATH}/${STORE}_app_${id}.desktop"
+
+  cat > "$file" <<EOF
+[Desktop Entry]
+Name=${name}
+GenericName=${name}
+Exec=umu-run --config ${TOML_PATH}/${name}.toml
+Terminal=false
+Type=Application
+Categories=Game;
+StartupNotify=false
+EOF
+}
+
+make_bin() {
+  name="$1"
+  id="$2"
+
+  file="${BIN_PATH}/${name}"
+
+  cat > "$file" <<EOF
+#!/usr/bin/env sh
+gio launch "${DESKTOP_PATH}/${STORE}_app_${id}.desktop"
+EOF
+
+  chmod +x "$file"
+
+  # 由你自定义的软链接工具
+  "${HOME}/.local/bin/lnk" "$file"
+}
+
+add_game() {
+  [ $# -eq 3 ] || die "add_game requires: name id exe_path"
+
+  name="$1"
+  id="$2"
+  exe="$3"
+
+  [ -f "$exe" ] || die "exe not found: $exe"
+
+  ensure_dirs
+
+  make_toml "$name" "$id" "$exe"
+  make_desktop "$name" "$id"
+  make_bin "$name" "$id"
+
+  printf "Added game: %s (id=%s)\n" "$name" "$id"
+}
+
+# ---------- delete ----------
+get_id_from_toml() {
+  name="$1"
+  file="${TOML_PATH}/${name}.toml"
+
+  [ -f "$file" ] || die "toml not found: $file"
+
+  sed -n 's/^game_id = "umu-\(.*\)"/\1/p' "$file"
+}
+
+delete_game() {
+  [ $# -eq 1 ] || die "delete_game requires: name"
+
+  name="$1"
+  toml="${TOML_PATH}/${name}.toml"
+  bin="${BIN_PATH}/${name}"
+  link="${HOME}/.local/bin/${name}"
+
+  id="$(get_id_from_toml "$name")"
+  desktop="${DESKTOP_PATH}/${STORE}_app_${id}.desktop"
+
+  rm -f "$toml" "$bin" "$link" "$desktop"
+
+  printf "Deleted game: %s (id=%s)\n" "$name" "$id"
+}
+
+# ---------- entry ----------
+main() {
+  case "${1:-}" in
+    -a)
+      shift
+      [ $# -eq 3 ] || { usage; exit 1; }
+      add_game "$@"
+      ;;
+    -d)
+      shift
+      [ $# -eq 1 ] || { usage; exit 1; }
+      delete_game "$@"
+      ;;
+    ""|-h|--help)
+      usage
+      ;;
+    *)
+      [ $# -eq 3 ] || { usage; exit 1; }
+      add_game "$@"
+      ;;
+  esac
+}
+
+main "$@"

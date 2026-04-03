@@ -1,0 +1,12 @@
+#!/bin/sh
+MENU="$HOME/.local/bin/wmenu-color"
+
+selected=$(
+    pactl list short sources | awk '{print $2}' \
+    | grep -v '\.monitor' \
+    | $MENU -l3 -p "Audio input "
+)
+
+[ -z "$selected" ] && exit 1
+
+pactl set-default-source "$selected"

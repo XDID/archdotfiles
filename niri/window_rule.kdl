@@ -1,0 +1,93 @@
+// blur overview
+layer-rule {
+    match namespace="^noctalia-overview*"
+    place-within-backdrop true
+}
+
+// open max app
+window-rule {
+  match app-id="firefox"
+  open-maximized true
+}
+
+// open floating
+window-rule {
+    match app-id="org.gnome.Nautilus" title="^Rotating.*"
+    match app-id=r#"dev.noctalia.noctalia-qs$"#
+    match app-id="steam"
+    open-floating true
+}
+
+// floating and center some window
+window-rule {
+    match app-id="org.gnome.Nautilus"
+    match app-id="com.gabm.satty"
+    match app-id="swayimg"
+    match app-id="spotify"
+    match app-id="wallpaper_selector"
+    match app-id="localsend"
+    match app-id="floatterm"
+    match app-id="satty"
+    match app-id="btrfs-assistant"
+    match title=".*足迹.*" app-id="firefox"
+    open-floating true
+    default-floating-position x=0 y=165 relative-to="top"
+    default-column-width { fixed 1280; }
+    default-window-height { fixed 720; }
+}
+
+// some app may work in real pixel
+window-rule {
+    match app-id="mpv"
+    open-floating true
+    default-floating-position x=0 y=165 relative-to="top"
+    default-column-width { fixed 2560; }
+    default-window-height { fixed 1440; }
+}
+
+window-rule {
+  max-width 1728
+  max-height 972
+  match is-floating=true
+}
+
+// corner radius
+window-rule {
+  geometry-corner-radius 0
+  clip-to-geometry true
+  draw-border-with-background false
+}
+
+// opacity and blur
+window-rule {
+  match is-active=false
+  opacity 0.92
+}
+
+window-rule {
+  match is-active=true
+  opacity 0.94
+}
+
+blur {
+  passes 4
+  offset 4
+  noise 0.02
+  saturation 1.5
+}
+
+window-rule {
+  background-effect {
+    xray true
+    blur true
+  }
+}
+
+window-rule {
+  match is-floating=true
+  opacity 0.88
+  background-effect {
+    xray false
+    blur true
+  }
+}

@@ -1,0 +1,12 @@
+{
+    "rules": [
+        {
+            "action": "block",
+            "pattern": "baidunetdisk"
+        },
+        {
+            "action": "block",
+            "pattern": "niri"
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+#!/usr/bin/sh
+# swayimg script for wmenu confirmation to remove an image
+# Shift+d = exec ~/.local/bin/swayimg-rm "%" && skip_file; reload
+set -eu
+
+[ $# -ge 1 ] || exit 1
+target=$1
+target_name=$(basename "$target")
+short_name=$(printf '%s\n' "$target_name" |
+  awk '{if(length($0) > 80) print substr($0, 1, 35) "..." substr($0, length($0)-34, 35); else print $0}')
+
+user_choice=$(printf "no\nyes" |
+  "$HOME/.local/bin/wmenu-color" -p "[$(basename "$0")] rm? $short_name ")
+
+if [ "$user_choice" = "yes" ]; then
+  rm -- "$target"
+  # pkill -SIGUSR1 swayimg
+  notify-send -t 1 -e "swayimg" "$target_name is removed"
+else
+  exit 1
+fi

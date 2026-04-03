@@ -1,0 +1,12 @@
+# vim:ft=conf
+# yt-dlp/config
+
+--cookies-from-browser firefox
+
+--embed-metadata
+
+--paths ~/Downloads/
+
+--output "%(title).80s.%(ext)s"
+
+--concurrent-fragments 3

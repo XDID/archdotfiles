@@ -1,0 +1,36 @@
+#!/usr/bin/sh
+set -eu
+MENU="$HOME/.local/bin/wmenu-color"
+
+shot() {
+  niri msg action $1 &
+  event=$(timeout 10 niri msg event-stream | grep -m 1 --line-buffered "Screenshot captured")
+  if [[ -n "$event" ]]; then
+    if [[ "$choice" != "Pin" ]]; then
+      wl-paste | satty -f - &
+    else
+      wl-paste | swayimg - &
+    fi
+  fi
+  exit 0
+}
+
+choice=$(printf "Screen\nApplication\nRegion\nPin" | $MENU -p "Screenshot ")
+
+case "$choice" in
+  Screen)
+    shot "screenshot-screen"
+    ;;
+  Application)
+    shot "screenshot-window"
+    ;;
+  Region)
+    shot "screenshot"
+    ;;
+  Pin)
+    shot "screenshot"
+    ;;
+  *)
+    exit 1
+    ;;
+esac

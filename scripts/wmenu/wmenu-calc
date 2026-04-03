@@ -1,0 +1,9 @@
+#!/usr/bin/sh
+set -eu
+
+MENU="$HOME/.local/bin/wmenu-color"
+
+result=$("$MENU" -p "Calc " <&- | bc -l 2>/dev/null || true)
+[ -n "$result" ] || exit 0
+wl-copy "$result"
+# notify-send -e $result

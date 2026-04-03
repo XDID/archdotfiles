@@ -1,0 +1,10 @@
+[general]
+copy-command = "wl-copy"
+focus-toggles-toolbars = true
+actions-on-right-click = ["save-to-clipboard"]
+actions-on-enter = ["save-to-file"]
+early-exit = true
+corner-roundness = 12
+no-window-decoration = true
+output-filename = "/home/harunato/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png"
+disable-notifications = true

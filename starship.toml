@@ -1,0 +1,66 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$shell\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$character
+"""
+
+add_newline = false
+
+[username]
+style_user = 'cyan'
+style_root = 'red'
+format = '[$user]($style bold)'
+disabled = false
+show_always = true
+
+[hostname]
+ssh_only = true
+format = '[@$ssh_symbol](white)[@$hostname](white)'
+trim_at = '.companyname.com'
+disabled = false
+
+[shell]
+format = '[$indicator│](cyan bold)'
+fish_indicator = "FISH"
+bash_indicator = "BASH"
+zsh_indicator = "ZSH"
+disabled = false
+
+[directory]
+home_symbol = "~"
+format=' [$path$read_only]($style) '
+style = "bright-black"
+
+[character]
+success_symbol = "[\\$](green)"
+error_symbol = "[\\$](red)"
+vimcmd_symbol = "[\\$](green)"
+
+[git_branch]
+format = "[$branch]($style)"
+style = "bright-black"
+
+[git_status]
+style = "bold italic bright-blue"
+format = "([⎪$ahead_behind$staged$modified$untracked$renamed$deleted$conflicted$stashed⎥]($style)) "
+conflicted = "[◪◦](italic bright-magenta)"
+ahead = "[▴│[${count}](bold white)│](italic green)"
+behind = "[▿│[${count}](bold white)│](italic red)"
+diverged = "[◇ ▴┤[${ahead_count}](regular white)│▿┤[${behind_count}](regular white)│](italic bright-magenta)"
+untracked = "[◌◦](italic bright-yellow)"
+stashed = "[◃◈](italic white)"
+modified = "[●◦](italic yellow)"
+staged = "[▪┤[$count](bold white)│](italic bright-cyan)"
+renamed = "[◎◦](italic bright-blue)"
+deleted = "[✕](italic red)"
+
+[git_state]
+format = ' \([$state( $progress_current/$progress_total)]($style)\)'
+style = "bright-black"

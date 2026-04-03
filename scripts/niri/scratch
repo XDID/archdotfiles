@@ -1,0 +1,43 @@
+#!/usr/bin/sh
+
+set -eu
+
+stash_id=10
+app_id=$1
+
+[ -z "$app_id" ] && exit 0
+
+cur_workspace=$(niri msg workspaces | grep \* | cut -d " " -f 4 | cut -d "\"" -f 2)
+win_workspace=$(
+  niri msg -j windows |
+  jq --arg app_id "$app_id" '.[] | select(.app_id == $app_id) | .workspace_id'
+)
+
+if [ -z $win_workspace]; then
+  case "$app_id" in
+    "floatterm")
+      footclient -a floatterm
+      ;;
+    *)
+      $app_id
+      ;;
+  esac
+  exit 0
+fi
+
+win_id=$(
+  niri msg -j windows |
+  jq --arg app_id "$app_id" '.[] | select(.app_id == $app_id) | .id'
+)
+cur_window=$(niri msg -j focused-window | jq -r '.app_id')
+
+if [[ $cur_window == $app_id ]]; then
+  niri msg action move-window-to-workspace $stash_id --focus false
+else
+  if [[ $cur_workspace != $win_workspace ]]; then
+    niri msg action move-window-to-workspace --window-id $win_id $cur_workspace
+  fi
+  niri msg action focus-window --id $win_id
+  niri msg action center-window
+fi
+

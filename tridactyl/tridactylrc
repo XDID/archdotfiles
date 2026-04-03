@@ -1,0 +1,129 @@
+set allowautofocus false
+
+" disable hint highlight
+set hintstyles.fg none
+set hintstyles.bg none
+set hintstyles.outline none
+
+" smoothscroll
+set smoothscroll false
+
+" editor
+set editorcmd footclient /usr/bin/nvim
+
+autocmd DocStart .* composite js window.matchMedia('(prefers-color-scheme: dark)').matches ? `catppuccin_mocha` : `catppuccin_latte` |  colors
+""""""""""""""""""
+""""KEYBINDING""""
+""""""""""""""""""
+unbind --mode=normal ;y
+unbind --mode=normal s
+" command
+bind --mode=normal : fillcmdline_notrail
+bind --mode=visual : fillcmdline_notrail
+" quick reload config
+bind <C-r> source
+" add bookmark
+bind --mode=normal b current_url bmark
+bind --mode=normal B fillcmdline bmarks 
+" tab history
+bind --mode=normal H back
+bind --mode=normal L forward
+" page controll
+bind --mode=normal j scrollline 4
+bind --mode=normal k scrollline -4
+bind --mode=normal <C-j> scrollpage 0.5
+bind --mode=normal <C-k> scrollpage -0.5
+bind --mode=normal h scrollpx -50
+bind --mode=normal l scrollpx 50
+bind --mode=normal r reload
+bind --mode=visual r reload
+" tab nav
+bind --mode=normal K tabprev
+bind --mode=normal J tabnext
+" yank operation
+bind --mode=normal yt clipboard yanktitle
+bind --mode=normal yy clipboard yank
+bind --mode=normal ys clipboard yankshort
+bind --mode=normal p clipboard open
+bind --mode=normal p clipboard tabopen
+" use my editor
+bind --mode=insert <C-i> editor
+bind --mode=input <C-i> editor
+" find
+bind --mode=normal / fillcmdline find
+bind --mode=normal ? fillcmdline find --reverse
+bind --mode=normal n findnext --search-from-view
+bind --mode=normal N findnext --search-from-view --reverse
+bind --mode=normal gn findselect
+bind --mode=normal gN composite findnext --search-from-view --reverse; findselect
+bind --mode=normal ,<Space> nohlsearch
+bind --mode=visual S composite js document.getSelection().toString() | fillcmdline open search
+" input
+bind --mode=normal gi focusinput
+bind --mode=visual gi focusinput
+bind --mode=input <S-Tab> focusinput -l
+bind --mode=input <Tab> focusinput -n
+" nav page
+bind --mode=normal ]] followpage next
+bind --mode=visual ]] followpage next
+bind --mode=normal [[ followpage prev
+bind --mode=visual [[ followpage prev
+" hint bindings
+" open tab
+bind --mode=normal f hint
+" open background
+bind --mode=normal F hint -b
+" copy link
+bind --mode=normal ;yy hint -y
+" copy text
+bind --mode=normal ;yt hint -p
+" copy title text
+bind --mode=normal ;yT hint -P
+" select item
+bind --mode=normal ;s hint -h
+" view image
+bind --mode=normal ;i hint -i
+" view image in new tab
+bind --mode=normal ;I hint -I
+" save link
+bind --mode=normal sl hint -s
+" save image
+bind --mode=normal si hint -S
+" save as
+bind --mode=normal sa hint -a
+" save image as
+bind --mode=normal sA hint -A
+" focus element
+bind --mode=normal ;; hint -;
+" tab
+bind o fillcmdline open
+bind t fillcmdline tabopen
+bind T fillcmdline tab
+bind d tabclose
+bind D tabonly
+bind u undo
+bind go composite get_current_url | fillcmdline_notrail open
+bind gt composite get_current_url | fillcmdline_notrail tabopen
+" zoom
+bind - zoom -10 true
+bind = zoom +10 true
+bind + zoom 1 false
+
+" search engine
+set searchurls.bi https://search.bilibili.com/all?keyword=
+set searchurls.gi https://github.com/search?q=
+set searchurls.go https://www.google.com/search?q=
+set searchurls.du https://duckduckgo.com/?q=
+set searchurls.bing https://www.bing.com/search?q=
+set searchurls.wal https://wallhaven.cc/search?q=
+set searchurls.acn Wiki https://wiki.archlinuxcn.org/wzh/index.php?search=
+set searchurls.ar Wiki https://wiki.archlinux.org/index.php?search=
+
+" ex bind
+bind --mode=ex <C-n> ex.next_completion
+bind --mode=ex <C-d> ex.prev_completion
+bind --mode=ex <C-p> ex.prev_completion
+bind --mode=ex <C-u> ex.next_completion
+bind --mode=ex <Tab> ex.insert_space_or_completion
+
+"" vim: set filetype=tridactyl

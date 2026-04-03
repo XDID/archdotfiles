@@ -1,0 +1,16 @@
+# [flavor]
+# dark  = "noctalia"
+# light = "noctalia"
+
+[icon]
+prepend_dirs = [
+	{ name = "Templates", text = "" },
+  { name = "Go", text = ""},
+  { name = "Games", text = "" },
+  { name = "dotfiles", text = "" },
+  { name = "Record", text = "" }
+]
+
+[flavor]
+dark  = "noctalia"
+light = "noctalia"

@@ -1,0 +1,10 @@
+#!/usr/bin/sh
+
+# qrdecode: decode screenshot qrcode
+niri msg action screenshot &
+event=$(timeout 10 niri msg event-stream | grep -m 1 "Screenshot captured")
+if [[ -n "$event" ]]; then
+  wl-paste | zbarimg --raw - | tr -d '\r\n' | wl-copy
+else
+  exit 1
+fi

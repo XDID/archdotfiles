@@ -1,0 +1,22 @@
+#!/usr/bin/sh
+
+WIKI_PATH_EN="/usr/share/doc/arch-wiki/html/en/"
+WIKI_PATH_ZH="/usr/share/doc/arch-wiki-zh-cn/html/zh-cn/"
+BROWSER="/usr/bin/firefox"
+
+menu="${HOME}/.local/bin/wmenu-color"
+
+LANG=$(printf "en\nzh" | $menu -p "LANG ") || exit 1
+case "$LANG" in
+    zh)
+        WIKI_PATH=$WIKI_PATH_ZH
+        ;;
+    *)
+        WIKI_PATH=$WIKI_PATH_EN
+        ;;
+esac
+
+selected_page="$(find "$WIKI_PATH" -type f \
+    | $menu -l 6 -i -p "$(basename "$0")")"
+# don't do anything if exiting wmenu without any input
+[ -n "$selected_page" ] && $BROWSER file://"$selected_page"

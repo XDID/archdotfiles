@@ -1,0 +1,18 @@
+#
+# ~/.bash_profile
+#
+
+export HISTFILE="$HOME/.config/bash/bash_history"
+
+export TERMINAL="footclient"
+
+export PATH=$PATH:$HOME/Go/bin
+export PATH=$PATH:$HOME/.local/bin
+export PATH=$PATH:$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin
+export PATH=$PATH:$HOME/.cargo/bin
+
+export EDITOR="/usr/bin/nvim"
+export FZF_DEFAULT_OPTS_FILE="$HOME/.config/fzf/fzfrc"
+export GOPATH="$HOME/Go"
+
+[[ -f ~/.bashrc ]] && . ~/.bashrc

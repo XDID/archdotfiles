@@ -1,0 +1,10 @@
+Bilibili|https://search.bilibili.com/all?keyword={query}|https://www.bilibili.com
+GitHub|https://github.com/search?q={query}|https://github.com
+Google|https://www.google.com/search?q={query}|https://www.google.com
+DuckDuckGo|https://duckduckgo.com/?q={query}|https://duckduckgo.com
+Bing|https://www.bing.com/search?q={query}|https://www.bing.com
+Wallhaven|https://wallhaven.cc/search?q={query}|https://wallhaven.cc
+ArchlinuxCN Wiki|https://wiki.archlinuxcn.org/wzh/index.php?search={query}|https://wiki.archlinuxcn.org
+Archlinux Wiki|https://wiki.archlinux.org/index.php?search={query}|https://wiki.archlinux.org
+Codeberg|https://codeberg.org/explore/repos?q={query}&only_show_relevant=true&sort=recentupdate|https://codeberg.org
+Steam|https://store.steampowered.com/search?term={query}|https://store.steampowered.com

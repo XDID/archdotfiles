@@ -1,0 +1,5 @@
+require("config.keymaps")
+require("config.lazy")
+require("config.basic")
+require("config.fold")
+require("config.autocmds")

@@ -1,0 +1,114 @@
+#!/usr/bin/sh
+# capture - select output and audio source for screen casting via danymic menu
+# @depends wlr-randr xrandr(xorg) wl-recorder ffmpeg(xorg) wmenu dmenu(xorg)
+
+pgrep -x wf-recorder && pkill -x wf-recorder && exit 0
+
+CAPTURE_HOME="${HOME}/Videos/Rec"
+[ -d "$CAPTURE_HOME" ] || mkdir -p $CAPTURE_HOME
+
+fps=60
+filename="${CAPTURE_HOME}/$(date +%Y-%m-%d_%H_%M_%S)"
+extension="mp4"
+
+usage() {
+    cat <<_EOF_
+USAGE
+        $(basename $0) [OPTION]...
+        Select output and audio source for screen casting via danymic menu.
+        Default fomart is mp4 in 30FPS
+OPTIONS
+        -m,--mkv    record in mkv
+        -M,--mute   record without audio
+        -r,--region record specific region
+_EOF_
+
+exit 0
+}
+
+notify() {
+    echo "${RED}${1}${RESET}"
+    [ "$XDG_SESSION_TYPE" != "tty" ] && notify-send -u "low" -e -r 666 "$(basename $0)" "$1"
+}
+
+abort() {
+    RED='\033[0;31m'
+    RESET='\033[0m'
+    notify "$1" >&2
+    exit 1
+}
+
+notifyStop() {
+    notify "Screening record stopped"
+    exit 0
+}
+
+set_menu() {
+    menu="${HOME}/.local/bin/wmenu-color"
+}
+
+setOutput() {
+    wlr-randr \
+        | grep '^[^[:space:]]'\
+        | $menu -p "[output] " -l 3 \
+        | tr -d '()' \
+        | cut -d' ' -f-1
+}
+
+setSource() {
+    source="$(
+        pactl list sources |
+        grep -E "Name.*output" |
+        cut -d " " -f 2 |
+        $menu -l3 -p "Output " |
+        awk '{print $1}'
+    )"
+}
+
+startCapture() {
+    output="$(setOutput)"
+    [ -z "$output" ] && abort "No output selected"
+
+    if [ "$isMute" != "true" ]; then
+        setSource
+        [ -z "$source" ] && abort "No audio source selected"
+    else
+        notify "No audio source included"
+        source=""
+    fi
+
+    if [ "$isRegion" != "true" ]; then
+      region=""
+    else
+      region=$(slurp)
+      [ -z "$region" ] && abort "No region selected"
+    fi
+
+    notify "Screen recording started"
+
+    trap notifyStop EXIT INT TERM
+
+    wf-recorder --framerate "$fps" \
+                --output "$output" \
+                --audio="$source" \
+                -c libx264rgb \
+                -g "$region" \
+                -f "${filename}.${extension}"
+}
+
+set_menu
+
+if [ -z "$1" ]; then
+    startCapture
+else
+    while [ ! -z "$1" ]; do
+        case "$1" in
+            -m|--mkv) extension="mkv" ;;
+            -M|--mute) isMute="true" ;;
+            -r|--region) isRegion="true" ;;
+            *) usage ;;
+        esac
+        shift
+    done
+    startCapture
+fi

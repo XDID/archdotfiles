@@ -1,0 +1,22 @@
+[Desktop Entry]
+FullScreen=false
+
+[General]
+LockSidebar=true
+ShowSidebar=false
+
+[MainWindow]
+MenuBar=Disabled
+
+[Recent Files]
+File1[$e]=$HOME/Downloads/夏睿文 - 个人简历.pdf
+File2[$e]=/mnt/win/Share/工具书/Go/Go语言实战.pdf
+File3[$e]=/mnt/win/Share/简历.pdf
+File4[$e]=/mnt/win/Share/工具书/Go/Go程序设计语言.pdf
+Name1[$e]=夏睿文 - 个人简历.pdf
+Name2[$e]=Go语言实战.pdf
+Name3[$e]=简历.pdf
+Name4[$e]=Go程序设计语言.pdf
+
+[UiSettings]
+ColorScheme=noctalia

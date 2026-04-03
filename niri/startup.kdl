@@ -1,0 +1,17 @@
+// clipboard
+spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
+// input method
+spawn-at-startup "fcitx5" "-d"
+// vpn
+spawn-at-startup "/usr/bin/clash-verge"
+// key remap
+spawn-sh-at-startup "pgrep xremap || echo 0411 | sudo -S NIRI_SOCKET=\"$NIRI_SOCKET\" xremap --watch=config,device /home/harunato/.config/xremap/config.yml"
+// tell the sys which session
+spawn-sh-at-startup "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=niri & /usr/lib/xdg-desktop-portal-gnome"
+// noctalia-shell auto start
+spawn-at-startup "qs" "-c" "noctalia-shell"
+// foot server autostart
+spawn-sh-at-startup "/home/harunato/.local/bin/foots"
+// gui root auth
+spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+spawn-sh-at-startup "/usr/bin/xhost +si:localuser:root"

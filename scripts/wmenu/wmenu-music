@@ -1,0 +1,9 @@
+#!/usr/bin/sh
+set -eu
+
+MENU="$HOME/.local/bin/wmenu-color"
+MUSIC_DIR="$HOME/Music"
+
+file=$(fd -e mp3 -e flac -e m4a -e wav -e ogg "$MUSIC_DIR" -p -t f | sort | sed "s|^$MUSIC_DIR/||" | "$MENU" -l6 -p "Music ") || exit 0
+
+mpc insert "$file" && mpc next >/dev/null && mpc play >/dev/null && notify-send -e "Playing $file"

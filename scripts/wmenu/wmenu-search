@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -eu
+
+SEARCH_FILE="$HOME/.config/wmenu/searchengine"
+MENU="$HOME/.local/bin/wmenu-color"
+
+urlencode() {
+  python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1], safe=""))' "$1"
+}
+
+# 检查配置文件是否存在，避免无谓的报错
+[[ ! -f "$SEARCH_FILE" ]] && exit 1
+
+engine_line=$(
+  cut -d'|' -f1 "$SEARCH_FILE" | "$MENU" -p "Search "
+) || exit 0
+
+# 用户按 Esc 或没选择，直接退出
+[[ -z "$engine_line" ]] && exit 0
+
+# 查找配置文件中是否有精确匹配 (使用 awk 避免正则漏洞，找到即刻停止)
+full_line=$(awk -F'|' -v engine="$engine_line" '$1 == engine {print $0; exit}' "$SEARCH_FILE")
+
+if [[ -z "$full_line" ]]; then
+  # 没匹配到搜索引擎 → 视为直接输入了搜索词，用 Google 搜索
+  query=$engine_line
+  url="https://www.google.com/search?q=$(urlencode "$query")"
+else
+  # 匹配到搜索引擎 → 拆分字段
+  IFS='|' read -r name search_url homepage <<<"$full_line"
+
+  # 第二级菜单：输入搜索文本 (使用 echo 即可，遇到错误或 Esc 则退出主脚本)
+  query=$(printf '\n' | "$MENU" -p "$name:") || exit 0
+
+  # 构造 URL
+  if [[ -z "$query" ]]; then
+    url=$homepage
+  else
+    url="${search_url//\{query\}/$(urlencode "$query")}"
+  fi
+fi
+
+# 后台静默打开浏览器，让脚本瞬间完成并退出
+xdg-open "$url" >/dev/null 2>&1 &

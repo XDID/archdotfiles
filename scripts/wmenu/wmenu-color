@@ -1,0 +1,19 @@
+#!/usr/bin/sh
+set -eu
+
+# Function: Launches wmenu with a custom color scheme and font.
+# Sources color settings from ~/.config/wmenu/color.sh
+
+. "$HOME/.config/wmenu/color.sh"
+
+pgrep -x wmenu > /dev/null && exit 1 ||
+wmenu -i \
+  -F \
+  -E "SourceCodePro regular 11.3" \
+  -C "LXGW WenKai Mono 11.3" \
+  -N "$colorbg" \
+  -S "$colorsbg" \
+  -s "$colorbg" \
+  -M "$colorsbg" \
+  -m "$colorbg" \
+  "$@"

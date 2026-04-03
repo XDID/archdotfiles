@@ -1,0 +1,140 @@
+binds {
+    Mod+Shift+Slash { show-hotkey-overlay; }
+    // spawn application operation(mostly Mod+KEY)
+    Mod+X hotkey-overlay-title="Restart xremap server" { spawn-sh "pgrep xremap && echo 0411 | sudo -S pkill xremap || echo 0411 | sudo -S NIRI_SOCKET=\"$NIRI_SOCKET\" xremap --watch=config,device /home/harunato/.config/xremap/config.yml";}
+    mod+P hotkey-overlay-title="Start foot server" {spawn "/home/harunato/.local/bin/foots";}
+    Mod+T hotkey-overlay-title="Open footclient" { spawn "footclient"; }
+    Mod+Return hotkey-overlay-title="Open footclient" { spawn-sh "$HOME/.local/bin/scratch floatterm"; }
+    Mod+B hotkey-overlay-title="Open firefox" { spawn "firefox"; }
+    Mod+Shift+B hotkey-overlay-title="Open firefox in private mode" { spawn "firefox" "--private-window"; }
+    Mod+Space hotkey-overlay-title="Noctalia launcher" {spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle";}
+    Mod+Backslash hotkey-overlay-title="Open noctalia settings" {spawn "qs" "-c" "noctalia-shell" "ipc" "call" "settings" "open";}
+    Mod+Backspace hotkey-overlay-title="Open btop" {spawn "footclient" "btop";}
+    Mod+E hotkey-overlay-title="Open nautilus" {spawn "env" "GSK_RENDERER=gl" "GTK_IM_MODULE=fcitx" "nautilus";}
+    Mod+Shift+C hotkey-overlay-title="Open noctalia clipboard manager" {spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard";}
+    Mod+Shift+Ctrl+E hotkey-overlay-title="Restart noctalia server" { spawn-sh  "pkill qs || true && sleep 1 && qs -c noctalia-shell"; }
+
+    // wmenu
+    Shift+Alt+E hotkey-overlay-title="wmenu config file editor" {spawn-sh "$HOME/.local/bin/wmenu-edit"; }
+    Alt+Space hotkey-overlay-title="wmenu launcher" {spawn-sh "$HOME/.local/bin/wmenu-run-color"; }
+    Shift+Alt+C hotkey-overlay-title="wmenu clipboard manager" {spawn-sh "cliphist list | $HOME/.local/bin/wmenu-color -p \"clip \" -l6 | cliphist decode | wl-copy"; }
+    Shift+Alt+S hotkey-overlay-title="wmenu quick browser search" {spawn-sh "$HOME/.local/bin/wmenu-search";}
+    Shift+Alt+W hotkey-overlay-title="sway wallpaper" {spawn-sh "$HOME/.local/bin/sway-wallpaper";}
+    Shift+Alt+P hotkey-overlay-title="wmenu session" {spawn-sh "$HOME/.local/bin/wmenu-session";}
+    Shift+Alt+Ctrl+c hotkey-overlay-title="wmenu calc" {spawn-sh "$HOME/.local/bin/wmenu-calc";}
+    Shift+Alt+K hotkey-overlay-title="wmenu kill" {spawn-sh "$HOME/.local/bin/wmenu-kill";}
+    Shift+Alt+V hotkey-overlay-title="wmenu video" {spawn-sh "$HOME/.local/bin/wmenu-video";}
+    Shift+Alt+O hotkey-overlay-title="wmenu audio output" {spawn-sh "$HOME/.local/bin/wmenu-audio-output";}
+    Shift+Alt+I hotkey-overlay-title="wmenu audio input" {spawn-sh "$HOME/.local/bin/wmenu-audio-input";}
+    Shift+Alt+A hotkey-overlay-title="wmenu archwiki" {spawn-sh "$HOME/.local/bin/wmenu-wiki";}
+    Shift+Alt+R hotkey-overlay-title="wmenu audio record" {spawn-sh "$HOME/.local/bin/wmenu-audio-rec";}
+    Shift+Alt+D hotkey-overlay-title="wmenu audio record" {spawn-sh "$HOME/.local/bin/qrdecode";}
+    Shift+Alt+Q hotkey-overlay-title="wmenu qucknotes" {spawn-sh "$HOME/.local/bin/wmenu-quicknotes";}
+
+    // media operation(mostly Alt+KEY)
+    // Alt+0 { spawn-sh "waypaper --random;sleep 2;$HOME/.config/noctalia/scripts/overview_background_gen.sh";}
+    Alt+0 hotkey-overlay-title="Change wallpaper" { spawn-sh "qs -c noctalia-shell ipc call wallpaper random all";}
+    Alt+Slash hotkey-overlay-title="Toggle dark/light mode" {spawn-sh "$HOME/.local/bin/toggle_dark_mode";}
+    Alt+Equal { spawn-sh "pactl -- set-sink-mute 0 false && pactl -- set-sink-volume 0 +5%"; }
+    Alt+Minus { spawn-sh "pactl -- set-sink-mute 0 false && pactl -- set-sink-volume 0 -5%"; }
+    Alt+Grave { spawn "pactl" "--" "set-sink-mute" "0" "toggle"; }
+    // Shift+Alt+Equal { spawn "mpc" "next"; }
+    // Shift+Alt+Minus { spawn "mpc" "prev"; }
+    // Shift+Alt+Grave { spawn "mpc" "toggle"; }
+    Alt+BracketRight { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "increase"; }
+    Alt+BracketLeft { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "brightness" "decrease"; }
+
+
+    // window operation(focus -- Mod; move -- Mod+Ctrl)
+    Mod+O hotkey-overlay-title=null repeat=false { toggle-overview; }
+    Mod+Q hotkey-overlay-title=null repeat=false { close-window; }
+
+    Mod+H hotkey-overlay-title=null     { focus-column-left; }
+    Mod+J hotkey-overlay-title=null     { focus-window-down; }
+    Mod+K hotkey-overlay-title=null     { focus-window-up; }
+    Mod+L hotkey-overlay-title=null     { focus-column-right; }
+    Mod+Ctrl+H hotkey-overlay-title=null     { move-column-left; }
+    Mod+Ctrl+J hotkey-overlay-title=null     { move-window-down; }
+    Mod+Ctrl+K hotkey-overlay-title=null     { move-window-up; }
+    Mod+Ctrl+L hotkey-overlay-title=null     { move-column-right; }
+    Mod+Home hotkey-overlay-title=null { focus-column-first; }
+    Mod+End hotkey-overlay-title=null  { focus-column-last; }
+    Mod+Ctrl+Home hotkey-overlay-title=null { move-column-to-first; }
+    Mod+Ctrl+End hotkey-overlay-title=null  { move-column-to-last; }
+
+    // Mod+Shift+H     { focus-monitor-left; }
+    // Mod+Shift+J     { focus-monitor-down; }
+    // Mod+Shift+K     { focus-monitor-up; }
+    // Mod+Shift+L     { focus-monitor-right; }
+    // Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
+    // Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
+    // Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
+    // Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
+
+    Mod+U hotkey-overlay-title=null              { focus-workspace-down; }
+    Mod+I hotkey-overlay-title=null              { focus-workspace-up; }
+    Mod+Ctrl+U hotkey-overlay-title=null         { move-column-to-workspace-down; }
+    Mod+Ctrl+I hotkey-overlay-title=null         { move-column-to-workspace-up; }
+    // Mod+Shift+U         { move-workspace-down; }
+    // Mod+Shift+I         { move-workspace-up; }
+    Mod+WheelScrollDown hotkey-overlay-title=null      cooldown-ms=150 { focus-workspace-down; }
+    Mod+WheelScrollUp hotkey-overlay-title=null        cooldown-ms=150 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown hotkey-overlay-title=null cooldown-ms=150 { move-column-to-workspace-down; }
+    Mod+Ctrl+WheelScrollUp hotkey-overlay-title=null   cooldown-ms=150 { move-column-to-workspace-up; }
+
+    Mod+1 hotkey-overlay-title=null { focus-workspace "1"; }
+    Mod+2 hotkey-overlay-title=null { focus-workspace "2"; }
+    Mod+3 hotkey-overlay-title=null { focus-workspace "3"; }
+    Mod+4 hotkey-overlay-title=null { focus-workspace "4"; }
+    Mod+5 hotkey-overlay-title=null { focus-workspace "5"; }
+    Mod+6 hotkey-overlay-title=null { focus-workspace "6"; }
+    Mod+7 hotkey-overlay-title=null { focus-workspace "7"; }
+    Mod+8 hotkey-overlay-title=null { focus-workspace "8"; }
+    Mod+9 hotkey-overlay-title=null { focus-workspace "9"; }
+    Mod+Ctrl+1 hotkey-overlay-title=null { move-column-to-workspace "1"; }
+    Mod+Ctrl+2 hotkey-overlay-title=null { move-column-to-workspace "2"; }
+    Mod+Ctrl+3 hotkey-overlay-title=null { move-column-to-workspace "3"; }
+    Mod+Ctrl+4 hotkey-overlay-title=null { move-column-to-workspace "4"; }
+    Mod+Ctrl+5 hotkey-overlay-title=null { move-column-to-workspace "5"; }
+    Mod+Ctrl+6 hotkey-overlay-title=null { move-column-to-workspace "6"; }
+    Mod+Ctrl+7 hotkey-overlay-title=null { move-column-to-workspace "7"; }
+    Mod+Ctrl+8 hotkey-overlay-title=null { move-column-to-workspace "8"; }
+    Mod+Ctrl+9 hotkey-overlay-title=null { move-column-to-workspace "9"; }
+
+    Mod+BracketLeft hotkey-overlay-title=null  { consume-or-expel-window-left; }
+    Mod+BracketRight hotkey-overlay-title=null { consume-or-expel-window-right; }
+
+    // Consume one window from the right to the bottom of the focused column.
+    Mod+Comma hotkey-overlay-title=null  { consume-window-into-column; }
+    Mod+Period hotkey-overlay-title=null { expel-window-from-column; }
+
+    Mod+R hotkey-overlay-title=null { switch-preset-column-width; }
+    Mod+Shift+R hotkey-overlay-title=null { switch-preset-window-height-back; }
+    Mod+Ctrl+R hotkey-overlay-title=null { reset-window-height; }
+    Mod+F hotkey-overlay-title=null { maximize-column; }
+    Mod+Shift+F hotkey-overlay-title=null { fullscreen-window; }
+
+    // Expand the focused column to space not taken up by other fully visible columns.
+    Mod+Ctrl+F hotkey-overlay-title=null { expand-column-to-available-width; }
+    Mod+C hotkey-overlay-title=null { center-column; }
+
+    Mod+Minus hotkey-overlay-title=null { set-column-width "-10%"; }
+    Mod+Equal hotkey-overlay-title=null { set-column-width "+10%"; }
+    Mod+Shift+Minus hotkey-overlay-title=null { set-window-height "-10%"; }
+    Mod+Shift+Equal hotkey-overlay-title=null { set-window-height "+10%"; }
+
+    // Move the focused window between the floating and the tiling layout.
+    Mod+V hotkey-overlay-title=null       { toggle-window-floating; }
+    Mod+Shift+V hotkey-overlay-title=null { switch-focus-between-floating-and-tiling; }
+
+    // Toggle tabbed column display mode.
+    Mod+W hotkey-overlay-title=null { toggle-column-tabbed-display; }
+
+    // The quit action will show a confirmation dialog to avoid accidental exits.
+    Mod+Shift+E hotkey-overlay-title=null { quit; }
+
+    // screenshot
+    Print hotkey-overlay-title="Screenshot" { spawn-sh "$HOME/.local/bin/wmenu-shot"; }
+    Alt+Print hotkey-overlay-title="Screen record" { spawn-sh "$HOME/.local/bin/wmenu-rec"; }
+    Ctrl+Print hotkey-overlay-title="Screenshot record region" { spawn-sh "$HOME/.local/bin/wmenu-rec -r"; }
+}

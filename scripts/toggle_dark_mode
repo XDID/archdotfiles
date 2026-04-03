@@ -1,0 +1,21 @@
+#!/usr/bin/sh
+
+CONFIG_FILE="$HOME/.config/noctalia/settings.json"
+
+Dark="/home/harunato/Pictures/Wallpapers/Dark"
+Light="/home/harunato/Pictures/Wallpapers/Light"
+
+mode="$(gsettings get org.gnome.desktop.interface color-scheme)"
+
+if [ "$mode" = "'prefer-light'" ]; then
+  sed -i "s#$Light#$Dark#g" "$CONFIG_FILE"
+  gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
+  kill -USR1 $(pgrep -f "foot --server")
+else
+  sed -i "s#$Dark#$Light#g" "$CONFIG_FILE"
+  gsettings set org.gnome.desktop.interface color-scheme "prefer-light"
+  kill -USR2 $(pgrep -f "foot --server")
+fi
+
+qs -c noctalia-shell ipc call darkMode toggle
+qs -c noctalia-shell ipc call wallpaper random all

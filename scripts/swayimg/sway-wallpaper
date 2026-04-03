@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SETTINGS_FILE="$HOME/.config/noctalia/settings.json"
+CUR_WALLPATH=$(sed -n 's/.*"directory"[[:space:]]*:[[:space:]]*"\([^"]*Wallpapers[^"]*\)".*/\1/p' "$SETTINGS_FILE" | head -n 1)
+
+[[ -n "$CUR_WALLPATH" ]] || exit 1
+pgrep -x swayimg >/dev/null 2>&1 || /usr/bin/swayimg -g --class="wallpaper_selector" --size=640,360 "$CUR_WALLPATH"

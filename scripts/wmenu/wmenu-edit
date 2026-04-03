@@ -1,0 +1,18 @@
+#!/usr/bin/sh
+set -eu
+
+DIR="${1:-$HOME/.config}"
+MENU="$HOME/.local/bin/wmenu-color"
+
+[ -d "$DIR" ] || {
+  notify-send -e "No such directory"
+  exit 1
+}
+
+FILE=$(fd . "$DIR" --type f | "$MENU" -l6 -p "Config ") || exit 1
+
+if [ -n "${TERMINAL:-}" ]; then
+  "$TERMINAL" "${EDITOR:-nvim}" "$FILE"
+else
+  "${EDITOR:-nvim}" "$FILE"
+fi

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Starts the foot terminal server if it's not already running.
+set -euo pipefail
+
+if ! pgrep -f "foot --server" >/dev/null 2>&1; then
+  foot --server >/dev/null 2>&1 &
+fi
+
+mode=$(gsettings get org.gnome.desktop.interface color-scheme 2>/dev/null | grep -Eo 'light|dark' || true)
+sleep .5
+
+if [[ "$mode" == "light" ]]; then
+  if server_pid=$(pgrep -f "foot --server" | head -n 1); then
+    kill -USR2 "$server_pid"
+  fi
+fi

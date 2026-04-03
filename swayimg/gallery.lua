@@ -1,0 +1,90 @@
+swayimg.gallery.set_window_color(0xff111111)
+swayimg.gallery.set_unselected_color(0xff111111)
+swayimg.gallery.set_selected_color(0xff111111)
+swayimg.gallery.set_border_size(2)
+swayimg.gallery.set_border_color(0xffeeeeee)
+swayimg.gallery.set_aspect("fill")
+swayimg.gallery.set_selected_scale(1.20)
+swayimg.gallery.set_padding_size(5)
+swayimg.gallery.set_thumb_size(500)
+swayimg.gallery.limit_cache(100)
+swayimg.gallery.enable_preload(true)
+swayimg.gallery.enable_pstore(false)
+
+swayimg.gallery.set_text("topleft", {
+	"{name}",
+	"{format}",
+	"{sizehr}",
+	"{frame.width}x{frame.height}",
+})
+
+swayimg.gallery.set_text("topright", {
+	"{list.index}/{list.total}",
+})
+
+swayimg.gallery.set_text("bottomright", {
+	"{dir}",
+})
+
+swayimg.gallery.bind_reset()
+swayimg.gallery.on_key("Return", function()
+	swayimg.set_mode("viewer")
+end)
+swayimg.gallery.on_key("s", function()
+	swayimg.set_mode("slideshow")
+end)
+swayimg.gallery.on_key("q", function()
+	swayimg.exit()
+end)
+swayimg.gallery.on_key("escape", function()
+	swayimg.exit()
+end)
+swayimg.gallery.on_key("m", function()
+	if swayimg.text.visible() then
+		swayimg.text.hide()
+	else
+		swayimg.text.show()
+	end
+end)
+swayimg.gallery.on_key("g", function()
+	swayimg.gallery.switch_image("first")
+end)
+swayimg.gallery.on_key("Shift+g", function()
+	swayimg.gallery.switch_image("last")
+end)
+swayimg.gallery.on_key("h", function()
+	swayimg.gallery.switch_image("left")
+end)
+swayimg.gallery.on_key("j", function()
+	swayimg.gallery.switch_image("down")
+end)
+swayimg.gallery.on_key("k", function()
+	swayimg.gallery.switch_image("up")
+end)
+swayimg.gallery.on_key("l", function()
+	swayimg.gallery.switch_image("right")
+end)
+swayimg.gallery.on_key("Shift+p", function()
+	swayimg.gallery.switch_image("pgup")
+end)
+swayimg.gallery.on_key("Shift+n", function()
+	swayimg.gallery.switch_image("pgdown")
+end)
+swayimg.gallery.on_key("o", function()
+	local size = swayimg.gallery.get_thumb_size()
+	swayimg.gallery.set_thumb_size(size - 10)
+end)
+swayimg.gallery.on_key("i", function()
+	local size = swayimg.gallery.get_thumb_size()
+	swayimg.gallery.set_thumb_size(size + 10)
+end)
+
+swayimg.gallery.on_key("Shift+d", function()
+	local img = swayimg.gallery.get_image()
+	os.execute('/home/harunato/.local/bin/swayimg-rm "' .. img.path .. '"')
+end)
+swayimg.gallery.on_key("Shift+w", function()
+	local img = swayimg.gallery.get_image()
+	os.execute('qs -c noctalia-shell ipc call wallpaper set "' .. img.path .. '" all')
+	swayimg.exit()
+end)

@@ -1,0 +1,13 @@
+#!/bin/sh
+MENU="$HOME/.local/bin/wmenu-color"
+
+selected=$(
+    pactl list short sinks | awk '{print $1 " " $2}' \
+    | $MENU -l3 -p "Audio output "
+)
+
+[ -z "$selected" ] && exit 1
+
+id=$(echo "$selected" | awk '{print $1}')
+
+pactl set-default-sink "$id"
