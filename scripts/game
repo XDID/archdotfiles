@@ -24,6 +24,7 @@ Usage:
   game <name> <id> <exe_path>     Add game
   game -a <name> <id> <exe_path>  Add game
   game -d <name>                  Delete game
+  game -l                         Show games
 
 Examples:
   game "Cyberpunk2077" 12345 ~/Games/cp2077.exe
@@ -128,6 +129,11 @@ delete_game() {
   printf "Deleted game: %s (id=%s)\n" "$name" "$id"
 }
 
+list_games() {
+  [ -z "$TOML_PATH" ] && echo "no game..."
+  fd . -e toml -t f "$TOML_PATH" --exec basename {} .toml
+}
+
 # ---------- entry ----------
 main() {
   case "${1:-}" in
@@ -135,6 +141,11 @@ main() {
       shift
       [ $# -eq 3 ] || { usage; exit 1; }
       add_game "$@"
+      ;;
+    -l)
+      [ $# -ge 1 ] && { usage; exit 1; }
+      list_games
+      exit 0
       ;;
     -d)
       shift
