@@ -26,7 +26,7 @@ keymap:
     remap:
       LEFTCTRL-S: LEFTALT-LEFTCTRL-Z
 
-  - name: firefox config
+  - name: scratch
     application:
       only: [floatterm]
     remap:

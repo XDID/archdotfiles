@@ -37,6 +37,11 @@ alias ,dl="cd $HOME/Downloads"
 alias ,dc="cd $HOME/Documents"
 alias ,v="cd $HOME/Videos"
 alias ,p="cd $HOME/Pictures"
+# pacman
+alias pu="paru -Syyu"
+alias pR="paru -Rsn"
+alias pr="paru -Ql"
+alias po="paru -Qo"
 
 alias df="df -h -x tmpfs -x efivarfs | awk '!/^dev/'"
 alias clean="sudo sync;sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'"
