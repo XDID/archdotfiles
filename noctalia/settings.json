@@ -682,13 +682,6 @@
         "fillMode": "crop",
         "hideWallpaperFilenames": false,
         "linkLightAndDarkWallpapers": true,
-        "monitorDirectories": [
-            {
-                "directory": "/home/harunato/Pictures/Wallpapers/Dark",
-                "name": "HDMI-A-1",
-                "wallpaper": ""
-            }
-        ],
         "overviewBlur": 0.4,
         "overviewEnabled": true,
         "overviewTint": 0.6,
