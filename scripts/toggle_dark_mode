@@ -25,5 +25,5 @@ fi
 gsettings set org.gnome.desktop.interface color-scheme "$MODE"
 kill "$SIGNAL" $(pgrep -f "foot --server")
 
-qs -c noctalia-shell ipc call darkMode toggle
 qs -c noctalia-shell ipc call wallpaper random all
+qs -c noctalia-shell ipc call darkMode toggle
