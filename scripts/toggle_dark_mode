@@ -2,20 +2,28 @@
 
 CONFIG_FILE="$HOME/.config/noctalia/settings.json"
 
-Dark="/home/harunato/Pictures/Wallpapers/Dark"
-Light="/home/harunato/Pictures/Wallpapers/Light"
-
+DARK_WALLPAPER="/home/harunato/Pictures/Wallpapers/Dark"
+LIGHT_WALLPAPER="/home/harunato/Pictures/Wallpapers/Light"
 mode="$(gsettings get org.gnome.desktop.interface color-scheme)"
 
 if [ "$mode" = "'prefer-light'" ]; then
-  sed -i "s#$Light#$Dark#g" "$CONFIG_FILE"
-  gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
-  kill -USR1 $(pgrep -f "foot --server")
+  TARGET_WALLPAPER_PATH="$DARK_WALLPAPER"
+  MODE="prefer-dark"
+  SIGNAL="-USR1"
 else
-  sed -i "s#$Dark#$Light#g" "$CONFIG_FILE"
-  gsettings set org.gnome.desktop.interface color-scheme "prefer-light"
-  kill -USR2 $(pgrep -f "foot --server")
+  TARGET_WALLPAPER_PATH="$LIGHT_WALLPAPER"
+  MODE="prefer-light"
+  SIGNAL="-USR2"
 fi
+
+if command -v jq >/dev/null; then
+  tmp=$(mktemp)
+  jq ".wallpaper.directory = \"$TARGET_WALLPAPER_PATH\"" "$CONFIG_FILE" > "$tmp" && mv "$tmp" "$CONFIG_FILE"
+else
+  sed -i '/"wallpaper": {/,/}/ s#\("directory": "\).*#\1'"$TARGET_WALLPAPER_PATH"'",#' "$CONFIG_FILE"
+fi
+gsettings set org.gnome.desktop.interface color-scheme "$MODE"
+kill "$SIGNAL" $(pgrep -f "foot --server")
 
 qs -c noctalia-shell ipc call darkMode toggle
 qs -c noctalia-shell ipc call wallpaper random all
