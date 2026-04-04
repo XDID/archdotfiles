@@ -62,41 +62,40 @@ return {
 			end
 
 			local function mode_color()
+				local m = vim.fn.mode():sub(1, 1)
 				local colors_map = {
 					n = colors.blue,
 					i = colors.rosewater,
 					v = colors.pink,
-					V = colors.pink,
-					["CTRL-V"] = colors.pink,
 					s = colors.mauve,
-					S = colors.mauve,
-					["CTRL-S"] = colors.mauve,
-					ic = colors.rosewater,
-					ix = colors.rosewater,
-					R = colors.red,
+					r = colors.red,
 					c = colors.red,
-					["!"] = colors.green,
 					t = colors.rosewater,
 				}
-				return colors_map[vim.fn.mode()]
+				return colors_map[string.lower(m)]
 			end
+
+			-- ins_left({
+			-- 	function()
+			-- 		local mode = vim.fn.mode():sub(1, 1)
+			-- 		return mode
+			-- 	end,
+			-- 	fmt = string.upper,
+			-- 	-- color = function()
+			-- 	-- 	return { fg = colors.base, bg = mode_color(), gui = "bold" }
+			-- 	-- end,
+			-- })
 
 			ins_left({
 				"filetype",
 				icon_only = true,
 				colored = false,
-				color = function()
-					return { fg = colors.base, bg = mode_color() }
-				end,
 				padding = { left = 1, right = 0 },
 			})
 
 			ins_left({
 				"filename",
 				cond = conditions.buffer_not_empty,
-				color = function()
-					return { fg = colors.base, bg = mode_color(), gui = "bold" }
-				end,
 				padding = { left = 0, right = 1 },
 			})
 
@@ -156,14 +155,11 @@ return {
 
 			ins_right({
 				function()
-					local sbar = { " ", "🭶", "🭷", "🭸", "🭹", "🭺", "🭻", " " }
+					local sbar = { "🭶", "🭷", "🭸", "🭹", "🭺", "🭻" }
 					local curr_line = vim.api.nvim_win_get_cursor(0)[1]
 					local lines = vim.api.nvim_buf_line_count(0)
 					local i = math.floor((curr_line - 1) / lines * #sbar) + 1
 					return string.rep(sbar[i], 1)
-				end,
-				color = function()
-					return { fg = colors.base, bg = mode_color(), gui = "bold" }
 				end,
 				padding = { left = 0, right = 0 },
 			})

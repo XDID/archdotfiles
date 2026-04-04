@@ -16,7 +16,7 @@ choice=$(
     [ -z "$tags" ] && tags="(no-tag)"
 
     # 输出：用于显示 + 用于解析
-    printf "%s | %s;%s\n" "$tags" "$name" "$file"
+    printf "%s|%s|%s\n" "$tags" "$name" "$file"
   done \
   | sort \
   | { printf "new\n"; cat; } \
@@ -29,7 +29,11 @@ choice=$(
 if [ "$choice" = "new" ]; then
   file="$DIR/$(date +%Y-%m-%d_%H_%M_%S).md"
 else
-  file=$(printf "%s" "$choice" | cut -d ";" -f2)
+  if [[ "$choice" =~ "|" ]]; then
+    file="$(echo $choice | cut -d "|" -f 3)"
+  else
+    file="$DIR/$choice"
+  fi
 fi
 
 # 确保后缀
