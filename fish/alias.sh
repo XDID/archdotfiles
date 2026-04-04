@@ -37,6 +37,7 @@ alias ,dl="cd $HOME/Downloads"
 alias ,dc="cd $HOME/Documents"
 alias ,v="cd $HOME/Videos"
 alias ,p="cd $HOME/Pictures"
+alias ,h="cd $HOME"
 # pacman
 alias pu="paru -Syyu"
 alias pR="paru -Rsn"
