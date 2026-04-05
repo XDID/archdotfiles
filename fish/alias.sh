@@ -43,6 +43,8 @@ alias pu="paru -Syyu"
 alias pR="paru -Rsn"
 alias pr="paru -Ql"
 alias po="paru -Qo"
+# umu
+alias ur="WINEPREFIX=~/.wine PROTONPATH=/home/harunato/.local/share/Steam/compatibilitytools.d/GE-Proton10-34 umu-run"
 
 alias df="df -h -x tmpfs -x efivarfs | awk '!/^dev/'"
 alias clean="sudo sync;sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'"

@@ -143,7 +143,6 @@ main() {
       add_game "$@"
       ;;
     -l)
-      [ $# -ge 1 ] && { usage; exit 1; }
       list_games
       exit 0
       ;;
