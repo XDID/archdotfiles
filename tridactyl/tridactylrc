@@ -1,4 +1,5 @@
 set allowautofocus false
+set completionfuzziness 0.7
 
 " disable hint highlight
 set hintstyles.fg none
