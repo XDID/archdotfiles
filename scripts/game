@@ -8,7 +8,6 @@ WINE_PREFIX="${HOME}/.wine"
 PROTON="${HOME}/.local/share/Steam/compatibilitytools.d/GE-Proton10-34"
 STORE="steam"
 
-# ---------- util ----------
 die() {
   printf "Error: %s\n" "$*" >&2
   exit 1
@@ -22,13 +21,10 @@ usage() {
   cat <<EOF
 Usage:
   game <name> <id> <exe_path>     Add game
-  game -a <name> <id> <exe_path>  Add game
-  game -d <name>                  Delete game
-  game -l                         Show games
-
-Examples:
-  game "Cyberpunk2077" 12345 ~/Games/cp2077.exe
-  game -d "Cyberpunk2077"
+  game add <name> <id> <exe_path> Add game
+  game delete <name>              Delete game
+  game ls                         Show games
+  game run                        Run games
 EOF
 }
 
@@ -134,24 +130,40 @@ list_games() {
   fd . -e toml -t f "$TOML_PATH" --exec basename {} .toml
 }
 
+run_game() {
+  [ -z "$TOML_PATH" ] && echo "no game..."
+  select=$(list_games | "$HOME/.local/bin/wmenu-color" -l6 -p "Game ") || exit 1
+  game_exe_path="$BIN_PATH/$select"
+
+  if [ -x "$game_exe_path" ]; then
+    "$game_exe_path"
+  else
+    echo "No game"
+  fi
+}
+
 # ---------- entry ----------
 main() {
   case "${1:-}" in
-    -a)
+    a|add|-a)
       shift
       [ $# -eq 3 ] || { usage; exit 1; }
       add_game "$@"
       ;;
-    -l)
+    l|ls|-l)
       list_games
       exit 0
       ;;
-    -d)
+    d|delete|-d)
       shift
       [ $# -eq 1 ] || { usage; exit 1; }
       delete_game "$@"
       ;;
-    ""|-h|--help)
+    run|r|-r)
+      run_game
+      exit 0
+      ;;
+    ""|help|-h|--help)
       usage
       ;;
     *)

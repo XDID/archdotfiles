@@ -30,6 +30,7 @@ binds {
     Shift+Alt+R hotkey-overlay-title="wmenu audio record" {spawn-sh "$HOME/.local/bin/wmenu-audio-rec";}
     Shift+Alt+D hotkey-overlay-title="wmenu audio record" {spawn-sh "$HOME/.local/bin/qrdecode";}
     Shift+Alt+Q hotkey-overlay-title="wmenu qucknotes" {spawn-sh "$HOME/.local/bin/wmenu-quicknotes";}
+    Shift+Alt+G hotkey-overlay-title="wmenu games" {spawn-sh "$HOME/.local/bin/game -r";}
 
     // media operation(mostly Alt+KEY)
     Alt+0 hotkey-overlay-title="Change wallpaper" { spawn-sh "qs -c noctalia-shell ipc call wallpaper random all";}
