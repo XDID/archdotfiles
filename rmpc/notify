@@ -24,4 +24,4 @@ IFS=$'\t' read -r TITLE ARTIST < <(
 )
 
 # Integrates with hammerspoon, but use whatever terminal notifier you have set up.
-notify-send -t 800 -a "MPD" -e "$TITLE" "$ARTIST" -i "$ALBUM_ART_PATH"
+notify-send -t 1000 -a "MPD" -e "$TITLE" "$ARTIST" -i "$ALBUM_ART_PATH"
