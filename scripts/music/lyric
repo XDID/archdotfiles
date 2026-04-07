@@ -1,0 +1,66 @@
+#!/usr/bin/sh
+
+LYRICS_PATH="$HOME/Music/.lyrics"
+MUSIC_DIR="$HOME/Music"
+
+mkdir -p "$LYRICS_PATH"
+
+patch_lyrics() {
+  ARTIST="$1"
+  TITLE="$2"
+
+  [ -z "$ARTIST" ] && return
+  [ -z "$TITLE" ] && return
+
+  QUERY="$ARTIST $TITLE"
+  LRC_FILE="$LYRICS_PATH/$TITLE.lrc"
+
+  if [ -f "$LRC_FILE" ]; then
+    echo "skip: $TITLE"
+    return
+  fi
+
+  QUERY_ENCODED=$(printf '%s' "$QUERY" | jq -sRr @uri)
+
+  ID=$(curl -s "https://lrclib.net/api/search?q=${QUERY_ENCODED}" \
+    | jq -r '.[0].id // empty')
+
+  [ -z "$ID" ] && {
+    echo "no id: $QUERY"
+    return
+  }
+
+  LRC=$(curl -s "https://lrclib.net/api/get/${ID}" \
+    | jq -r '.syncedLyrics // empty')
+
+  [ -z "$LRC" ] && {
+    echo "no lyrics: $QUERY"
+    return
+  }
+
+  {
+    echo "[ar:$ARTIST]"
+    echo "[ti:$TITLE]"
+    echo ""
+    echo "$LRC"
+  } > "$LRC_FILE"
+
+  echo "ok: $ARTIST - $TITLE"
+}
+
+export -f patch_lyrics
+
+# 遍历 mp3 / flac
+fd -e mp3 -e flac . "$MUSIC_DIR" | while read -r file; do
+  # 用 ffprobe 读取 metadata
+  ARTIST=$(ffprobe -v quiet -show_entries format_tags=artist \
+    -of default=noprint_wrappers=1:nokey=1 "$file")
+
+  TITLE=$(ffprobe -v quiet -show_entries format_tags=title \
+    -of default=noprint_wrappers=1:nokey=1 "$file")
+
+  # fallback：用文件名
+  [ -z "$TITLE" ] && TITLE="$(basename "$file" | sed 's/\.[^.]*$//')"
+
+  patch_lyrics "$ARTIST" "$TITLE"
+done

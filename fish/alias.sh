@@ -41,7 +41,7 @@ alias ,h="cd $HOME"
 # pacman
 alias pu="paru -Syyu"
 alias pR="paru -Rsn"
-alias pr="paru -Ql"
+alias pl="paru -Ql"
 alias po="paru -Qo"
 # umu
 alias ur="WINEPREFIX=~/.wine PROTONPATH=/home/harunato/.local/share/Steam/compatibilitytools.d/GE-Proton10-34 umu-run"

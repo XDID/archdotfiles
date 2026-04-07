@@ -22,6 +22,7 @@ application/x-executable=foot-open.desktop
 image/png=swayimg.desktop
 application/pdf=okularApplication_pdf.desktop
 audio/ogg=mpv.desktop
+audio/flac=mpv.desktop
 
 [Added Associations]
 x-scheme-handler/http=firefox.desktop;
@@ -35,3 +36,4 @@ application/json=nvim.desktop;
 image/webp=swayimg.desktop;
 application/x-executable=kitty-open.desktop;
 application/pdf=okularApplication_pdf.desktop;
+audio/flac=mpv.desktop;
