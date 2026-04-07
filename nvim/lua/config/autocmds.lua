@@ -39,8 +39,18 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
 
 -- quicknote auto insert tag
 vim.api.nvim_create_autocmd("BufNewFile", {
-	pattern = vim.fn.expand("~/Documents/Quicknotes/*.md"),
-	callback = function()
+	pattern = "*.md",
+	callback = function(args)
+		local file = args.file
+		local target = vim.fn.expand("~/Documents/Quicknotes")
+
+		file = vim.fn.fnamemodify(file, ":p")
+		target = vim.fn.fnamemodify(target, ":p")
+
+		if not vim.startswith(file, target) then
+			return
+		end
+
 		local date = os.date("%Y-%m-%d")
 
 		vim.api.nvim_buf_set_lines(0, 0, -1, false, {
