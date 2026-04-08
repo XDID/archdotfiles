@@ -14,6 +14,8 @@ binds {
     Mod+Shift+C hotkey-overlay-title="Open noctalia clipboard manager" {spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard";}
     Mod+Shift+Ctrl+E hotkey-overlay-title="Restart noctalia server" { spawn-sh  "pkill qs || true && sleep 1 && qs -c noctalia-shell"; }
 
+    Mod+Ctrl+V { spawn-sh "wtype $(wl-paste)"; }
+
     // wmenu
     Shift+Alt+E hotkey-overlay-title="wmenu config file editor" {spawn-sh "$HOME/.local/bin/wmenu-edit"; }
     Alt+Space hotkey-overlay-title="wmenu launcher" {spawn-sh "$HOME/.local/bin/wmenu-run-color"; }
