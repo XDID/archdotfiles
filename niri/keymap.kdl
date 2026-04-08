@@ -21,7 +21,6 @@ binds {
     Shift+Alt+S hotkey-overlay-title="wmenu quick browser search" {spawn-sh "$HOME/.local/bin/wmenu-search";}
     Shift+Alt+W hotkey-overlay-title="sway wallpaper" {spawn-sh "$HOME/.local/bin/sway-wallpaper";}
     Shift+Alt+P hotkey-overlay-title="wmenu session" {spawn-sh "$HOME/.local/bin/wmenu-session";}
-    Shift+Alt+Ctrl+c hotkey-overlay-title="wmenu calc" {spawn-sh "$HOME/.local/bin/wmenu-calc";}
     Shift+Alt+K hotkey-overlay-title="wmenu kill" {spawn-sh "$HOME/.local/bin/wmenu-kill";}
     Shift+Alt+V hotkey-overlay-title="wmenu video" {spawn-sh "$HOME/.local/bin/wmenu-video";}
     Shift+Alt+O hotkey-overlay-title="wmenu audio output" {spawn-sh "$HOME/.local/bin/wmenu-audio-output";}
