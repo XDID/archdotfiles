@@ -2,14 +2,12 @@ return {
 	"saghen/blink.cmp",
 	event = { "BufReadPost", "BufNewFile" },
 	dependencies = {
+		-- {
+		-- 	"xzbdmw/colorful-menu.nvim",
+		-- 	opts = {},
+		-- },
 		{
-			{
-				"xzbdmw/colorful-menu.nvim",
-				opts = {},
-			},
-			{
-				"archie-judd/blink-cmp-words",
-			},
+			"archie-judd/blink-cmp-words",
 		},
 		{
 			"L3MON4D3/LuaSnip",
@@ -40,21 +38,21 @@ return {
 				auto_show = true,
 			},
 		},
-		menu = {
-			draw = {
-				columns = { { "kind_icon" }, { "label", gap = 1 } },
-				components = {
-					label = {
-						text = function(ctx)
-							return require("colorful-menu"), blink_components_text(cfx)
-						end,
-						highlight = function(ctx)
-							return require("colorful-menu"), blink_components_highlight(ctx)
-						end,
-					},
-				},
-			},
-		},
+		-- menu = {
+		-- 	draw = {
+		-- 		columns = { { "kind_icon" }, { "label", gap = 1 } },
+		-- 		components = {
+		-- 			label = {
+		-- 				text = function(ctx)
+		-- 					return require("colorful-menu"), blink_components_text(cfx)
+		-- 				end,
+		-- 				highlight = function(ctx)
+		-- 					return require("colorful-menu"), blink_components_highlight(ctx)
+		-- 				end,
+		-- 			},
+		-- 		},
+		-- 	},
+		-- },
 		keymap = {
 			preset = "super-tab",
 			["<C-b>"] = { "scroll_documentation_up", "fallback" },
