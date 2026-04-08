@@ -28,6 +28,7 @@ window-rule {
     match app-id="localsend"
     match app-id="floatterm"
     match app-id="satty"
+    match app-id="clash-verge"
     match app-id="btrfs-assistant"
     match title=".*足迹.*" app-id="firefox"
     open-floating true

@@ -24,8 +24,8 @@ bind --mode=visual : fillcmdline_notrail
 " quick reload config
 bind <C-r> source
 " add bookmark
-bind --mode=normal b current_url bmark
-bind --mode=normal B fillcmdline bmarks 
+bind --mode=normal b fillcmdline bmarks
+bind --mode=normal B fillcmdline bmarks -t 
 " tab history
 bind --mode=normal H back
 bind --mode=normal L forward
@@ -46,7 +46,7 @@ bind --mode=normal yt clipboard yanktitle
 bind --mode=normal yy clipboard yank
 bind --mode=normal ys clipboard yankshort
 bind --mode=normal p clipboard open
-bind --mode=normal p clipboard tabopen
+bind --mode=normal P clipboard tabopen
 " use my editor
 bind --mode=insert <C-i> editor
 bind --mode=input <C-i> editor
