@@ -38,6 +38,7 @@ alias ,dc="cd $HOME/Documents"
 alias ,v="cd $HOME/Videos"
 alias ,p="cd $HOME/Pictures"
 alias ,h="cd $HOME"
+alias ,="cd $HOME"
 # pacman
 alias pu="sudo pacman -Syyu"
 alias pR="sudo pacman -Rsn"
@@ -49,5 +50,5 @@ alias pss="sudo pacman -Ss"
 # umu
 alias ur="WINEPREFIX=~/.wine PROTONPATH=/home/harunato/.local/share/Steam/compatibilitytools.d/GE-Proton10-34 umu-run"
 
-alias df="df -h -x tmpfs -x efivarfs | awk '!/^dev/'"
+alias df="df -h -x tmpfs -x efivarfs | awk '!/^dev/' | sort"
 alias clean="sudo sync;sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'"

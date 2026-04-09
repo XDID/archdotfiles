@@ -3,7 +3,7 @@ set -eu
 
 MENU="$HOME/.local/bin/wmenu-color"
 
-SELECTION=$(printf "Lock\nSuspend\nReboot\nShutdown" | "$MENU" -i -p "Niri ") || exit 0
+SELECTION=$(printf "Lock\nSuspend\nReboot\nShutdown" | "$MENU" -l4 -i -p "Niri ") || exit 0
 
 case "$SELECTION" in
     "Lock")
