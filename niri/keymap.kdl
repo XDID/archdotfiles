@@ -50,10 +50,10 @@ binds {
     Mod+O hotkey-overlay-title=null repeat=false { toggle-overview; }
     Mod+Q hotkey-overlay-title=null repeat=false { close-window; }
 
-    Mod+H hotkey-overlay-title=null     { focus-column-left; }
-    Mod+J hotkey-overlay-title=null     { focus-window-down; }
-    Mod+K hotkey-overlay-title=null     { focus-window-up; }
-    Mod+L hotkey-overlay-title=null     { focus-column-right; }
+    Mod+H hotkey-overlay-title=null     { focus-column-left-or-last; }
+    Mod+J hotkey-overlay-title=null     { focus-window-down-or-top; }
+    Mod+K hotkey-overlay-title=null     { focus-window-up-or-bottom; }
+    Mod+L hotkey-overlay-title=null     { focus-column-right-or-first; }
     Mod+Ctrl+H hotkey-overlay-title=null     { move-column-left; }
     Mod+Ctrl+J hotkey-overlay-title=null     { move-window-down; }
     Mod+Ctrl+K hotkey-overlay-title=null     { move-window-up; }

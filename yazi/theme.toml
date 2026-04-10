@@ -8,7 +8,8 @@ prepend_dirs = [
   { name = "Go", text = ""},
   { name = "Game", text = "" },
   { name = "dotfiles", text = "" },
-  { name = "Record", text = "" }
+  { name = "Record", text = "" },
+  { name = "smb", text = "" }
 ]
 
 [flavor]
