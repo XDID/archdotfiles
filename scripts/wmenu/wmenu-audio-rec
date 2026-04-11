@@ -1,31 +1,52 @@
 #!/usr/bin/sh
 # use a dynamic menu to select the audio source for voice recording
-pgrep -x pw-record && pkill -x pw-record && exit 0
+pgrep -x parec && pkill -x parec && exit 0
 
 RECORD_HOME="${HOME}/Record/Recordings"
-[ -d "$RECORD_HOME" ] || mkdir -p $RECORD_HOME
+[ -d "$RECORD_HOME" ] || mkdir -p "$RECORD_HOME"
 
-menu="${HOME}/.local/bin/wmenu-color -l3 -p"
+menu="${HOME}/.local/bin/wmenu-color -l 5 -p"
 
 filename="${RECORD_HOME}/$(date +%Y-%m-%d_%H_%M_%S).wav"
 
 notifyStart() {
-    notify-send -e -u low -r 1258 "$(basename "$0")"  "Record start"
+    notify-send -e -u low -r 1258 "$(basename "$0")"  "录音开始: $(basename "$filename")"
 }
 
 notifyStop() {
-    notify-send -e -u low -r 1258 "$(basename "$0")" "Record stopped"
+    notify-send -e -u low -r 1258 "$(basename "$0")" "录音已停止"
 }
 
 setSource() {
-    pactl list short sources | awk '{print $1,$2}' | sort | $menu 'Source ' | cut -d " " -f 1
+    local sources=$(pactl -f json list sources 2>/dev/null | jq -r '
+        .[] |
+        if (.name | contains("output")) then
+            "[音源] \(.name)"
+        else
+            "[麦克风] \(.name)"
+        end
+    ')
+    [ -z "$sources" ] && notify-send -t 1000 -e "No output" && exit 0
+
+    local apps=$(pactl -f json list sink-inputs 2>/dev/null | jq -r '
+        .[] | select(.corked == false and .mute == false) |
+        "[应用音源] \(.index) \(.properties."application.name" // .properties."media.name")"
+    ')
+
+    echo -e "${sources}\n${apps}" | sed '/^[[:space:]]*$/d' | sort | $menu 'Source '
 }
 
 source="$(setSource)"
 [ -z "$source" ] && exit 0
 
-notifyStart
+id=$(echo "$source" | awk '{print $2}')
+type=$(echo "$source" | awk '{print $1}')
 
+notifyStart
 trap notifyStop EXIT INT TERM
 
-pw-record --target "$source" "$filename"
+if [ "$type" = "[应用音源]" ]; then
+    parec --monitor-stream="$id" --file-format=wav "$filename"
+else
+    parec --device="$id" --file-format=wav "$filename"
+fi

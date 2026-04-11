@@ -111,3 +111,7 @@ else
 	dir = "~"
 end
 vim.o.titlestring = string.format("%s | %s Nvim", file, dir)
+
+-- coding
+vim.o.encoding = "utf-8"
+vim.opt.fileencodings = { "ucs-bom", "utf-8", "gb18030", "gbk", "cp936", "latin1" }
