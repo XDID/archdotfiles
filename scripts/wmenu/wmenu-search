@@ -12,7 +12,7 @@ urlencode() {
 [[ ! -f "$SEARCH_FILE" ]] && exit 1
 
 engine_line=$(
-  cut -d'|' -f1 "$SEARCH_FILE" | "$MENU" -p "Search "
+  cut -d'|' -f1 "$SEARCH_FILE" | "$MENU" -l10 -p "Search "
 ) || exit 0
 
 # 用户按 Esc 或没选择，直接退出
