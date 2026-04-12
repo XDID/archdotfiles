@@ -126,12 +126,12 @@ delete_game() {
 }
 
 list_games() {
-  [ -z "$TOML_PATH" ] && echo "no game..."
-  fd . -e toml -t f "$TOML_PATH" --exec basename {} .toml
+  [ -z "$BIN_PATH" ] && echo "no game..."
+  fd . -t f -t l "$BIN_PATH" --exec basename {} .toml
 }
 
 run_game() {
-  [ -z "$TOML_PATH" ] && echo "no game..."
+  [ -z "$BIN_PATH" ] && echo "no game..."
   select=$(list_games | "$HOME/.local/bin/wmenu-color" -l6 -p "Game ") || exit 1
   game_exe_path="$BIN_PATH/$select"
 
