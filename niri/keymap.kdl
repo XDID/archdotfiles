@@ -21,6 +21,7 @@ binds {
     Alt+Space hotkey-overlay-title="wmenu launcher" {spawn-sh "$HOME/.local/bin/wmenu-run-color"; }
     Shift+Alt+C hotkey-overlay-title="wmenu clipboard manager" {spawn-sh "cliphist list | $HOME/.local/bin/wmenu-color -p \"clip \" -l6 | cliphist decode | wl-copy"; }
     Shift+Alt+S hotkey-overlay-title="wmenu quick browser search" {spawn-sh "$HOME/.local/bin/wmenu-search";}
+    Shift+Alt+B hotkey-overlay-title="wmenu quick browser bookmark" {spawn-sh "$HOME/.local/bin/wmenu-bookmark";}
     Shift+Alt+W hotkey-overlay-title="sway wallpaper" {spawn-sh "$HOME/.local/bin/sway-wallpaper";}
     Shift+Alt+P hotkey-overlay-title="wmenu session" {spawn-sh "$HOME/.local/bin/wmenu-session";}
     Shift+Alt+K hotkey-overlay-title="wmenu kill" {spawn-sh "$HOME/.local/bin/wmenu-kill";}
@@ -32,6 +33,7 @@ binds {
     Shift+Alt+D hotkey-overlay-title="wmenu audio record" {spawn-sh "$HOME/.local/bin/qrdecode";}
     Shift+Alt+Q hotkey-overlay-title="wmenu qucknotes" {spawn-sh "$HOME/.local/bin/wmenu-quicknotes";}
     Shift+Alt+G hotkey-overlay-title="wmenu games" {spawn-sh "$HOME/.local/bin/wmenu-game -r";}
+    Shift+Alt+M hotkey-overlay-title="wmenu music" {spawn-sh "$HOME/.local/bin/wmenu-music";}
 
     // media operation(mostly Alt+KEY)
     Alt+0 hotkey-overlay-title="Change wallpaper" { spawn-sh "qs -c noctalia-shell ipc call wallpaper random all";}

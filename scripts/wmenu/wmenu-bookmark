@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+#!/usr/bin/bash
+BOOKMARK="$HOME/.config/mozilla/firefox/k5rd3x5y.default-release/bookmarks.html"
+MENU="$HOME/.local/bin/wmenu-color"
+BROWSER="/usr/bin/firefox"
+
+names=$(htmlq a --text < "$BOOKMARK")
+links=$(htmlq a --attribute href < "$BOOKMARK")
+
+table=$(paste -d '|' <(echo "$names") <(echo "$links") | sed 's/|/ | /')
+
+choice=$(echo "$table" | $MENU -l 10)
+
+[ -z "$choice" ] && exit 0
+
+url=$(echo "$choice" | awk '{print $NF}')
+
+$BROWSER "$url"

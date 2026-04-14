@@ -46,6 +46,7 @@ go
 grub
 grub-btrfs
 gvfs-smb
+htmlq
 inotify-tools
 jq
 lazygit
