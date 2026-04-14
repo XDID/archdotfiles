@@ -4,6 +4,7 @@ alias q=exit
 alias c=clear
 alias ls="eza --icons always"
 alias os="fastfetch"
+
 # cargo alias
 alias cr="cargo run"
 alias cb="cargo build"
@@ -12,20 +13,24 @@ alias cbr="cargo build --release"
 alias ct="cargo test"
 alias cn="cargo new"
 alias ci="cargo init"
+
 # go alias
 alias gr="go run"
 alias gb="go build"
+
 # git alias
 alias gs="git status"
 alias gp="git push"
 alias gc="git commit"
 alias ga="git add"
+
 # tmux
 alias tk="tmux kill-server"
 alias tkp="tmux kill-pane"
 alias tkw="tmux kill-window"
 alias tks="tmux kill-session"
 alias ta="tmux attach"
+
 # quick cd
 alias ,c="cd $HOME/.config"
 alias ,cn="cd $HOME/.config/niri"
@@ -38,8 +43,10 @@ alias ,dc="cd $HOME/Documents"
 alias ,dv="cd $HOME/Development"
 alias ,v="cd $HOME/Videos"
 alias ,p="cd $HOME/Pictures"
+alias ,g="cd $HOME/Game"
 alias ,h="cd $HOME"
 alias ,="cd $HOME"
+
 # pacman
 alias pu="sudo pacman -Syyu"
 alias pR="sudo pacman -Rsn"
@@ -55,8 +62,12 @@ alias pro="paru -Qo"
 alias pri="paru -S"
 alias prsi="paru -Si"
 alias prss="paru -Ss"
+
 # umu
 alias ur="WINEPREFIX=~/.wine PROTONPATH=/home/harunato/.local/share/Steam/compatibilitytools.d/GE-Proton10-34 umu-run"
+
+alias s="systemctl"
+alias ss="sudo systemctl"
 
 alias df="df -h -x tmpfs -x efivarfs | awk '!/^dev/' | sort"
 alias clean="sudo sync;sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'"
