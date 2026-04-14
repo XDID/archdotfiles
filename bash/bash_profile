@@ -12,6 +12,7 @@ export PATH=$PATH:$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin
 export PATH=$PATH:$HOME/.cargo/bin
 
 export EDITOR="/usr/bin/nvim"
+export VISUAL="/usr/bin/nvim"
 export FZF_DEFAULT_OPTS_FILE="$HOME/.config/fzf/fzfrc"
 export GOPATH="$HOME/Go"
 

@@ -48,6 +48,13 @@ alias po="sudo pacman -Qo"
 alias pi="sudo pacman -S"
 alias psi="sudo pacman -Si"
 alias pss="sudo pacman -Ss"
+alias pru="paru -Syyu"
+alias prR="paru -Rsn"
+alias prl="paru -Ql"
+alias pro="paru -Qo"
+alias pri="paru -S"
+alias prsi="paru -Si"
+alias prss="paru -Ss"
 # umu
 alias ur="WINEPREFIX=~/.wine PROTONPATH=/home/harunato/.local/share/Steam/compatibilitytools.d/GE-Proton10-34 umu-run"
 

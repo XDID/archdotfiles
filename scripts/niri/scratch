@@ -16,7 +16,7 @@ win_workspace=$(
 if [ -z $win_workspace]; then
   case "$app_id" in
     "floatterm")
-      footclient -a floatterm
+      footclient -a floatterm tmux new-session -A
       ;;
     *)
       $app_id

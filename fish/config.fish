@@ -14,6 +14,7 @@ fish_add_path $HOME/.cargo/bin
 
 # config EDITOR
 export EDITOR="/usr/sbin/nvim"
+export VISUAL="/usr/sbin/nvim"
 export GOPATH="$HOME/Go"
 export TERMINAL="footclient"
 
