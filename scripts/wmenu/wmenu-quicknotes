@@ -20,7 +20,7 @@ choice=$(
   done \
   | sort \
   | { printf "new\n"; cat; } \
-  | $MENU -l6 -p "Quicknotes "
+  | $MENU -l10 -p "Quicknotes "
 ) || exit 1
 
 [ -z "$choice" ] && exit 0

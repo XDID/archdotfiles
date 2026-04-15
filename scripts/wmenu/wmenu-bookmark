@@ -9,7 +9,7 @@ links=$(htmlq a --attribute href < "$BOOKMARK")
 
 table=$(paste -d '|' <(echo "$names") <(echo "$links") | sed 's/|/ | /')
 
-choice=$(echo "$table" | $MENU -l 10)
+choice=$(echo "$table" | $MENU -p "Bookmark " -l 10)
 
 [ -z "$choice" ] && exit 0
 

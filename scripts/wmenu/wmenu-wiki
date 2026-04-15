@@ -17,6 +17,6 @@ case "$LANG" in
 esac
 
 selected_page="$(find "$WIKI_PATH" -type f \
-    | $menu -l 6 -i -p "$(basename "$0")")"
+    | $menu -l 10 -i -p "$(basename "$0")")"
 # don't do anything if exiting wmenu without any input
 [ -n "$selected_page" ] && $BROWSER file://"$selected_page"
