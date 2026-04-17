@@ -14,7 +14,7 @@ beets
 bluez
 bluez-utils
 btop
-btrfs-assistant-git
+btrfs-assistant
 btrfs-progs
 cava
 chafa
@@ -96,6 +96,7 @@ sudo
 swayimg
 tmux
 tree
+tree-sitter-cli
 ttf-liberation
 ttf-lxgw-wenkai-mono
 ttf-sourcecodepro-nerd
