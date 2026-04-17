@@ -1,0 +1,78 @@
+#!/bin/bash
+
+# 默认配置
+OUTPUT_JSON=false
+LIST_ONLY=false
+SEARCH_TERM=""
+
+# 获取电池图标函数
+get_icon() {
+    local percent=$1
+    local state=$2
+    [[ "$state" == "charging" ]] && { echo "󱐋"; return; }
+    if [ "$percent" -ge 90 ]; then echo "󰁹";
+    elif [ "$percent" -ge 70 ]; then echo "󰂀";
+    elif [ "$percent" -ge 50 ]; then echo "󰁾";
+    elif [ "$percent" -ge 30 ]; then echo "󰁼";
+    elif [ "$percent" -ge 10 ]; then echo "󰁺";
+    else echo "󰂃"; fi
+}
+
+# 解析参数
+while getopts "ljd:h" opt; do
+    case $opt in
+        l) LIST_ONLY=true ;;
+        j) OUTPUT_JSON=true ;;
+        d) SEARCH_TERM="$OPTARG" ;;
+        h|\?) echo "用法: $0 [-l] [-j] [-d Name]"; exit 0 ;;
+    esac
+done
+
+# 准备 JSON 容器
+json_output="["
+found_any=false
+
+# 遍历设备
+for dev in $(upower -e); do
+    info=$(upower -i "$dev")
+    
+    battery_raw=$(echo "$info" | grep -E "^\s*percentage:" | awk '{print $2}' | tr -d '%')
+    # 过滤电量为 0 或空
+    [[ -z "$battery_raw" || "$battery_raw" -eq 0 ]] && continue
+    
+    raw_state=$(echo "$info" | grep -E "^\s*state:" | awk '{print $2}')
+    name=$(echo "$info" | grep -E "^\s*model:" | awk -F': ' '{print $2}' | sed 's/^[ \t]*//;s/[ \t]*$//')
+    [[ -z "$name" ]] && name=$(basename "$dev")
+
+    # 如果指定了搜索词但未匹配，则跳过
+    if [[ -n "$SEARCH_TERM" ]]; then
+        if [[ ! $(echo "$name" | grep -i "$SEARCH_TERM") ]]; then
+            continue
+        fi
+    fi
+
+    found_any=true
+
+    # 根据开关输出
+    if [ "$OUTPUT_JSON" = true ]; then
+        state_num=$([[ "$raw_state" == "charging" ]] && echo 1 || echo 0)
+        json_output+="{\"device\":\"$name\",\"battery\":$battery_raw,\"state\":$state_num},"
+    elif [ "$LIST_ONLY" = true ]; then
+        echo "$name"
+    else
+        icon=$(get_icon "$battery_raw" "$raw_state")
+        echo "${name} ${icon} ${battery_raw}%"
+    fi
+done
+
+# 处理 JSON 收尾
+if [ "$OUTPUT_JSON" = true ]; then
+    json_output="${json_output%,}]"
+    [[ "$found_any" = false ]] && json_output="[]"
+    
+    if command -v jq >/dev/null 2>&1; then
+        echo "$json_output" | jq '.'
+    else
+        echo "$json_output"
+    fi
+fi

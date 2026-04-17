@@ -47,7 +47,9 @@ grub
 grub-btrfs
 gvfs-smb
 htmlq
+impala
 inotify-tools
+iwd
 jq
 lazygit
 lib32-mesa
