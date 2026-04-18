@@ -51,3 +51,7 @@
 *~
 \#*\#
 .#*
+/emacs/.cache
+/emacs/history
+/emacs/treesitter
+/emacs/recentf
