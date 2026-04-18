@@ -1,8 +1,9 @@
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
     // spawn application operation(mostly Mod+KEY)
+    Mod+Shift+P hotkey-overlay-title="Start foot server" {spawn "/home/harunato/.local/bin/foots";}
+    Mod+Shift+E hotkey-overlay-title="Start emacs server" {spawn-sh "pkill emacs || true &&LC_CTYPE=zh_CN.UTF-8 emacs --daemon";}
     Mod+X hotkey-overlay-title="Restart xremap server" { spawn-sh "pgrep xremap && echo 0411 | sudo -S pkill xremap || echo 0411 | sudo -S NIRI_SOCKET=\"$NIRI_SOCKET\" xremap --watch=config,device /home/harunato/.config/xremap/config.yml";}
-    mod+P hotkey-overlay-title="Start foot server" {spawn "/home/harunato/.local/bin/foots";}
     Mod+T hotkey-overlay-title="Open footclient" { spawn "footclient"; }
     Mod+Return hotkey-overlay-title="Open footclient" { spawn-sh "$HOME/.local/bin/scratch floatterm"; }
     Mod+B hotkey-overlay-title="Open firefox" { spawn "firefox"; }
@@ -10,7 +11,8 @@ binds {
     Mod+Space hotkey-overlay-title="Noctalia launcher" {spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle";}
     Mod+Backslash hotkey-overlay-title="Open noctalia settings" {spawn "qs" "-c" "noctalia-shell" "ipc" "call" "settings" "open";}
     Mod+Backspace hotkey-overlay-title="Open btop" {spawn "footclient" "btop";}
-    Mod+E hotkey-overlay-title="Open nautilus" {spawn "env" "GSK_RENDERER=gl" "GTK_IM_MODULE=fcitx" "nautilus";}
+    // Mod+E hotkey-overlay-title="Open nautilus" {spawn "env" "GSK_RENDERER=gl" "GTK_IM_MODULE=fcitx" "nautilus";}
+    Mod+E hotkey-overlay-title="Open emacs" {spawn "emacsclient" "-nc";}
     Mod+Shift+C hotkey-overlay-title="Open noctalia clipboard manager" {spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard";}
     Mod+Shift+Ctrl+E hotkey-overlay-title="Restart noctalia server" { spawn-sh  "pkill qs || true && sleep 1 && qs -c noctalia-shell"; }
 
@@ -138,7 +140,7 @@ binds {
     Mod+W hotkey-overlay-title=null { toggle-column-tabbed-display; }
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
-    Mod+Shift+E hotkey-overlay-title=null { quit; }
+    Mod+Shift+Q hotkey-overlay-title=null { quit; }
 
     // screenshot
     Print hotkey-overlay-title="Screenshot" { spawn-sh "$HOME/.local/bin/wmenu-shot"; }
