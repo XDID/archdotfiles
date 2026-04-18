@@ -95,6 +95,7 @@ return {
 			rust_analyzer = {},
 			stylua = {}, -- Used to format Lua code
 			bashls = {},
+			clangd = {},
 
 			-- Special Lua Config, as recommended by neovim help docs
 			lua_ls = {
