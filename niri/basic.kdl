@@ -4,6 +4,7 @@ environment {
   LC_MESSAGES          "zh_CN.UTF-8"
   XMODIFIERS           "@im=fcitx"
   QT_IM_MODULES        "fcitx"
+  // GTK_IM_MODULE        "fcitx"
   QT_QPA_PLATFORMTHEME "gtk3"
   TERMINAL             "footclient"
   HOME                 "/home/harunato"

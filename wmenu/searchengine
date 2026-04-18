@@ -8,3 +8,4 @@ ArchlinuxCN Wiki|https://wiki.archlinuxcn.org/wzh/index.php?search={query}|https
 Archlinux Wiki|https://wiki.archlinux.org/index.php?search={query}|https://wiki.archlinux.org
 Codeberg|https://codeberg.org/explore/repos?q={query}&only_show_relevant=true&sort=recentupdate|https://codeberg.org
 Steam|https://store.steampowered.com/search?term={query}|https://store.steampowered.com
+Youtube|https://www.youtube.com/results?search_query={query}|https://www.youtube.com

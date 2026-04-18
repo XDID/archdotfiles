@@ -69,5 +69,8 @@ alias ur="WINEPREFIX=~/.wine PROTONPATH=/home/harunato/.local/share/Steam/compat
 alias s="systemctl"
 alias ss="sudo systemctl"
 
+alias r="realesrgan-ncnn-vulkan"
+
 alias df="df -h -x tmpfs -x efivarfs | awk '!/^dev/' | sort"
+alias free="free -h"
 alias clean="sudo sync;sudo sh -c 'echo 3 > /proc/sys/vm/drop_caches'"
