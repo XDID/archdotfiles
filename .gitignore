@@ -44,14 +44,3 @@
 /noctalia/colors.json
 /noctalia/settings.json
 /menus/applications-merged
-/emacs/auto-save-list
-/emacs/eln-cache
-/emacs/elpa
-/emacs/themes
-*~
-\#*\#
-.#*
-/emacs/.cache
-/emacs/history
-/emacs/treesitter
-/emacs/recentf
