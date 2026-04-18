@@ -300,7 +300,7 @@ Item {
         Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
         x: parent.width - implicitWidth
         text: itemData.title
-        font.pointSize: 11
+        font.pointSize: 14
         font.weight: Font.Bold
         color: Color.mPrimary
       }
@@ -350,7 +350,7 @@ Item {
         Layout.fillWidth: true
         Layout.alignment: Qt.AlignVCenter
         text: itemData.desc
-        font.pointSize: 9
+        font.pointSize: 12
         color: Color.mOnSurface
         elide: Text.ElideRight
       }
