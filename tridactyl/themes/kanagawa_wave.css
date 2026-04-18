@@ -1,0 +1,132 @@
+:root {
+    /* Generic */
+    --tridactyl-font-family: monospace;
+    --tridactyl-font-family-sans: sans-serif;
+    --tridactyl-font-size: 13pt;
+    --tridactyl-small-font-size: calc(var(--tridactyl-font-size) * 0.75);
+    --tridactyl-bg: #1f1f28;                /* background */
+    --tridactyl-fg: #c8c093;                 /* text */
+    --tridactyl-logo: url("moz-extension://__MSG_@@extension_id__/static/logo/Tridactyl_64px.png");
+    --tridactyl-scrollbar-color: auto;
+
+    /* Mode indicator */
+    --tridactyl-status-font-family: var(--tridactyl-font-family);
+    --tridactyl-status-font-size: var(--tridactyl-small-font-size);
+    --tridactyl-status-bg: var(--tridactyl-bg);
+    --tridactyl-status-fg: var(--tridactyl-fg);
+    --tridactyl-status-border: 1px #585872 solid;   /* background-extra */
+    --tridactyl-status-border-radius: 2px;
+
+    /* Search highlight */
+    --tridactyl-search-highlight-color: #c0a36e;    /* accent-secondary */
+
+    /* Hinting */
+
+    /* Hint character tags */
+    --tridactyl-hintspan-font-family: var(--tridactyl-font-family-sans);
+    --tridactyl-hintspan-font-size: var(--tridactyl-small-font-size);
+    --tridactyl-hintspan-font-weight: bold;
+    --tridactyl-hintspan-fg: #1f1f28;               /* background */
+    --tridactyl-hintspan-pressed-fg: var(--tridactyl-hintspan-fg);
+    --tridactyl-hintspan-bg: #c0a36e;               /* accent-secondary */
+    --tridactyl-hintspan-border-color: #585872;     /* background-extra */
+    --tridactyl-hintspan-border-width: 0px;
+    --tridactyl-hintspan-border-style: solid;
+    --tridactyl-hintspan-js-background: #585872;    /* background-extra */
+
+    --tridactyl-hintspan-active-fg: var(--tridactyl-hintspan-fg);
+    --tridactyl-hintspan-active-bg: var(--tridactyl-hintspan-bg);
+    --tridactyl-hintspan-active-border-color: var(--tridactyl-hintspan-border-color);
+
+    /* Element highlights */
+    --tridactyl-hint-fg: var(--tridactyl-fg);
+    --tridactyl-hint-active-fg: #ffffff;            /* text-focus */
+    --tridactyl-hint-active-bg: #76946a;            /* accent-primary */
+    --tridactyl-hint-active-outline: 1px solid #c0a36e; /* accent-secondary */
+
+    --tridactyl-hint-bg: rgba(118, 148, 106, 0.25); /* accent-primary with opacity */
+    --tridactyl-hint-outline: 1px solid #76946a;    /* accent-primary */
+
+    /* Element highlight overlays */
+    --tridactyl-hint-highlight-fg: var(--tridactyl-hint-fg);
+    --tridactyl-hint-highlight-active-fg: var(--tridactyl-hint-active-fg);
+    --tridactyl-hint-highlight-bg: var(--tridactyl-hint-bg);
+    --tridactyl-hint-highlight-active-bg: var(--tridactyl-hint-active-bg);
+    --tridactyl-hint-highlight-outline: var(--tridactyl-hint-outline);
+    --tridactyl-hint-highlight-active-outline: var(--tridactyl-hint-active-outline);
+    --tridactyl-hint-highlight-opacity: 0.25;
+
+    /* :viewsource */
+    --tridactyl-vs-bg: var(--tridactyl-bg);
+    --tridactyl-vs-fg: var(--tridactyl-fg);
+    --tridactyl-vs-font-family: var(--tridactyl-font-family);
+
+    /*commandline*/
+
+    --tridactyl-cmdl-bg: var(--tridactyl-bg);
+    --tridactyl-cmdl-fg: var(--tridactyl-fg);
+    --tridactyl-cmdl-line-height: 1.5;
+    --tridactyl-cmdl-font-family: monospace;
+    --tridactyl-cmdl-font-size: calc(var(--tridactyl-font-size) * 0.75);
+
+    /*completions*/
+
+    --tridactyl-cmplt-option-height: 1.4em;
+    --tridactyl-cmplt-fg: var(--tridactyl-fg);
+    --tridactyl-cmplt-bg: var(--tridactyl-bg);
+    --tridactyl-cmplt-font-size: calc(var(--tridactyl-font-size) * 9/12);
+    --tridactyl-cmplt-font-family: monospace;
+    --tridactyl-cmplt-border-top: 1px solid #585872; /* background-extra */
+
+    /*sectionHeader*/
+
+    --tridactyl-header-first-bg: #1f1f28;          /* background */
+    --tridactyl-header-second-bg: #585872;         /* background-extra */
+    --tridactyl-header-third-bg: #1f1f28;          /* background */
+
+    --tridactyl-header-font-size: inherit;
+    --tridactyl-header-font-weight: bold;
+    --tridactyl-header-border-bottom: 1px solid #585872; /* background-extra */
+
+    /*url style*/
+
+    --tridactyl-url-text-decoration: none;
+    --tridactyl-url-fg: #76946a;                   /* accent-primary */
+    --tridactyl-url-bg: var(--tridactyl-bg);
+    --tridactyl-url-cursor: pointer;
+
+    /*option focused*/
+
+    --tridactyl-of-fg: #ffffff;                    /* text-focus */
+    --tridactyl-of-bg: #585872;                    /* background-extra */
+
+    /*new tab spoiler box*/
+    --tridactyl-highlight-box-bg: rgba(88, 88, 114, 0.3); /* background-extra with opacity */
+    --tridactyl-highlight-box-fg: var(--tridactyl-fg);
+
+    --tridactyl-private-window-icon-url: url("chrome://browser/skin/privatebrowsing/private-browsing.svg");
+
+    --tridactyl-container-fingerprint-url: url("resource://usercontext-content/fingerprint.svg");
+    --tridactyl-container-briefcase-url: url("resource://usercontext-content/briefcase.svg");
+    --tridactyl-container-dollar-url: url("resource://usercontext-content/dollar.svg");
+    --tridactyl-container-cart-url: url("resource://usercontext-content/cart.svg");
+    --tridactyl-container-circle-url: url("resource://usercontext-content/circle.svg");
+    --tridactyl-container-gift-url: url("resource://usercontext-content/gift.svg");
+    --tridactyl-container-vacation-url: url("resource://usercontext-content/vacation.svg");
+    --tridactyl-container-food-url: url("resource://usercontext-content/food.svg");
+    --tridactyl-container-fruit-url: url("resource://usercontext-content/fruit.svg");
+    --tridactyl-container-pet-url: url("resource://usercontext-content/pet.svg");
+    --tridactyl-container-tree-url: url("resource://usercontext-content/tree.svg");
+    --tridactyl-container-chill-url: url("resource://usercontext-content/chill.svg");
+
+    --tridactyl-container-color-blue: #37adff;
+    --tridactyl-container-color-turquoise: #00c79a;
+    --tridactyl-container-color-green: #51cd00;
+    --tridactyl-container-color-yellow: #ffcb00;
+    --tridactyl-container-color-orange: #ff9f00;
+    --tridactyl-container-color-red: #ff613d;
+    --tridactyl-container-color-pink: #ff4bda;
+    --tridactyl-container-color-purple: #af51f5;
+
+    --tridactyl-externaledit-bg: var(--tridactyl-logo) no-repeat center;
+}
