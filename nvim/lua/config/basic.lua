@@ -92,7 +92,7 @@ vim.diagnostic.config({
 vim.o.shell = "fish"
 
 -- color
-vim.cmd.colorscheme("catppuccin-nvim")
+vim.cmd.colorscheme("kanagawa")
 
 -- title
 vim.opt.title = true
