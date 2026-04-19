@@ -5,12 +5,11 @@ return {
 			theme = "kanagawa",
 			component_separators = { left = "|", right = "|" },
 			section_separators = "",
-			icons_enabled = false, -- 关闭所有图标
+			icons_enabled = false,
 		},
 		sections = {
-			lualine_a = {}, -- 清空 A
-			lualine_b = {}, -- 清空 B
-			-- 将所有内容集中在 lualine_c (左侧) 和 lualine_x (右侧)
+			lualine_a = {},
+			lualine_b = {},
 			lualine_c = {
 				{
 					"filename",
@@ -30,6 +29,10 @@ return {
 				},
 			},
 			lualine_x = {
+				{
+					"overseer",
+					padding = 1,
+				},
 				{
 					"searchcount",
 					padding = 1,
