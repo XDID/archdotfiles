@@ -26,6 +26,9 @@ return {
 			},
 		},
 		picker = {
+			layout = {
+				preset = "ivy_split",
+			},
 			matcher = { frecency = true, cwd_bonus = true, history_bonus = true },
 			formatters = { icon_width = 3 },
 			win = {
@@ -121,7 +124,7 @@ return {
 		{
 			"<leader>sh",
 			function()
-				Snacks.picker.help({ layout = "dropdown" })
+				Snacks.picker.help()
 			end,
 			desc = "[H]elp",
 		},

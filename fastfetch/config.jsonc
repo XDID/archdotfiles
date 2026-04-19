@@ -28,12 +28,6 @@
         "format": "{width}x{height}@{refresh-rate} ",
       },
       "disk",
-      {
-        "type": "colors",
-        "block": {
-          "width": 2,
-        }
-      }
   ]
 }
 

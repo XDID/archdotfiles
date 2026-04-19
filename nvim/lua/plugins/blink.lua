@@ -2,20 +2,11 @@ return {
 	"saghen/blink.cmp",
 	event = { "BufReadPost", "BufNewFile" },
 	dependencies = {
-		-- {
-		-- 	"xzbdmw/colorful-menu.nvim",
-		-- 	opts = {},
-		-- },
-		{
-			"archie-judd/blink-cmp-words",
-		},
+		"archie-judd/blink-cmp-words",
 		{
 			"L3MON4D3/LuaSnip",
 			version = "2.*",
 			build = (function()
-				-- Build Step is needed for regex support in snippets.
-				-- This step is not supported in many windows environments.
-				-- Remove the below condition to re-enable on windows.
 				if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
 					return
 				end
@@ -35,24 +26,9 @@ return {
 	opts = {
 		completion = {
 			documentation = {
-				auto_show = true,
+				auto_show = false,
 			},
 		},
-		-- menu = {
-		-- 	draw = {
-		-- 		columns = { { "kind_icon" }, { "label", gap = 1 } },
-		-- 		components = {
-		-- 			label = {
-		-- 				text = function(ctx)
-		-- 					return require("colorful-menu"), blink_components_text(cfx)
-		-- 				end,
-		-- 				highlight = function(ctx)
-		-- 					return require("colorful-menu"), blink_components_highlight(ctx)
-		-- 				end,
-		-- 			},
-		-- 		},
-		-- 	},
-		-- },
 		keymap = {
 			preset = "super-tab",
 			["<C-b>"] = { "scroll_documentation_up", "fallback" },
