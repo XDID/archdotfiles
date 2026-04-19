@@ -1,21 +1,21 @@
 environment {
-  LANG                 "zh_CN.UTF-8"
-  LC_CTYPE             "en_US.UTF-8"
-  LC_MESSAGES          "zh_CN.UTF-8"
-  XMODIFIERS           "@im=fcitx"
-  QT_IM_MODULES        "fcitx"
-  // GTK_IM_MODULE        "fcitx"
-  QT_QPA_PLATFORMTHEME "gtk3"
-  TERMINAL             "footclient"
-  HOME                 "/home/harunato"
-  PATH                 "/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin:/home/harunato/Go/bin:/home/harunato/.local/bin:/home/harunato/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:/home/harunato/.cargo/bin"
-  // QT_QPA_PLATFORMTHEME "qt6ct"
+    LANG                 "zh_CN.UTF-8"
+    LC_CTYPE             "en_US.UTF-8"
+    LC_MESSAGES          "zh_CN.UTF-8"
+    XMODIFIERS           "@im=fcitx"
+    QT_IM_MODULES        "fcitx"
+    // GTK_IM_MODULE        "fcitx"
+    QT_QPA_PLATFORMTHEME "gtk3"
+    TERMINAL             "footclient"
+    HOME                 "/home/harunato"
+    PATH                 "/usr/local/sbin:/usr/local/bin:/usr/bin:/var/lib/flatpak/exports/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/lib/rustup/bin:/home/harunato/Go/bin:/home/harunato/.local/bin:/home/harunato/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin:/home/harunato/.cargo/bin"
+    // QT_QPA_PLATFORMTHEME "qt6ct"
 }
 
 cursor {
-  xcursor-theme "breeze_cursors"
-  xcursor-size  28
-  hide-when-typing
+    xcursor-theme "breeze_cursors"
+    xcursor-size  28
+    hide-when-typing
 }
 
 input {
