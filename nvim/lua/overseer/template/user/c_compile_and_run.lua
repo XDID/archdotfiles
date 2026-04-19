@@ -4,11 +4,11 @@ return {
 		local file = vim.fn.expand("%:p")
 		local outfile = vim.fn.expand("%:r")
 		return {
-			cmd = { outfile },
+			cmd = { "./" .. outfile },
 			components = {
 				{
 					"dependencies",
-					task_name = {
+					tasks = {
 						{
 							cmd = "cc",
 							args = { file, "-o", outfile },
@@ -16,7 +16,7 @@ return {
 					},
 				},
 				{ "on_output_quickfix", open = true },
-				"default",
+    "default",
 			},
 		}
 	end,

@@ -7,7 +7,6 @@ end
 source $HOME/.config/fish/alias.sh
 
 # config path
-fish_add_path $HOME/Go/bin
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin
 fish_add_path $HOME/.cargo/bin
@@ -15,7 +14,6 @@ fish_add_path $HOME/.cargo/bin
 # config EDITOR
 export EDITOR="/usr/sbin/nvim"
 export VISUAL="/usr/sbin/nvim"
-export GOPATH="$HOME/Go"
 export TERMINAL="footclient"
 
 zoxide init fish | source

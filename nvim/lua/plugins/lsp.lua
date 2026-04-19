@@ -89,9 +89,7 @@ return {
 
 		---@type table<string, vim.lsp.Config>
 		local servers = {
-			-- clangd = {},
 			pylsp = {},
-			gopls = {},
 			rust_analyzer = {},
 			stylua = {}, -- Used to format Lua code
 			bashls = {},
