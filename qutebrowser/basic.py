@@ -1,4 +1,4 @@
-c.colors.webpage.preferred_color_scheme = "auto"
+c.colors.webpage.preferred_color_scheme = "dark"
 c.colors.webpage.darkmode.policy.images = "smart-simple"
 c.colors.webpage.darkmode.policy.page = "smart"
 
