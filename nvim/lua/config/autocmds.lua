@@ -42,7 +42,7 @@ vim.api.nvim_create_autocmd("BufNewFile", {
 	pattern = "*.md",
 	callback = function(args)
 		local file = args.file
-		local target = vim.fn.expand("~/Documents/Quicknotes")
+		local target = vim.fn.expand("~/Documents/Notes")
 
 		file = vim.fn.fnamemodify(file, ":p")
 		target = vim.fn.fnamemodify(target, ":p")
