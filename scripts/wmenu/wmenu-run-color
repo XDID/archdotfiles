@@ -6,8 +6,8 @@ set -eu
 pgrep -x wmenu > /dev/null && exit 1 ||
 timeout 10 wmenu-run -i \
   -F \
-  -E "SourceCodePro regular 11.3" \
-  -C "LXGW WenKai Mono 11.3" \
+  -E "SourceCodePro regular 13" \
+  -C "LXGW WenKai Mono 13" \
   -l 10 \
   -N "$colorbg" \
   -S "$colorsbg" \

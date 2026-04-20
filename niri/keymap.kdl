@@ -29,6 +29,7 @@ binds {
     Shift+Alt+R hotkey-overlay-title="Audio record" {spawn-sh "$HOME/.local/bin/wmenu-audio-rec";}
     Shift+Alt+D hotkey-overlay-title="AUDIo record" {spawn-sh "$HOME/.local/bin/qrdecode";}
     Shift+Alt+Q hotkey-overlay-title="Qucknotes" {spawn-sh "$HOME/.local/bin/wmenu-quicknotes";}
+    Shift+Alt+N hotkey-overlay-title="Notes" {spawn-sh "$HOME/.local/bin/wmenu-quicknotes ~/Documents/Notes/";}
     Shift+Alt+G hotkey-overlay-title="Games" {spawn-sh "$HOME/.local/bin/wmenu-game -r";}
     Shift+Alt+M hotkey-overlay-title="Music" {spawn-sh "$HOME/.local/bin/wmenu-music";}
 

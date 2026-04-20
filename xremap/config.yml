@@ -20,11 +20,11 @@ virtual_modifiers:
   - hangeul
 
 keymap:
-  - name: firefox config
-    application:
-      only: firefox
-    remap:
-      LEFTCTRL-S: LEFTALT-LEFTCTRL-Z
+  # - name: firefox config
+  #   application:
+  #     only: firefox
+  #   remap:
+  #     LEFTCTRL-S: LEFTALT-LEFTCTRL-Z
 
   - name: scratch
     application:

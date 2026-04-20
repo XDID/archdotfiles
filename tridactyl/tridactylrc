@@ -108,7 +108,7 @@ bind gt composite get_current_url | fillcmdline_notrail tabopen
 " zoom
 bind - zoom -10 true
 bind = zoom +10 true
-bind + zoom 1 false
+bind + zoom 1.33 false
 
 " search engine
 set searchurls.bi https://search.bilibili.com/all?keyword=
