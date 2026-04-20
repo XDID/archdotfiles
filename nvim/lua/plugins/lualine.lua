@@ -11,40 +11,17 @@ return {
 			lualine_a = {},
 			lualine_b = {},
 			lualine_c = {
-				{
-					"filename",
-					padding = 1,
-				},
-				{
-					"branch",
-					padding = 1,
-				},
-				{
-					"diff",
-					padding = 1,
-				},
-				{
-					"diagnostics",
-					padding = 1,
-				},
+				"mode",
+				"filename",
+				"branch",
+				"diff",
+				"diagnostics",
 			},
 			lualine_x = {
-				{
-					"overseer",
-					padding = 1,
-				},
-				{
-					"searchcount",
-					padding = 1,
-				},
-				{
-					"location",
-					padding = 1,
-				},
-				{
-					"progress",
-					padding = 1,
-				},
+				"overseer",
+				"searchcount",
+				"location",
+				"progress",
 			},
 			lualine_y = {},
 			lualine_z = {},
