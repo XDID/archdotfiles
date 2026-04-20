@@ -14,53 +14,53 @@ $character
 add_newline = false
 
 [username]
-style_user = 'cyan'
-style_root = 'red'
-format = '[$user]($style bold)'
+style_user = 'bg:cyan fg:bright-white'
+style_root = 'bg:red fg:bright-white'
+format = '[$user]($style)'
 disabled = false
 show_always = true
 
 [hostname]
-ssh_only = true
-format = '[@$ssh_symbol](white)[@$hostname](white)'
+ssh_only = false
+format = '[@$ssh_symbol](bg:cyan fg:bright-white)[$hostname](bg:cyan fg:bright-white)'
 trim_at = '.companyname.com'
 disabled = false
 
 [shell]
-format = '[$indicator│](cyan bold)'
-fish_indicator = "FISH"
-bash_indicator = "BASH"
-zsh_indicator = "ZSH"
-disabled = false
+format = '[$indicator](cyan bold)'
+fish_indicator = "F"
+bash_indicator = "B"
+zsh_indicator = "Z"
+disabled = true
 
 [directory]
+style = 'bg:black fg:bright-white bold'
 home_symbol = "~"
-format=' [$path$read_only]($style) '
-style = "bright-black"
+format=' [$path$read_only]($style)'
 
 [character]
-success_symbol = "[\\$](green)"
-error_symbol = "[\\$](red)"
-vimcmd_symbol = "[\\$](green)"
+success_symbol = " [\\$](bright-white)"
+error_symbol = " [\\$](red)"
+vimcmd_symbol = " [\\$](bright-white)"
 
 [git_branch]
-format = "[$branch]($style)"
-style = "bright-black"
+format = "[ $branch]($style)"
+style = 'bg:black fg:bright-white bold'
 
 [git_status]
-style = "bold italic bright-blue"
-format = "([⎪$ahead_behind$staged$modified$untracked$renamed$deleted$conflicted$stashed⎥]($style)) "
-conflicted = "[◪◦](italic bright-magenta)"
-ahead = "[▴│[${count}](bold white)│](italic green)"
-behind = "[▿│[${count}](bold white)│](italic red)"
-diverged = "[◇ ▴┤[${ahead_count}](regular white)│▿┤[${behind_count}](regular white)│](italic bright-magenta)"
-untracked = "[◌◦](italic bright-yellow)"
-stashed = "[◃◈](italic white)"
-modified = "[●◦](italic yellow)"
-staged = "[▪┤[$count](bold white)│](italic bright-cyan)"
-renamed = "[◎◦](italic bright-blue)"
-deleted = "[✕](italic red)"
+style = "bg:black"
+format = "[ $ahead_behind$staged$modified$untracked$renamed$deleted$conflicted$stashed]($style)"
+conflicted = "[!](bg:black fg:bright-magenta)"
+ahead = "[↑[${count}](bg:black fg:bold white)](green)"
+behind = "[↓[${count}](bg:black fg:bold white)│](red)"
+diverged = "[↑[${ahead_count}](bg:black fg:regular white)↓[${behind_count}](bg:black fg:regular white)](bright-magenta)"
+untracked = "[?](bg:black fg:bright-yellow)"
+stashed = "[≡](bg:black fg:white)"
+modified = "[*](bg:black fg:yellow)"
+staged = "[+[$count](bg:black fg:bold white)](bg:black fg:bright-cyan)"
+renamed = "[»](bg:black italic bright-blue)"
+deleted = "[x](bg:black italic red)"
 
 [git_state]
-format = ' \([$state( $progress_current/$progress_total)]($style)\)'
-style = "bright-black"
+format = ' [$state( $progress_current/$progress_total)]($style)'
+style = "bg:black fg:bright-black"

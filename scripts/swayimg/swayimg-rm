@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/bash
 # swayimg script for wmenu confirmation to remove an image
 # Shift+d = exec ~/.local/bin/swayimg-rm "%" && skip_file; reload
 set -eu

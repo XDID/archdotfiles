@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 # Description: 快速读档，快照恢复
 # quickload - Btrfs Snapshot Quick Restore Script
-#
+
 
 set -euo pipefail
 

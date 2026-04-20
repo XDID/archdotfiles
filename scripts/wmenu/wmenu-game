@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/bash
 set -eu
 
 TOML_PATH="${HOME}/.config/games"

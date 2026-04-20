@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/bash
 
 # Directory where to store temporary data
 TMP_DIR="/tmp/rmpc"

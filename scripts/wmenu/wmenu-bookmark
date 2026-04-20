@@ -1,18 +1,37 @@
 #!/usr/bin/bash
-#!/usr/bin/bash
+
 BOOKMARK="$HOME/.config/mozilla/firefox/k5rd3x5y.default-release/bookmarks.html"
 MENU="$HOME/.local/bin/wmenu-color"
 BROWSER="/usr/bin/firefox"
 
-names=$(htmlq a --text < "$BOOKMARK")
-links=$(htmlq a --attribute href < "$BOOKMARK")
+BOOKMARKS_DATA=""
+current_category=""
 
-table=$(paste -d '|' <(echo "$names") <(echo "$links") | sed 's/|/ | /')
+shopt -s nocasematch
 
-choice=$(echo "$table" | $MENU -p "Bookmark " -l 10)
+h3_regex='<h3[^>]*>(.*)</h3>'
+a_regex='<a[^>]*href="([^"]+)"[^>]*>(.*)</a>'
+
+while IFS= read -r line; do
+    if [[ "$line" =~ $h3_regex ]]; then
+        current_category="${BASH_REMATCH[1]}"
+
+    elif [[ "$line" =~ $a_regex ]]; then
+        url="${BASH_REMATCH[1]}"
+        name="${BASH_REMATCH[2]}"
+
+        BOOKMARKS_DATA+="${current_category}|${name}|${url}"$'\n'
+    fi
+done < <(htmlq 'h3, a' < "$BOOKMARK")
+
+shopt -u nocasematch
+
+BOOKMARKS_DATA="${BOOKMARKS_DATA%$'\n'}"
+
+choice=$(echo "$BOOKMARKS_DATA" | $MENU -p "Bookmark " -l 10)
 
 [ -z "$choice" ] && exit 0
 
-url=$(echo "$choice" | awk '{print $NF}')
+url=$(echo "$choice" | awk -F'|' '{print $3}')
 
 $BROWSER "$url"

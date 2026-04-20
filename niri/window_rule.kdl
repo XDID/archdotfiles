@@ -13,13 +13,13 @@ window-rule {
 // open floating
 window-rule {
     match app-id="org.gnome.Nautilus" title="^Rotating.*"
-    match app-id=r#"dev.noctalia.noctalia-qs$"#
-    match app-id="steam"
     open-floating true
 }
 
 // floating and center some window
 window-rule {
+    match app-id=r#"dev.noctalia.noctalia-qs$"#
+    match app-id="steam"
     match app-id="org.gnome.Nautilus"
     match app-id="com.gabm.satty"
     match app-id="swayimg"

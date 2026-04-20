@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 # Starts the foot terminal server if it's not already running.
 set -euo pipefail

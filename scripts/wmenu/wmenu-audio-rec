@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/bash
 # use a dynamic menu to select the audio source for voice recording
 pgrep -x parec && pkill -x parec && exit 0
 

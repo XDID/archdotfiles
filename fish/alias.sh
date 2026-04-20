@@ -14,15 +14,26 @@ alias ct="cargo test"
 alias cn="cargo new"
 alias ci="cargo init"
 
-# go alias
-alias gr="go run"
-alias gb="go build"
-
 # git alias
 alias gs="git status"
-alias gp="git push"
-alias gc="git commit"
+alias gP="git push"
+alias gp="git pull"
+alias gf="git fetch"
+alias gc="git commit -m"
 alias ga="git add"
+alias gb="git branch"
+alias gbd="git branch -d"
+alias gbm="git branch -m"
+alias gcb="git checkout -b"
+alias gr="git restore"
+alias gd="git diff"
+alias gm="git merge"
+alias gl="git log"
+alias gst="git stash save"
+alias gsd="git stash drop"
+alias gsp="git stash pop"
+alias gsa="git stash apply"
+alias gsl="git stash list"
 
 # tmux
 alias tk="tmux kill-server"

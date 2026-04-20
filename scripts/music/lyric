@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/bash
 
 LYRICS_PATH="$HOME/Music/.lyrics"
 MUSIC_DIR="$HOME/Music"
