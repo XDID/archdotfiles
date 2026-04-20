@@ -2,13 +2,15 @@
 set -eu
 
 MENU="$HOME/.local/bin/wmenu-color"
-DIR="${1:-$HOME/Documents/Quicknotes}"
+DIR="${1:-$HOME/Documents/Notes}"
+safe_dir=$(printf '%s\n' "$DIR" | sed 's/[&/\]/\\&/g')
 
 [ -d "$DIR" ] || mkdir -p "$DIR"
 
 # 构建列表：tag | filename | fullpath
 choice=$(
   fd . "$DIR" -e md -t f | while read -r file; do
+    path=$(echo $file | sed "s/$safe_dir\///")
     name=$(basename "$file")
 
     # 提取 tag
@@ -16,11 +18,11 @@ choice=$(
     [ -z "$tags" ] && tags="(no-tag)"
 
     # 输出：用于显示 + 用于解析
-    printf "%s|%s|%s\n" "$tags" "$name" "$file"
+    printf "%s|%s|%s\n" "$tags" "$name" "$path"
   done \
   | sort \
   | { printf "new\n"; cat; } \
-  | $MENU -l10 -p "Quicknotes "
+  | $MENU -l10 -p "Notes "
 ) || exit 1
 
 [ -z "$choice" ] && exit 0
@@ -30,7 +32,7 @@ if [ "$choice" = "new" ]; then
   file="$DIR/$(date +%Y-%m-%d_%H_%M_%S).md"
 else
   if [[ "$choice" =~ "|" ]]; then
-    file="$(echo $choice | cut -d "|" -f 3)"
+    file="$DIR/$(echo $choice | cut -d "|" -f 3)"
   else
     file="$DIR/$choice"
   fi
