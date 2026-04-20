@@ -51,15 +51,15 @@ style = 'bg:black fg:bright-white bold'
 style = "bg:black"
 format = "[ $ahead_behind$staged$modified$untracked$renamed$deleted$conflicted$stashed]($style)"
 conflicted = "[!](bg:black fg:bright-magenta)"
-ahead = "[↑[${count}](bg:black fg:bold white)](green)"
-behind = "[↓[${count}](bg:black fg:bold white)│](red)"
-diverged = "[↑[${ahead_count}](bg:black fg:regular white)↓[${behind_count}](bg:black fg:regular white)](bright-magenta)"
+ahead = "[↑[${count}](bg:black fg:bold white)](bg:black fg:green)"
+behind = "[↓[${count}](bg:black fg:bold white)](bg:black fg:red)"
+diverged = "[↑[${ahead_count}](bg:black fg:regular white)↓[${behind_count}](bg:black fg:regular white)](bg:black fg:bright-magenta)"
 untracked = "[?](bg:black fg:bright-yellow)"
 stashed = "[≡](bg:black fg:white)"
 modified = "[*](bg:black fg:yellow)"
 staged = "[+[$count](bg:black fg:bold white)](bg:black fg:bright-cyan)"
-renamed = "[»](bg:black italic bright-blue)"
-deleted = "[x](bg:black italic red)"
+renamed = "[»](bg:black bright-blue)"
+deleted = "[x](bg:black red)"
 
 [git_state]
 format = ' [$state( $progress_current/$progress_total)]($style)'
