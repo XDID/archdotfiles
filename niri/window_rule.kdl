@@ -1,9 +1,3 @@
-// blur overview
-layer-rule {
-    match namespace="^noctalia-overview*"
-    place-within-backdrop true
-}
-
 // open max app
 window-rule {
   match app-id="firefox"

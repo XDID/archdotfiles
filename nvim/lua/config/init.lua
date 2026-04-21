@@ -1,5 +1,5 @@
-require("config.lazy")
 require("config.keymaps")
-require("config.basic")
 require("config.fold")
+require("config.lazy")
+require("config.basic")
 require("config.autocmds")

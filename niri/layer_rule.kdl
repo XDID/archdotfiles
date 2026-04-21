@@ -1,0 +1,15 @@
+// blur overview
+layer-rule {
+    match namespace="^noctalia-overview*"
+    place-within-backdrop true
+}
+
+// wmenu blur
+layer-rule {
+  match namespace="menu"
+  opacity 0.8
+  background-effect {
+    xray false
+    blur true
+  }
+}

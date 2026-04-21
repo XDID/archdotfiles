@@ -2,6 +2,7 @@
 vim.o.number = true
 vim.o.relativenumber = true
 vim.o.mouse = ""
+vim.o.autochdir = true
 
 -- only one statusline
 vim.o.laststatus = 3

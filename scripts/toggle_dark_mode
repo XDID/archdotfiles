@@ -1,5 +1,6 @@
 #!/usr/bin/bash
 
+niri msg action do-screen-transition --delay-ms 800 &
 CONFIG_FILE="$HOME/.config/noctalia/settings.json"
 
 DARK_WALLPAPER="/home/harunato/Pictures/Wallpapers/Dark"

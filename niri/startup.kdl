@@ -15,3 +15,5 @@ spawn-sh-at-startup "/home/harunato/.local/bin/foots"
 // gui root auth
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-sh-at-startup "/usr/bin/xhost +si:localuser:root"
+// temp mission for thunderbird got a bug
+spawn-sh-at-startup "/home/harunato/.local/bin/remove-thunderbird"

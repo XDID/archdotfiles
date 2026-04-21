@@ -69,6 +69,7 @@ binds {
     Mod+Shift+WheelScrollUp hotkey-overlay-title=null        cooldown-ms=150 { focus-workspace-up; }
     Mod+Ctrl+Shift+WheelScrollDown hotkey-overlay-title=null cooldown-ms=150 { move-column-to-workspace-down; }
     Mod+Ctrl+Shift+WheelScrollUp hotkey-overlay-title=null   cooldown-ms=150 { move-column-to-workspace-up; }
+    Mod+MouseMiddle { close-window; }
 
     // consume and expel
     Mod+BracketLeft hotkey-overlay-title="Consume left"  { consume-or-expel-window-left; }
