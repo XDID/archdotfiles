@@ -6,7 +6,7 @@ layer-rule {
 
 // wmenu blur
 layer-rule {
-  match namespace="menu"
+  match namespace="^menu$"
   opacity 0.8
   background-effect {
     xray false
