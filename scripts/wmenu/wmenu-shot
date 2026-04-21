@@ -4,7 +4,7 @@ MENU="$HOME/.local/bin/wmenu-color"
 
 shot() {
   niri msg action $1 &
-  event=$(timeout 10 niri msg event-stream | grep -m 1 --line-buffered "Screenshot captured")
+  event=$(timeout 30 niri msg event-stream | grep -m 1 --line-buffered "Screenshot captured")
   if [[ -n "$event" ]]; then
     if [[ "$choice" != "Pin" ]]; then
       wl-paste | satty -f - &
