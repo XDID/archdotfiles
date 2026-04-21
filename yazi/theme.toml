@@ -9,7 +9,8 @@ prepend_dirs = [
   { name = "Game", text = "" },
   { name = "dotfiles", text = "" },
   { name = "Record", text = "" },
-  { name = "smb", text = "" }
+  { name = "smb", text = "" },
+  { name = "Mail", text = "" }
 ]
 
 [flavor]
