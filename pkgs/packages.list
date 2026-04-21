@@ -53,6 +53,8 @@ jq
 lazygit
 lib32-mesa
 lib32-vulkan-radeon
+libreoffice-still
+libreoffice-still-zh-cn
 linux-firmware
 linux-zen
 linux-zen-headers
@@ -94,6 +96,7 @@ snapper
 starship
 sudo
 swayimg
+thunderbird
 tmux
 tree
 tree-sitter-cli
