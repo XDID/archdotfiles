@@ -1,0 +1,100 @@
+#!/usr/bin/bash
+set -eu
+
+MENU="$HOME/.local/bin/wmenu-color"
+TARGET_FILE="/tmp/my_timer_target"
+PID_FILE="/tmp/my_timer_pid"
+BELL="$HOME/.local/share/audio/notify-l.mp3"
+
+parse_to_seconds() {
+    local input="$1"
+    [[ "$input" =~ ^[0-9]+$ ]] && input="${input}m"
+    local calc_expr=$(echo "$input" | sed -E 's/h/*3600+/g; s/m/*60+/g; s/s/*1+/g')
+    echo $(( ${calc_expr}0 ))
+}
+
+seconds_to_fmt() {
+    local total=$1
+    local h=$(( total / 3600 ))
+    local m=$(( (total % 3600) / 60 ))
+    local s=$(( total % 60 ))
+    local fmt=""
+    [ $h -gt 0 ] && fmt+="${h}h "
+    [ $m -gt 0 ] && fmt+="${m}m "
+    [ $s -gt 0 ] && fmt+="${s}s"
+    echo "${fmt:-0s}"
+}
+
+cleanup() {
+    rm -f "$TARGET_FILE" "$PID_FILE"
+}
+
+start_timer() {
+    if [ -f "$PID_FILE" ]; then
+        local choice=$(printf "yes\nno" | "$MENU" -p "Clean old timer?")
+
+        case "$choice" in
+            "yes")
+                local old_pid=$(cat "$PID_FILE")
+                kill -TERM "$old_pid" 2>/dev/null || true
+                ;;
+            *)
+                return 0
+                ;;
+        esac
+    fi
+
+    local input=$(echo "" | "$MENU" -p "Timer ")
+    [ -z "$input" ] && exit 0
+
+    echo $$ > "$PID_FILE"
+
+    local total_seconds=$(parse_to_seconds "$input")
+    if [ "$total_seconds" -eq 0 ]; then
+        notify-send -e "Timer" "Wrong time format"
+        exit 1
+    fi
+
+    echo "$(( $(date +%s) + total_seconds ))" > "$TARGET_FILE"
+
+    notify-send -e "Timer" "Timer start: $(seconds_to_fmt $total_seconds)"
+
+    trap 'cleanup' EXIT
+    trap 'notify-send -e "Timer" "Timer stopped"; exit 0' INT TERM
+
+    sleep "$total_seconds" &
+    wait $!
+
+    notify-send -e "Timer" "Time up!"
+    [ -f "$BELL" ] && paplay "$BELL"
+}
+
+query_timer() {
+    if [ ! -f "$TARGET_FILE" ]; then
+        notify-send -e "Timer" "No active timer"
+        return
+    fi
+
+    local target=$(cat "$TARGET_FILE")
+    local now=$(date +%s)
+    local rem=$(( target - now ))
+
+    if [ "$rem" -le 0 ]; then
+        notify-send -e "Timer" "Almost done..."
+    else
+        notify-send -e "Timer" "Remaining: $(seconds_to_fmt $rem)"
+    fi
+}
+
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 [-t] [-q]"
+    exit 1
+fi
+
+while getopts "tq" opt; do
+    case $opt in
+        t) start_timer ;;
+        q) query_timer ;;
+        *) exit 1 ;;
+    esac
+done
