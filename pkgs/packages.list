@@ -1,7 +1,7 @@
 7zip
 adobe-source-han-sans-cn-fonts
 adw-gtk-theme
-alsa-utils
+alsa-firmware
 amd-ucode
 archlinuxcn-keyring
 arch-wiki-docs
@@ -93,6 +93,7 @@ rustup
 satty
 slurp
 snapper
+sof-firmware
 starship
 sudo
 swayimg
