@@ -13,7 +13,7 @@ win_workspace=$(
   jq --arg app_id "$app_id" '.[] | select(.app_id == $app_id) | .workspace_id'
 )
 
-if [ -z $win_workspace]; then
+if [ -z $win_workspace ]; then
   case "$app_id" in
     "floatterm")
       footclient -a floatterm tmux new-session -A
