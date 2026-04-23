@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+qs -c noctalia-shell ipc call cb refresh calcurse
+calcurse -x > $HOME/.config/calcurse/cal.ics

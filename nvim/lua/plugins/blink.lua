@@ -2,6 +2,7 @@ return {
 	"saghen/blink.cmp",
 	event = { "BufReadPost", "BufNewFile" },
 	dependencies = {
+		"saghen/blink.lib",
 		"archie-judd/blink-cmp-words",
 		{
 			"L3MON4D3/LuaSnip",
