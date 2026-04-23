@@ -13,6 +13,7 @@ binds {
     Mod+E hotkey-overlay-title="Open nautilus" {spawn "env" "GSK_RENDERER=gl" "GTK_IM_MODULE=fcitx" "nautilus";}
     Mod+Shift+C hotkey-overlay-title="Open noctalia clipboard manager" {spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard";}
     Mod+Shift+Ctrl+E hotkey-overlay-title="Restart noctalia server" { spawn-sh  "pkill qs || true && sleep 1 && qs -c noctalia-shell"; }
+    Mod+S hotkey-overlay-title="Calendar" { spawn "footclient" "calcurse"; }
 
     // #"Wmenu Tweeks"
     Alt+Space hotkey-overlay-title="Launcher" {spawn-sh "$HOME/.local/bin/wmenu-run-color"; }
@@ -34,6 +35,7 @@ binds {
     Shift+Alt+M hotkey-overlay-title="Music" {spawn-sh "$HOME/.local/bin/wmenu-music";}
     Shift+Alt+T hotkey-overlay-title="Timer" {spawn-sh "$HOME/.local/bin/wmenu-timer -t";}
     Shift+Alt+Ctrl+T hotkey-overlay-title="Timer Query" {spawn-sh "$HOME/.local/bin/wmenu-timer -q";}
+    Shift+Alt+Ctrl+P hotkey-overlay-title="Password" {spawn "passmenu" "--type";}
 
     // #"Media Control"
     Alt+0 hotkey-overlay-title="Change wallpaper" { spawn-sh "qs -c noctalia-shell ipc call wallpaper random all";}

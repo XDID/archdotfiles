@@ -14,15 +14,15 @@ $character
 add_newline = false
 
 [username]
-style_user = 'bg:cyan fg:bright-white'
-style_root = 'bg:red fg:bright-white'
+style_user = 'bg:cyan fg:black'
+style_root = 'bg:red fg:black'
 format = '[$user]($style)'
 disabled = false
 show_always = true
 
 [hostname]
 ssh_only = false
-format = '[@$ssh_symbol](bg:cyan fg:bright-white)[$hostname](bg:cyan fg:bright-white)'
+format = '[@$ssh_symbol](bg:cyan fg:black)[$hostname](bg:cyan fg:black)'
 trim_at = '.companyname.com'
 disabled = false
 
@@ -34,18 +34,18 @@ zsh_indicator = "Z"
 disabled = true
 
 [directory]
-style = 'bg:black fg:bright-white bold'
+style = 'bg:black fg:bright-black bold'
 home_symbol = "~"
 format=' [$path$read_only]($style)'
 
 [character]
-success_symbol = " [\\$](bright-white)"
+success_symbol = " [\\$](bright-black)"
 error_symbol = " [\\$](red)"
-vimcmd_symbol = " [\\$](bright-white)"
+vimcmd_symbol = " [\\$](bright-black)"
 
 [git_branch]
 format = "[ $branch]($style)"
-style = 'bg:black fg:bright-white bold'
+style = 'bg:black fg:bright-black bold'
 
 [git_status]
 style = "bg:black"
