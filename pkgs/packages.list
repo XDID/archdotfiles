@@ -21,6 +21,7 @@ cava
 chafa
 clash-verge-rev
 cliphist
+cronie
 ddcutil
 efibootmgr
 exfat-utils
@@ -85,6 +86,7 @@ pipewire-jack
 pipewire-pulse
 polkit-gnome
 power-profiles-daemon
+python-icalendar
 qt6ct
 resvg
 rime-ice-git
@@ -114,6 +116,7 @@ vulkan-radeon
 wayland-protocols
 wev
 wf-recorder
+wget
 wireplumber
 wl-clipboard
 wlsunset

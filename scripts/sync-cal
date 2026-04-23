@@ -1,0 +1,29 @@
+#!/usr/bin/bash
+
+CAL_DIR="$HOME/.local/share/calcurse/cals"
+[ -d "$CAL_DIR" ] || mkdir -p "$CAL_DIR"
+ALL_CAL_FILE="$CAL_DIR/all.ics"
+SYNC_CAL_FILE="$CAL_DIR/apple.ics"
+OLD_SYNC_CAL_FILE="$CAL_DIR/apple.old.ics"
+LOCAL_CAL_FILE="$CAL_DIR/local.ics"
+
+cd $CAL_DIR
+calcurse -x > "$ALL_CAL_FILE"
+rm -rf "$HOME/.local/share/calcurse/apts"
+$HOME/.local/bin/cal_rm_dup -c "$OLD_SYNC_CAL_FILE" -i "$ALL_CAL_FILE" -o $LOCAL_CAL_FILE
+
+curl "https://p208-caldav.icloud.com.cn/published/2/ODM2OTE3MTY4MDgzNjkxNxV71TEG3ygQhVGmiNuaolJt79J3OIM7Or7uWX7ArjeF9uxaSq_-qYfIqu5QfoQqJWis0OCVkTkljNVfTOQvyis" > "$CAL_DIR/schedule.ics"
+
+GLOBIGNORE=local.ics:all.ics:apple.old.ics
+$HOME/.local/bin/cal_rm_dup -c $LOCAL_CAL_FILE -i *.ics -o $SYNC_CAL_FILE
+[ -f "$SYNC_CAL_FILE" ] || exit 1
+calcurse -i "$SYNC_CAL_FILE"
+mv "$SYNC_CAL_FILE" "$OLD_SYNC_CAL_FILE"
+calcurse -i "$LOCAL_CAL_FILE"
+rm -rf *.ics all.ics
+unset GLOBIGNORE
+
+
+git add .
+git commit -m "update cal"
+git push

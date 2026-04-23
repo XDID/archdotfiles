@@ -1,0 +1,118 @@
+#!/usr/bin/env python3
+"""
+从 -i 文件中移除与 -c 文件中重复的日程（仅按标题+开始+结束时间，统一 Asia/Shanghai 时区）
+用法:
+    python3 cal_rm_dup2.py -c base1.ics base2.ics -i import1.ics import2.ics -o clean.ics
+"""
+import sys
+import hashlib
+import argparse
+from icalendar import Calendar, Event, Todo
+from datetime import datetime, timezone, timedelta
+from pathlib import Path
+
+LOCAL_TZ = timezone(timedelta(hours=8), 'Asia/Shanghai')
+
+
+def safe_read_ics(filepath):
+    raw = Path(filepath).read_bytes()
+    if raw.startswith(b'\xef\xbb\xbf'):
+        raw = raw[3:]
+    return Calendar.from_ical(raw)
+
+
+def to_local_naive(dt):
+    if dt is None:
+        return None
+    if dt.tzinfo is None:
+        return dt.replace(tzinfo=None)
+    local_dt = dt.astimezone(LOCAL_TZ)
+    return local_dt.replace(tzinfo=None)
+
+
+def get_comp_start_end(comp):
+    if 'dtstart' not in comp:
+        return None, None
+    start_dt = comp.decoded('dtstart')
+    if not isinstance(start_dt, datetime):
+        return None, None
+
+    if 'dtend' in comp:
+        end_dt = comp.decoded('dtend')
+    elif 'due' in comp:
+        end_dt = comp.decoded('due')
+    elif 'duration' in comp:
+        dur = comp.decoded('duration')
+        if isinstance(dur, timedelta):
+            end_dt = start_dt + dur
+        else:
+            end_dt = start_dt
+    else:
+        end_dt = start_dt
+
+    if not isinstance(end_dt, datetime):
+        end_dt = start_dt
+
+    return to_local_naive(start_dt), to_local_naive(end_dt)
+
+
+def event_fingerprint(comp):
+    summary = str(comp.get('summary', ''))
+    start, end = get_comp_start_end(comp)
+    start_str = start.isoformat() if start else ''
+    end_str = end.isoformat() if end else ''
+    fingerprint = f"{summary}|{start_str}|{end_str}"
+    return hashlib.sha256(fingerprint.encode()).hexdigest()
+
+
+def collect_fingerprints(file_list):
+    """从多个基准文件中收集所有事件指纹，若文件为空则跳过"""
+    fps = set()
+    for f in file_list:
+        # 跳过 /dev/null 或不存在的文件
+        if f == '/dev/null' or not Path(f).exists():
+            continue
+        try:
+            cal = safe_read_ics(f)
+            for comp in cal.walk():
+                if comp.name in ('VEVENT', 'VTODO'):
+                    fps.add(event_fingerprint(comp))
+        except ValueError:
+            # 文件为空或非法，忽略即可
+            continue
+    return fps
+
+
+def filter_import_files(input_files, base_fp_set, output_file):
+    """从 input_files 中删除与 base_fp_set 重复的条目，保存到 output_file"""
+    cleaned = Calendar()
+    cleaned.add('version', '2.0')
+    cleaned.add('prodid', '-//cal_rm_dup//clean//')
+
+    for fpath in input_files:
+        cal = safe_read_ics(fpath)
+        for comp in cal.walk():
+            if comp.name not in ('VEVENT', 'VTODO'):
+                continue
+            fp = event_fingerprint(comp)
+            if fp in base_fp_set:
+                print(f"⏭ 跳过（重复）: {comp.get('summary')} "
+                      f"({comp.get('dtstart').dt if comp.get('dtstart') else '无开始'})")
+                continue
+            cleaned.add_component(comp)
+
+    Path(output_file).write_bytes(cleaned.to_ical())
+    print(f"\n✅ 清洗完成，结果已保存至: {output_file}")
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='从 -i 文件中移除与 -c 文件重复的日程')
+    parser.add_argument('-c', '--base', nargs='+',
+                        required=True, help='基准日历文件（可多个）')
+    parser.add_argument('-i', '--input', nargs='+',
+                        required=True, help='需清洗的日历文件（可多个）')
+    parser.add_argument('-o', '--output', required=True, help='输出文件')
+    args = parser.parse_args()
+
+    base_fp = collect_fingerprints(args.base)
+    filter_import_files(args.input, base_fp, args.output)
