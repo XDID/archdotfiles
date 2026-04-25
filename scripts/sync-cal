@@ -26,4 +26,4 @@ unset GLOBIGNORE
 
 git add .
 git commit -m "update cal"
-git push
+git push &

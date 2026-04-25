@@ -26,8 +26,16 @@ return {
 			},
 		},
 		picker = {
+			ui_select = true,
+			sources = {
+				select = {
+					layout = {
+						preset = "ivy",
+					},
+				},
+			},
 			layout = {
-				preset = "ivy_split",
+				preset = "ivy",
 			},
 			matcher = { frecency = true, cwd_bonus = true, history_bonus = true },
 			formatters = { icon_width = 3 },
