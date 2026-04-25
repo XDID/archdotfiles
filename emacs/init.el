@@ -12,4 +12,5 @@
 (require 'im-config)
 (require 'flash-config)
 (require 'ivy-config)
+(require 'dired-config)
 (require 'keymap-evil)

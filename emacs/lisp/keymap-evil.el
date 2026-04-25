@@ -20,8 +20,10 @@
   (evil-global-set-key 'motion (kbd "<leader> Q") #'my/evil-force-quit)
 
   (evil-global-set-key 'normal (kbd "C-s") #'save-buffer)
-  (evil-global-set-key 'insert (kbd "C-s") #'save-buffer)
-  (evil-global-set-key 'visual (kbd "C-s") #'save-buffer)
+  (evil-global-set-key 'insert (kbd "C-s")
+                     (lambda () (interactive) (save-buffer) (evil-normal-state)))
+  (evil-global-set-key 'visual (kbd "C-s")
+                     (lambda () (interactive) (save-buffer) (evil-normal-state)))
 
 
   (evil-global-set-key 'normal (kbd "<leader> s f") #'my/counsel-project-files)
@@ -31,6 +33,8 @@
   (evil-global-set-key 'normal (kbd "<leader> <leader>") #'ivy-switch-buffer)
   (evil-global-set-key 'normal (kbd "<leader> s b") #'swiper-isearch)
   (evil-global-set-key 'normal (kbd "<leader> b j") #'my/counsel-current-buffer-jump)
+
+  (evil-global-set-key 'normal (kbd "-") #'dired-jump)
 )
 
 (provide 'keymap-evil)
