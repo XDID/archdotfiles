@@ -2,7 +2,7 @@
 
 (defconst my/default-font-family "Sarasa Term SC Nerd")
 (defconst my/default-font-height 155)
-(defconst my/cjk-font-family "LXGW WenKai Mono")
+(defconst my/cjk-font-family "LXGWWenKaiMono Nerd Font")
 (defconst my/cjk-font-size 16.5)
 
 (global-display-line-numbers-mode 1)

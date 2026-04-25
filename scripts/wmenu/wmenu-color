@@ -9,8 +9,8 @@ set -eu
 pgrep -x wmenu > /dev/null && exit 1 ||
 timeout 20 wmenu -i \
   -F \
-  -E "SourceCodePro regular 14" \
-  -C "LXGW WenKai Mono 14" \
+  -E "SarasaTermSCNerd 14" \
+  -C "LXGWWenKaiMono Nerd Font 14" \
   -N "$colorbg" \
   -S "$colorsbg" \
   -s "$colorbg" \
