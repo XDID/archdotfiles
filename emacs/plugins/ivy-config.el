@@ -1,4 +1,4 @@
-;;; ivy-config.el --- Ivy/Counsel/Swiper setup -*- lexical-binding: t; -*-
+;; ivy-config.el --- Ivy/Counsel/Swiper setup -*- lexical-binding: t; -*-
 
 (require 'project)
 (require 'recentf)

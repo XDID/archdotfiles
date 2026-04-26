@@ -7,11 +7,11 @@
 (require 'basic)
 
 ; pkgs
-(require 'evil-config)
 (require 'colorscheme)
+(require 'evil-config)
 (require 'im-config)
 (require 'flash-config)
 (require 'ivy-config)
 (require 'dired-config)
-(require 'lsp-config)
+(require 'treesitter-config)
 (require 'keymap-evil)
