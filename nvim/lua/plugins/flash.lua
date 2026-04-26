@@ -3,7 +3,11 @@ return {
 		"folke/flash.nvim",
 		event = "VeryLazy",
 		---@type Flash.Config
-		opts = {},
+		opts = {
+			jump = {
+				autojump = true,
+			},
+		},
 		keys = {
 			{
 				"s",

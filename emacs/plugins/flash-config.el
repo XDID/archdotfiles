@@ -4,6 +4,7 @@
   :commands (flash-jump flash-jump-continue flash-treesitter)
   :custom
   (flash-multi-window t)
+  (flash-autojump t)
   :config
   (require 'flash-evil)
   (require 'flash-isearch)

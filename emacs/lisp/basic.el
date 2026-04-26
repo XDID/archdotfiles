@@ -8,4 +8,8 @@
       auto-save-list-file-prefix
       (expand-file-name ".saves-" my/backup-directory))
 
+;; set custom file
+(setq custom-file "~/.config/emacs/emacs-custom.el")
+(load custom-file)
+
 (provide 'basic)

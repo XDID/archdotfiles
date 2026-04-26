@@ -50,4 +50,8 @@
 (add-hook 'server-after-make-frame-hook #'my/apply-fonts)
 (my/apply-fonts)
 
+;; set alpha background
+(set-frame-parameter nil 'alpha-background 93)
+(add-to-list 'default-frame-alist '(alpha-background . 93))
+
 (provide 'ui)

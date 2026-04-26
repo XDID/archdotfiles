@@ -7,9 +7,9 @@
 (with-eval-after-load 'evil
   (evil-set-leader '(normal visual motion) (kbd "SPC"))
 
-  (evil-global-set-key 'normal (kbd "<leader> SPC") #'execute-extended-command)
-  (evil-global-set-key 'visual (kbd "<leader> SPC") #'execute-extended-command)
-  (evil-global-set-key 'motion (kbd "<leader> SPC") #'execute-extended-command)
+  (evil-global-set-key 'normal (kbd ":") #'execute-extended-command)
+  (evil-global-set-key 'visual (kbd ":") #'execute-extended-command)
+  (evil-global-set-key 'motion (kbd ":") #'execute-extended-command)
 
   (evil-global-set-key 'normal (kbd "<leader> q") #'evil-quit)
   (evil-global-set-key 'visual (kbd "<leader> q") #'evil-quit)
@@ -30,9 +30,10 @@
   (evil-global-set-key 'normal (kbd "<leader> s r") #'counsel-recentf)
   (evil-global-set-key 'normal (kbd "<leader> s C") #'my/counsel-emacs-config-files)
   (evil-global-set-key 'normal (kbd "<leader> s c") #'my/counsel-project-rg)
-  (evil-global-set-key 'normal (kbd "<leader> <leader>") #'ivy-switch-buffer)
+  (evil-global-set-key 'normal (kbd "<leader> SPC") #'ivy-switch-buffer)
   (evil-global-set-key 'normal (kbd "<leader> s b") #'swiper-isearch)
-  (evil-global-set-key 'normal (kbd "<leader> b j") #'my/counsel-current-buffer-jump)
+  (evil-global-set-key 'normal (kbd "<leader> s k") #'counsel-descbinds)
+  (evil-global-set-key 'normal (kbd "<leader> s h") #'counsel-describe-function)
 
   (evil-global-set-key 'normal (kbd "-") #'dired-jump)
 )

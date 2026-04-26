@@ -10,7 +10,8 @@ binds {
     Mod+Space hotkey-overlay-title="Noctalia launcher" {spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle";}
     Mod+Backslash hotkey-overlay-title="Open noctalia settings" {spawn "qs" "-c" "noctalia-shell" "ipc" "call" "settings" "open";}
     Mod+Backspace hotkey-overlay-title="Open btop" {spawn "footclient" "btop";}
-    Mod+E hotkey-overlay-title="Open nautilus" {spawn "env" "GSK_RENDERER=gl" "GTK_IM_MODULE=fcitx" "nautilus";}
+    // Mod+E hotkey-overlay-title="Open nautilus" {spawn "env" "GSK_RENDERER=gl" "GTK_IM_MODULE=fcitx" "nautilus";}
+    Mod+E hotkey-overlay-title="Open emacs" {spawn "emacs";}
     Mod+Shift+C hotkey-overlay-title="Open noctalia clipboard manager" {spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard";}
     Mod+Shift+Ctrl+E hotkey-overlay-title="Restart noctalia server" { spawn-sh  "pkill qs || true && sleep 1 && qs -c noctalia-shell"; }
     Mod+S hotkey-overlay-title="Calendar" { spawn "footclient" "calcurse"; }

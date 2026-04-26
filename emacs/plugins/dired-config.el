@@ -1,7 +1,7 @@
 (use-package dired
   :ensure nil        ; dired 是内置包，无需安装
   :hook
-  (dired-mode . dired-auto-revert-buffer)
+  (dired-mode . auto-revert-mode)
   :config
   (setq dired-dwim-target t)
   (setq dired-listing-switches "-alh --group-directories-first -v")
