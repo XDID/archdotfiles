@@ -8,6 +8,7 @@ arch-wiki-docs
 arch-wiki-docs-zh-cn
 base
 base-devel
+bash-language-server
 bat
 bazaar
 beets
@@ -19,6 +20,7 @@ btrfs-progs
 calcurse
 cava
 chafa
+clang
 clash-verge-rev
 cliphist
 cronie
@@ -88,6 +90,7 @@ pipewire-pulse
 polkit-gnome
 power-profiles-daemon
 python-icalendar
+python-lsp-server
 qt6ct
 resvg
 rime-ice-git

@@ -14,4 +14,6 @@
 (require 'ivy-config)
 (require 'dired-config)
 (require 'treesitter-config)
+(require 'eglot-config)
 (require 'keymap-evil)
+(require 'which-config)
