@@ -15,5 +15,6 @@
 (require 'dired-config)
 (require 'treesitter-config)
 (require 'eglot-config)
+(require 'multi-cursor-config)
 (require 'keymap-evil)
 (require 'which-config)
