@@ -67,6 +67,21 @@ vim.o.smartindent = true
 vim.o.winborder = "single"
 
 -- Diagnostic Config
+--- @param diagnostic? vim.Diagnostic
+--- @param bufnr integer
+local function on_jump(diagnostic, bufnr)
+	if not diagnostic then
+		return
+	end
+
+	vim.diagnostic.show(
+		diagnostic.namespace,
+		bufnr,
+		{ diagnostic },
+		{ virtual_lines = { current_line = true }, virtual_text = false }
+	)
+end
+
 vim.diagnostic.config({
 	update_in_insert = false,
 	severity_sort = true,
@@ -78,7 +93,7 @@ vim.diagnostic.config({
 	virtual_lines = false, -- Text shows up underneath the line, with virtual lines
 
 	-- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
-	jump = { float = true },
+	jump = { on_jump = on_jump },
 	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = "",

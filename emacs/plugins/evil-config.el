@@ -1,6 +1,7 @@
 (use-package evil
   :init
   (setq evil-want-C-i-jump nil)
+  (setq evil-want-minibuuffer-quit t)
   :config
   (evil-mode 1)
   (evil-set-undo-system 'undo-redo))

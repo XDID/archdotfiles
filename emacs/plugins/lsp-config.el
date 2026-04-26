@@ -1,3 +1,3 @@
-(use-package rust-mode)
+;;; lsp-config.el
 
 (provide 'lsp-config)

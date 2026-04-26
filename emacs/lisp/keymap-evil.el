@@ -36,6 +36,10 @@
   (evil-global-set-key 'normal (kbd "<leader> s h") #'counsel-describe-function)
 
   (evil-global-set-key 'normal (kbd "-") #'dired-jump)
+
+  (with-eval-after-load 'ivy
+    (define-key ivy-minibuffer-map (kbd "<escape>") 'minibuffer-keyboard-quit)
+    (evil-define-key '(normal insert) ivy-minibuffer-map (kbd "<escape>") 'minibuffer-keyboard-quit))
 )
 
 (provide 'keymap-evil)
