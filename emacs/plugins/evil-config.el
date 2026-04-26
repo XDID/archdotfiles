@@ -2,7 +2,8 @@
   :init
   (setq evil-want-C-i-jump nil)
   :config
-  (evil-mode 1))
+  (evil-mode 1)
+  (evil-set-undo-system 'undo-redo))
 
 (use-package evil-surround
   :after evil

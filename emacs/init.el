@@ -13,4 +13,5 @@
 (require 'flash-config)
 (require 'ivy-config)
 (require 'dired-config)
+(require 'lsp-config)
 (require 'keymap-evil)
