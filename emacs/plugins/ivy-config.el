@@ -1,5 +1,4 @@
 ;; ivy-config.el --- Ivy/Counsel/Swiper setup -*- lexical-binding: t; -*-
-
 (require 'project)
 (require 'recentf)
 
@@ -77,5 +76,9 @@
   :after ivy
   :config
   (ivy-rich-mode 1))
+
+(use-package all-the-icons-ivy-rich
+  :after (ivy-rich)
+  :init (all-the-icons-ivy-rich-mode 1))
 
 (provide 'ivy-config)

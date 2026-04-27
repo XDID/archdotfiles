@@ -47,9 +47,9 @@
 (add-hook 'minibuffer-setup-hook #'my/minibuffer-setup-capf)
 
 (with-eval-after-load 'corfu
-  (evil-global-set-key 'normal (kbd "TAB") #'corfu-insert)
-  (evil-global-set-key 'normal (kbd "<tab>") #'corfu-insert)
-  (evil-global-set-key 'normal (kbd "C-n") #'corfu-next)
-  (evil-global-set-key 'normal (kbd "C-p") #'corfu-previous))
+  (evil-global-set-key 'insert (kbd "TAB") #'corfu-insert)
+  (evil-global-set-key 'insert (kbd "<tab>") #'corfu-insert)
+  (evil-global-set-key 'insert (kbd "C-n") #'corfu-next)
+  (evil-global-set-key 'insert (kbd "C-p") #'corfu-previous))
 
 (provide 'eglot-config)
