@@ -16,7 +16,6 @@
           (delete-window eldoc-win)
         (call-interactively 'eldoc-print-current-symbol-info))))
 
-
 (with-eval-after-load 'evil
   (evil-set-leader '(normal visual motion) (kbd "SPC"))
 
@@ -39,7 +38,8 @@
                      (lambda () (interactive) (save-buffer) (evil-normal-state)))
 
   (evil-global-set-key 'normal (kbd "<leader> b d") #'evil-delete-buffer)
-
+  (evil-global-set-key 'normal (kbd "<leader> b n") #'evil-next-buffer)
+  (evil-global-set-key 'normal (kbd "<leader> b p") #'evil-next-buffer)
 
   (evil-global-set-key 'normal (kbd "<leader> s f") #'my/counsel-project-files)
   (evil-global-set-key 'normal (kbd "<leader> s r") #'counsel-recentf)
@@ -65,7 +65,6 @@
   (evil-global-set-key 'normal (kbd "g r f") #'eglot-format-buffer)
   (evil-global-set-key 'normal (kbd "] d") #'flymake-goto-next-error)
   (evil-global-set-key 'normal (kbd "[ d") #'flymake-goto-prev-error)
-  ;; (evil-global-set-key 'normal (kbd "K") #'eldoc)
   (evil-global-set-key 'normal "K" #'my-eldoc-toggle)
 
   (evil-global-set-key 'normal (kbd "-") #'dired-jump)

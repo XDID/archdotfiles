@@ -17,6 +17,7 @@
 (setq ring-bell-function 'ignore)
 (global-hi-lock-mode 1)
 
+;; set font
 (defun my/apply-fonts (&optional frame)
   (let ((frame (or frame (selected-frame)))
         (latin-font (font-spec :family my/default-font-family

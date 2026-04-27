@@ -18,3 +18,4 @@
 (require 'multi-cursor-config)
 (require 'keymap-evil)
 (require 'which-config)
+(require 'ui-config)

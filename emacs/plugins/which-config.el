@@ -12,7 +12,7 @@
   (which-key-add-column-padding 1)
   (which-key-max-description-length 40)
   (which-key-side-window-location 'bottom)
-  (which-key-side-window-max-height 0.25)
+  (which-key-side-window-max-height 0.40)
   :config
   (setq which-key-allow-imperfect-match t)
 

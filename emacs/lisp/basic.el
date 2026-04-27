@@ -19,6 +19,15 @@
 (setq-default tab-width 4)
 (setq-default standard-indent 4)
 (setq-default c-basic-offset 4)
+(setq
+ fringes-outside-margins t
+ echo-keystrokes 0.1
+ tab-always-indent 'complete
+ track-eol t
+ next-line-add-newlines nil
+ uniquify-buffer-name-style 'post-forward-angle-brackets)
+(fset 'yes-or-no-p 'y-or-n-p)
+(save-place-mode 1)
 
 (defun my/force-4-space-indent ()
   (unless (derived-mode-p 'makefile-mode 'makefile-gmake-mode 'makefile-bsdmake-mode)
