@@ -10,7 +10,6 @@ base
 base-devel
 bash-language-server
 bat
-bazaar
 beets
 bluez
 bluez-utils
@@ -41,7 +40,6 @@ firefox
 firefox-tridactyl-native
 fish
 fisher
-flatpak
 foliate
 foot
 fzf
