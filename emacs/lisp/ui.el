@@ -15,7 +15,6 @@
 (setq initial-scratch-message nil)
 (global-hl-line-mode 1)
 (setq ring-bell-function 'ignore)
-(global-hi-lock-mode 1)
 
 ;; set font
 (defun my/apply-fonts (&optional frame)

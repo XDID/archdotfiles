@@ -15,10 +15,9 @@
   (which-key-side-window-max-height 0.40)
   :config
   (setq which-key-allow-imperfect-match t)
-
+  (setq which-key-use-C-h-commands t)
   (with-eval-after-load 'evil
     (which-key-mode 1))
-
   (add-hook 'minibuffer-setup-hook #'which-key--hide-popup-ignore-command))
 
 (provide 'which-config)
