@@ -1,11 +1,12 @@
 (add-hook 'prog-mode-hook #'eglot-ensure)
 
-(add-hook 'eglot-managed-mode-hook
-          (lambda ()
-            (setq-local company-backends
-                        (cons '(company-capf :with company-dabbrev-code)
-                              (cl-remove 'company-capf company-backends :test #'equal)))
-            (eglot-code-lens-mode 1)))
+;; (add-hook 'eglot-managed-mode-hook
+;;           (lambda ()
+;;             (when (bound-and-true-p company-mode)
+;;               (setq-local company-backends
+;;                           (cons '(company-capf :with company-dabbrev-code)
+;;                                 (cl-remove 'company-capf company-backends :test #'equal))))
+;;             (eglot-code-lens-mode 1)))
 
 (setq eglot-server-programs
       '((python-ts-mode . ("pylsp"))
