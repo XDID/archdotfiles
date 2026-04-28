@@ -12,10 +12,9 @@ win_workspace_cn=$(
   niri msg -j windows |
   jq --arg app_id "$app_id" '.[] | select(.app_id == $app_id) | .workspace_id'
 )
-win_workspace=$(niri msg -j workspaces | jq -r --argjson id "$win_workspace_cn" '.[] | select(.idx == $id) | .name')
 
 
-if [ -z $win_workspace ]; then
+if [ -z $win_workspace_cn ]; then
   case "$app_id" in
     "floatterm")
       footclient -a floatterm tmux new-session -A & disown
@@ -25,6 +24,8 @@ if [ -z $win_workspace ]; then
       ;;
   esac
   exit 0
+else
+  win_workspace=$(niri msg -j workspaces | jq -r --argjson id "$win_workspace_cn" '.[] | select(.idx == $id) | .name')
 fi
 
 win_id=$(

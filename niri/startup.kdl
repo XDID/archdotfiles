@@ -19,3 +19,5 @@ spawn-sh-at-startup "/usr/bin/xhost +si:localuser:root"
 spawn-at-startup "emacs" "--daemon"
 // temp mission for thunderbird got a bug
 spawn-sh-at-startup "/home/harunato/.local/bin/remove-thunderbird"
+// auto focus
+spawn-at-startup "niri" "msg" "action" "focus-workspace" "2"
