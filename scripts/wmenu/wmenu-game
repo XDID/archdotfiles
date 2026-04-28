@@ -109,10 +109,15 @@ get_id_from_toml() {
   sed -n 's/^game_id = "umu-\(.*\)"/\1/p' "$file"
 }
 
-delete_game() {
-  [ $# -eq 1 ] || die "delete_game requires: name"
+list_games() {
+  [ -z "$BIN_PATH" ] && echo "no game..."
+  fd . -t f -t l "$BIN_PATH" --exec basename {} .toml
+}
 
-  name="$1"
+delete_game() {
+  # [ $# -eq 1 ] || die "delete_game requires: name"
+
+  name=$(list_games | fzf)
   toml="${TOML_PATH}/${name}.toml"
   bin="${BIN_PATH}/${name}"
   link="${HOME}/.local/bin/${name}"
@@ -125,10 +130,6 @@ delete_game() {
   printf "Deleted game: %s (id=%s)\n" "$name" "$id"
 }
 
-list_games() {
-  [ -z "$BIN_PATH" ] && echo "no game..."
-  fd . -t f -t l "$BIN_PATH" --exec basename {} .toml
-}
 
 run_game() {
   [ -z "$BIN_PATH" ] && echo "no game..."
@@ -156,7 +157,7 @@ main() {
       ;;
     d|delete|-d)
       shift
-      [ $# -eq 1 ] || { usage; exit 1; }
+      # [ $# -eq 1 ] || { usage; exit 1; }
       delete_game "$@"
       ;;
     run|r|-r)
