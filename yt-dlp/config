@@ -5,8 +5,6 @@
 
 --embed-metadata
 
---paths ~/Downloads/
-
 --output "%(title).80s.%(ext)s"
 
 --concurrent-fragments 3
