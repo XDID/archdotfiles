@@ -1,0 +1,12 @@
+{
+  "id": "my-spacer",
+  "name": "my-spacer",
+  "version": "1.2.3",
+  "minNoctaliaVersion": "3.6.0",
+  "author": "harunato",
+  "license": "MIT",
+  "description": "custom workspace(only for niri)",
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  }
+}
