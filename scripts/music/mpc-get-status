@@ -1,0 +1,19 @@
+#!/usr/bin/bash
+
+STATE=$(mpc status %state%)
+
+TITLE=$(mpc -f "%title%" current)
+[ -z "$TITLE" ] && TITLE=$(mpc -f "%file%" current)
+
+case "$STATE" in
+    "playing")
+        printf "%-5s\n" "$TITLE"
+        ;;
+    "paused")
+        CONTENT="!$TITLE"
+        printf "%-5s\n" "$CONTENT"
+        ;;
+    *)
+        echo "No Playing"
+        ;;
+esac
