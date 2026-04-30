@@ -5,6 +5,7 @@
 (require 'packages)
 (require 'ui)
 (require 'basic)
+(require 'slime-config)
 
 ; pkgs
 (require 'colorscheme)
