@@ -2,7 +2,7 @@ binds {
     // #"Applications"
     Mod+Shift+P hotkey-overlay-title="Start foot server" {spawn "/home/harunato/.local/bin/foots";}
     Mod+Shift+E hotkey-overlay-title="Start emacs server" {spawn-sh "pkill emacs || true && sleep .5 && emacs --daemon";}
-    Mod+Shift+N hotkey-overlay-title="Restart noctalia server" { spawn-sh  "pkill qs || true && sleep 1 && qs -c noctalia-shell"; }
+    Mod+Shift+N hotkey-overlay-title="Restart noctalia server" { spawn-sh "pkill qs || true && sleep 1 && qs -c noctalia-shell"; }
     Mod+X hotkey-overlay-title="Restart xremap server" { spawn-sh "pgrep xremap && echo 0411 | sudo -S pkill xremap || echo 0411 | sudo -S NIRI_SOCKET=\"$NIRI_SOCKET\" xremap --watch=config,device /home/harunato/.config/xremap/config.yml";}
     Mod+T hotkey-overlay-title="Open footclient" { spawn "footclient"; }
     Mod+Return hotkey-overlay-title="Open floatterm" { spawn-sh "$HOME/.local/bin/scratch floatterm"; }
@@ -57,31 +57,31 @@ binds {
 
     Mod+H hotkey-overlay-title="Focus left" { focus-column-left; }
     Mod+J hotkey-overlay-title="Focus down" { focus-window-down; }
-    Mod+K hotkey-overlay-title="Focus up"     { focus-window-up; }
-    Mod+L hotkey-overlay-title="Focus right"     { focus-column-right; }
-    Mod+Ctrl+H hotkey-overlay-title="Move left"     { move-column-left; }
-    Mod+Ctrl+J hotkey-overlay-title="Move down"     { move-window-down; }
-    Mod+Ctrl+K hotkey-overlay-title="Move up"     { move-window-up; }
-    Mod+Ctrl+L hotkey-overlay-title="Move right"     { move-column-right; }
+    Mod+K hotkey-overlay-title="Focus up" { focus-window-up; }
+    Mod+L hotkey-overlay-title="Focus right" { focus-column-right; }
+    Mod+Ctrl+H hotkey-overlay-title="Move left" { move-column-left; }
+    Mod+Ctrl+J hotkey-overlay-title="Move down" { move-window-down; }
+    Mod+Ctrl+K hotkey-overlay-title="Move up" { move-window-up; }
+    Mod+Ctrl+L hotkey-overlay-title="Move right" { move-column-right; }
     Mod+Home hotkey-overlay-title="Focus first" { focus-column-first; }
-    Mod+End hotkey-overlay-title="Focus last"  { focus-column-last; }
+    Mod+End hotkey-overlay-title="Focus last" { focus-column-last; }
     Mod+Ctrl+Home hotkey-overlay-title="Move to first" { move-column-to-first; }
-    Mod+Ctrl+End hotkey-overlay-title="Move to last"  { move-column-to-last; }
+    Mod+Ctrl+End hotkey-overlay-title="Move to last" { move-column-to-last; }
 
-    Mod+WheelScrollDown hotkey-overlay-title=null      cooldown-ms=150 { focus-window-down-or-column-right; }
-    Mod+WheelScrollUp hotkey-overlay-title=null        cooldown-ms=150 { focus-window-up-or-column-left; }
+    Mod+WheelScrollDown hotkey-overlay-title=null cooldown-ms=150 { focus-window-down-or-column-right; }
+    Mod+WheelScrollUp hotkey-overlay-title=null cooldown-ms=150 { focus-window-up-or-column-left; }
     Mod+Ctrl+WheelScrollDown hotkey-overlay-title=null cooldown-ms=150 { move-column-right; }
-    Mod+Ctrl+WheelScrollUp hotkey-overlay-title=null   cooldown-ms=150 { move-column-left; }
-    Mod+Shift+WheelScrollDown hotkey-overlay-title=null      cooldown-ms=150 { focus-workspace-down; }
-    Mod+Shift+WheelScrollUp hotkey-overlay-title=null        cooldown-ms=150 { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollUp hotkey-overlay-title=null cooldown-ms=150 { move-column-left; }
+    Mod+Shift+WheelScrollDown hotkey-overlay-title=null cooldown-ms=150 { focus-workspace-down; }
+    Mod+Shift+WheelScrollUp hotkey-overlay-title=null cooldown-ms=150 { focus-workspace-up; }
     Mod+Ctrl+Shift+WheelScrollDown hotkey-overlay-title=null cooldown-ms=150 { move-column-to-workspace-down; }
-    Mod+Ctrl+Shift+WheelScrollUp hotkey-overlay-title=null   cooldown-ms=150 { move-column-to-workspace-up; }
+    Mod+Ctrl+Shift+WheelScrollUp hotkey-overlay-title=null cooldown-ms=150 { move-column-to-workspace-up; }
     Mod+MouseMiddle { close-window; }
 
     // consume and expel
-    Mod+BracketLeft hotkey-overlay-title="Consume left"  { consume-or-expel-window-left; }
+    Mod+BracketLeft hotkey-overlay-title="Consume left" { consume-or-expel-window-left; }
     Mod+BracketRight hotkey-overlay-title="Consume right" { consume-or-expel-window-right; }
-    Mod+Comma hotkey-overlay-title="Consume all"  { consume-window-into-column; }
+    Mod+Comma hotkey-overlay-title="Consume all" { consume-window-into-column; }
     Mod+Period hotkey-overlay-title="Expel all" { expel-window-from-column; }
 
     Mod+R hotkey-overlay-title="Switch width" { switch-preset-column-width; }
@@ -98,45 +98,36 @@ binds {
     Mod+Shift+Equal hotkey-overlay-title="Increase height" { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V hotkey-overlay-title="Floating"       { toggle-window-floating; }
+    Mod+V hotkey-overlay-title="Floating" { toggle-window-floating; }
     Mod+Shift+V hotkey-overlay-title="Switch between float" { switch-focus-between-floating-and-tiling; }
+    Mod+Ctrl+Shift+Ctrl+H hotkey-overlay-title="Move window left" {spawn "niri" "msg" "action" "move-floating-window" "-x" "-4"; }
+    Mod+Ctrl+Shift+Ctrl+L hotkey-overlay-title="Move window right" {spawn "niri" "msg" "action" "move-floating-window" "-x" "+4"; }
+    Mod+Ctrl+Shift+Ctrl+J hotkey-overlay-title="Move window down" {spawn "niri" "msg" "action" "move-floating-window" "-y" "+4"; }
+    Mod+Ctrl+Shift+Ctrl+K hotkey-overlay-title="Move window left" {spawn "niri" "msg" "action" "move-floating-window" "-y" "-4"; }
+    Mod+Ctrl+Shift+Ctrl+Y hotkey-overlay-title="Move window topleft" {spawn-sh "$HOME/.local/bin/niri-movewindow topleft"; }
+    Mod+Ctrl+Shift+Ctrl+O hotkey-overlay-title="Move window topright" {spawn-sh "$HOME/.local/bin/niri-movewindow topright"; }
+    Mod+Ctrl+Shift+Ctrl+U hotkey-overlay-title="Move window bottomleft" {spawn-sh "$HOME/.local/bin/niri-movewindow bottomleft"; }
+    Mod+Ctrl+Shift+Ctrl+I hotkey-overlay-title="Move window bottomright" {spawn-sh "$HOME/.local/bin/niri-movewindow bottomright"; }
 
     // Toggle tabbed column display mode.
     Mod+W hotkey-overlay-title="Tabbed" { toggle-column-tabbed-display; }
 
-    // Mod+Shift+H     { focus-monitor-left; }
-    // Mod+Shift+J     { focus-monitor-down; }
-    // Mod+Shift+K     { focus-monitor-up; }
-    // Mod+Shift+L     { focus-monitor-right; }
-    // Mod+Shift+Ctrl+H     { move-column-to-monitor-left; }
-    // Mod+Shift+Ctrl+J     { move-column-to-monitor-down; }
-    // Mod+Shift+Ctrl+K     { move-column-to-monitor-up; }
-    // Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
-
     // #"Workspace Operation"
-    Mod+U hotkey-overlay-title="Focus wokspace down"              { focus-workspace-down; }
-    Mod+I hotkey-overlay-title="Focus wokspace up"              { focus-workspace-up; }
-    Mod+Ctrl+U hotkey-overlay-title="Move to below workspace"         { move-column-to-workspace-down; }
-    Mod+Ctrl+I hotkey-overlay-title="Move to up Workspace"         { move-column-to-workspace-up; }
+    Mod+U hotkey-overlay-title="Focus wokspace down" { focus-workspace-down; }
+    Mod+I hotkey-overlay-title="Focus wokspace up" { focus-workspace-up; }
+    Mod+Ctrl+U hotkey-overlay-title="Move to below workspace" { move-column-to-workspace-down; }
+    Mod+Ctrl+I hotkey-overlay-title="Move to up Workspace" { move-column-to-workspace-up; }
 
     Mod+1 hotkey-overlay-title=null { focus-workspace "1"; }
     Mod+2 hotkey-overlay-title=null { focus-workspace "2"; }
     Mod+3 hotkey-overlay-title=null { focus-workspace "3"; }
     Mod+4 hotkey-overlay-title=null { focus-workspace "4"; }
     Mod+5 hotkey-overlay-title=null { focus-workspace "5"; }
-    Mod+6 hotkey-overlay-title=null { focus-workspace "6"; }
-    Mod+7 hotkey-overlay-title=null { focus-workspace "7"; }
-    Mod+8 hotkey-overlay-title=null { focus-workspace "8"; }
-    Mod+9 hotkey-overlay-title=null { focus-workspace "9"; }
     Mod+Ctrl+1 hotkey-overlay-title=null { move-column-to-workspace "1"; }
     Mod+Ctrl+2 hotkey-overlay-title=null { move-column-to-workspace "2"; }
     Mod+Ctrl+3 hotkey-overlay-title=null { move-column-to-workspace "3"; }
     Mod+Ctrl+4 hotkey-overlay-title=null { move-column-to-workspace "4"; }
     Mod+Ctrl+5 hotkey-overlay-title=null { move-column-to-workspace "5"; }
-    Mod+Ctrl+6 hotkey-overlay-title=null { move-column-to-workspace "6"; }
-    Mod+Ctrl+7 hotkey-overlay-title=null { move-column-to-workspace "7"; }
-    Mod+Ctrl+8 hotkey-overlay-title=null { move-column-to-workspace "8"; }
-    Mod+Ctrl+9 hotkey-overlay-title=null { move-column-to-workspace "9"; }
 
     // #"Other"
     Mod+Ctrl+V hotkey-overlay-title="Wtype paste" { spawn-sh "wtype $(wl-paste)"; }

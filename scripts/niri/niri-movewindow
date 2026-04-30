@@ -1,0 +1,31 @@
+#!/usr/bin/bash
+
+read width height <<< $(niri msg focused-window | grep "Tile size:" | awk -F': ' '{print $2}' | tr -d ' ' | tr 'x' ' ')
+width=${width%.*}
+height=${height%.*}
+read screen_width screen_height <<< $(niri msg outputs | grep -m 1 "Logical size:" | awk -F': ' '{print $2}' | tr -d ' ' | tr 'x' ' ')
+screen_width=${screen_width%.*}
+screen_height=${screen_height%.*}
+
+case "${1:-}" in
+    "topleft")
+        pos_x=0
+        pos_y=0
+        ;;
+    "topright")
+        pos_x=$(($screen_width - $width))
+        pos_y=0
+        ;;
+    "bottomleft")
+        pos_x=0
+        pos_y=$(($screen_height - $height))
+        ;;
+    "bottomright")
+        pos_x=$(($screen_width - $width))
+        pos_y=$(($screen_height - $height))
+        ;;
+    *)
+        ;;
+esac
+
+niri msg action move-floating-window -x $pos_x -y $pos_y
