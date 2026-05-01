@@ -91,6 +91,7 @@ power-profiles-daemon
 python-icalendar
 python-lsp-server
 qt6ct
+reflector
 resvg
 rime-ice-git
 ripgrep

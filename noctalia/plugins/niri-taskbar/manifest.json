@@ -1,11 +1,11 @@
 {
-  "id": "my-spacer",
-  "name": "my-spacer",
+  "id": "niri-taskbar",
+  "name": "niri-taskbar",
   "version": "1.2.3",
   "minNoctaliaVersion": "3.6.0",
   "author": "harunato",
   "license": "MIT",
-  "description": "custom workspace(only for niri)",
+  "description": "custom taskbar(only for niri)",
   "entryPoints": {
     "barWidget": "BarWidget.qml"
   }
