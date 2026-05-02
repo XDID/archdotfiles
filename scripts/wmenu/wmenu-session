@@ -7,9 +7,10 @@ SELECTION=$(printf "Lock\nSuspend\nReboot\nShutdown" | "$MENU" -l4 -i -p "Niri "
 
 case "$SELECTION" in
     "Lock")
-        qs -c noctalia-shell ipc call lockScreen lock ;;
+        swaylock ;;
     "Suspend")
-        qs -c noctalia-shell ipc call sessionMenu lockAndSuspend ;;
+        swaylock
+        systemctl suspend ;;
     "Reboot")
         systemctl reboot ;;
     "Shutdown")

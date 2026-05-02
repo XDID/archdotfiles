@@ -222,7 +222,7 @@ s/#8ff0a4/$COLOR_AUDIO_PALE/g"
 # [三] 执行核心流程
 # ==============================================================================
 
-TEMPLATE_DIR="$HOME/.config/noctalia/templates/gtk-folder/Adwaita-Matugen"
+TEMPLATE_DIR="$HOME/.config/matugen/templates/gtk-folder/Adwaita-Matugen"
 CURRENT_THEME=$(gsettings get org.gnome.desktop.interface icon-theme | tr -d "'")
 
 if [[ "$CURRENT_THEME" == "Adwaita-Matugen-A" ]]; then

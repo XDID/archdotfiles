@@ -14,6 +14,7 @@ bat
 beets
 bluez
 bluez-utils
+brightnessctl
 btop
 btrfs-assistant
 btrfs-progs
@@ -94,6 +95,7 @@ power-profiles-daemon
 python-icalendar
 python-lsp-server
 qt6ct
+qt6-wayland
 reflector
 resvg
 rime-ice-git
@@ -109,6 +111,7 @@ sof-firmware
 starship
 sudo
 swayimg
+swaylock-effects
 thunderbird
 tmux
 tree

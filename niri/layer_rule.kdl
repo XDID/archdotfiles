@@ -1,9 +1,4 @@
 // blur overview
-layer-rule {
-    match namespace="^noctalia-overview*"
-    place-within-backdrop true
-}
-
 layer-rule{
     match namespace="awww-daemonoverview"
     place-within-backdrop true

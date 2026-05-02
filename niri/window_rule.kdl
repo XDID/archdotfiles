@@ -12,7 +12,7 @@ window-rule {
 
 // floating and center some window
 window-rule {
-    match app-id=r#"dev.noctalia.noctalia-qs$"#
+    // match app-id=r#"dev.noctalia.noctalia-qs$"#
     match app-id="steam"
     match app-id="org.gnome.Nautilus"
     match app-id="com.gabm.satty"

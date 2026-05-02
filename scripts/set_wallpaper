@@ -1,0 +1,50 @@
+#!/usr/bin/bash
+
+WALLPAPER_PATH="$HOME/Pictures/Wallpapers/Dark"
+
+random_mode=true
+specified_image=""
+
+while getopts ":ri:" opt; do
+    case $opt in
+        r) random_mode=true ;;              # 显式随机（其实就是默认行为）
+        i) specified_image="$OPTARG"; random_mode=false ;;
+        \?) echo "无效选项: -$OPTARG" >&2; exit 1 ;;
+        :)  echo "选项 -$OPTARG 需要参数" >&2; exit 1 ;;
+    esac
+done
+
+if [[ -n "$specified_image" ]]; then
+    if [[ ! -f "$specified_image" ]]; then
+        echo "错误: 图片文件不存在: $specified_image" >&2
+        exit 1
+    fi
+    image="$specified_image"
+else
+    mode="$(gsettings get org.gnome.desktop.interface color-scheme)"
+    if [[ "$mode" == "'prefer-light'" ]]; then
+        WALLPAPER_PATH="$HOME/Pictures/Wallpapers/Light"
+    else
+        WALLPAPER_PATH="$HOME/Pictures/Wallpapers/Dark"
+    fi
+
+    cur_wallpaper=$(awww query | grep -Eo "/home.*(Dark|Light).*")
+
+    image=$(find "$WALLPAPER_PATH" -type f | shuf -n1)
+    max_tries=50; tries=0
+    while [[ "$image" == "$cur_wallpaper" && $tries -lt $max_tries ]]; do
+        image=$(find "$WALLPAPER_PATH" -type f | shuf -n1)
+        ((tries++))
+    done
+
+    if [[ -z "$image" ]]; then
+        echo "错误: 在 $WALLPAPER_PATH 中未找到图片" >&2
+        exit 1
+    fi
+fi
+
+awww img "$image" --transition-type none
+
+if [[ "$XDG_CURRENT_DESKTOP" == "niri" ]]; then
+    awww img "$image" --transition-type none -n overview
+fi

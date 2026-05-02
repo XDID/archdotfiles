@@ -214,7 +214,7 @@ swayimg.viewer.on_key("Shift-i", function()
 end)
 
 swayimg.viewer.on_key("Shift-w", function()
-	exec_with_path("awww img %")
+	exec_with_path("/home/harunato/.local/bin/set_wallpaper -i %")
 	swayimg.exit()
 end)
 
