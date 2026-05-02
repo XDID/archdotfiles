@@ -1,10 +1,6 @@
 #!/usr/bin/bash
 
 niri msg action do-screen-transition --delay-ms 800 &
-CONFIG_FILE="$HOME/.config/noctalia/settings.json"
-
-DARK_WALLPAPER="/home/harunato/Pictures/Wallpapers/Dark"
-LIGHT_WALLPAPER="/home/harunato/Pictures/Wallpapers/Light"
 mode="$(gsettings get org.gnome.desktop.interface color-scheme)"
 
 if [ "$mode" = "'prefer-light'" ]; then
@@ -26,3 +22,4 @@ matugen json "/home/harunato/.config/matugen/colors/kanagawa/$MATUGEN_COLOR.json
 gsettings set org.gnome.desktop.interface color-scheme "$GTK_MODE"
 gsettings set org.gnome.desktop.interface gtk-theme ""
 gsettings set org.gnome.desktop.interface gtk-theme "$GTK_THEME"
+$HOME/.local/bin/set_wallpaper
