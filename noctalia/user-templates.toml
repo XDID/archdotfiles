@@ -34,42 +34,45 @@ post_hook = 'pgrep tmux && tmux source-file /home/harunato/.config/tmux/color.co
 # post_hook = 'pkill -USR2 btop || true'
 #
 # [templates.cava]
-# input_path = '~/.config/noctalia/templates/noctalia.tail'
+# input_path = '~/.config/noctalia/templates/cava/noctalia.tail'
 # output_path = '~/.config/cava/themes/noctalia'
 # post_hook = 'pkill -USR1 cava'
 #
-# # not write
 # [templates.dunst]
 # input_path = '~/.config/noctalia/templates/dunst/dunstrc.tail'
 # output_path = '~/.config/dunst/dunstrc'
 # post_hook = 'dunstctl reload'
 #
 # [templates.gtk3]
-# input_path = 'path/to/template'
-# output_path = '~/.config/gtk-3.0/colors.css'
-# post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme ""; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-{{mode}}'
+# input_path = '~/.config/noctalia/templates/gtk3/noctalia.css.tail'
+# output_path = '~/.config/gtk-3.0/noctalia.css'
 #
 # [templates.gtk4]
-# input_path = 'path/to/template'
-# output_path = '~/.config/gtk-4.0/colors.css'
+# input_path = '~/.config/noctalia/templates/gtk4/noctalia.css.tail'
+# output_path = '~/.config/gtk-4.0/noctalia.css'
 #
 # [templates.niri]
-# input_path = 'path/to/templates/niri-colors.kdl'
-# output_path = '~/.config/niri/colors.kdl'
+# input_path = '~/.config/noctalia/templates/niri/noctalia.kdl.tail'
+# output_path = '~/.config/niri/noctalia.kdl'
 # post_hook = 'niri msg action load-config-file'
+#
 # [templates.pywalfox]
-# input_path = 'path/to/template'
+# input_path = '~/.config/noctalia/templates/pywalfox/colors.json.tail'
 # output_path = '~/.cache/wal/colors.json'
 # post_hook = 'pywalfox update'
+#
 # [templates.qt5ct]
-# input_path = 'path/to/template'
+# input_path = '~/.config/noctalia/templates/qt5ct/qtct.conf'
 # output_path = '~/.config/qt5ct/colors/matugen.conf'
+#
 # [templates.qt6ct]
-# input_path = 'path/to/template'
+# input_path = '~/.config/noctalia/templates/qt6ct/qtct.conf'
 # output_path = '~/.config/qt6ct/colors/matugen.conf'
+#
 # [templates.yazi]
-# input_path = 'path/to/template'
-# output_path = '~/.config/yazi/theme.toml'
+# input_path = '~/.config/noctalia/templates/yazi/flavor.toml.tail'
+# output_path = '~/.config/yazi/flavors/noctalia.yazi/flavor.toml'
+#
 # [templates.kcolorscheme]
-# input_path = 'path/to/template'
+# input_path = '~/.config/noctalia/templates/kcolorscheme/noctalia.colors.tail'
 # output_path = '~/.local/share/color-schemes/noctalia.colors'
