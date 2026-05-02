@@ -4,6 +4,11 @@ layer-rule {
     place-within-backdrop true
 }
 
+layer-rule{
+    match namespace="awww-daemonoverview"
+    place-within-backdrop true
+}
+
 // wmenu blur
 layer-rule {
   match namespace="^menu$"

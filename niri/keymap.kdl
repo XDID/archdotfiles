@@ -14,7 +14,6 @@ binds {
     Mod+Backspace hotkey-overlay-title="Open btop" {spawn "footclient" "btop";}
     // Mod+E hotkey-overlay-title="Open nautilus" {spawn "env" "GSK_RENDERER=gl" "GTK_IM_MODULE=fcitx" "nautilus";}
     Mod+E hotkey-overlay-title="Open emacs" {spawn "emacsclient" "-nca" "";}
-    Mod+Shift+C hotkey-overlay-title="Open noctalia clipboard manager" {spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "clipboard";}
     Mod+S hotkey-overlay-title="Calendar" { spawn "footclient" "calcurse"; }
 
     // #"Wmenu Tweeks"
