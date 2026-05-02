@@ -14,5 +14,5 @@ prepend_dirs = [
 ]
 
 [flavor]
-dark  = "noctalia"
-light = "noctalia"
+dark  = "matugen"
+light = "matugen"

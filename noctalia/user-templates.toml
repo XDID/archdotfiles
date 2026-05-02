@@ -1,6 +1,9 @@
 [config]
 
 [templates]
+[templates.color-list]
+input_path = '~/.config/noctalia/templates/color-list'
+output_path = '~/.config/noctalia/color-list'
 # [templates.qutebrowser]
 # input_path = "~/.config/noctalia/templates/qutebrowser/noctalia.py.tail"
 # output_path = "~/.config/qutebrowser/noctalia.py"

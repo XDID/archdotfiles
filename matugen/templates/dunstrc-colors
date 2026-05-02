@@ -49,20 +49,20 @@ per_monitor_dpi = false
 
 [urgency_low]
 timeout = 3
-background = "#f2ecbc"
-foreground = "#545464"
-highlight = "#c7d6b3"
+background = "{{colors.surface.default.hex}}"
+foreground = "{{colors.on_surface.default.hex}}"
+highlight = "{{colors.primary_container.default.hex}}"
 
 [urgency_normal]
 timeout = 6
-background = "#f2ecbc"
-foreground = "#545464"
-highlight = "#c7d6b3"
+background = "{{colors.surface.default.hex}}"
+foreground = "{{colors.on_surface.default.hex}}"
+highlight = "{{colors.primary_container.default.hex}}"
 
 [urgency_critical]
 timeout = 0
-background = "#f2ecbc"
-foreground = "#545464"
-highlight = "#c84053"
+background = "{{colors.surface.default.hex}}"
+foreground = "{{colors.on_surface.default.hex}}"
+highlight = "{{colors.error.default.hex}}"
 
 

@@ -24,6 +24,7 @@ clash-verge-rev
 cliphist
 cronie
 ddcutil
+dunst
 efibootmgr
 emacs-wayland
 exfat-utils
@@ -63,6 +64,7 @@ linux-zen
 linux-zen-headers
 localsend
 man-db
+matugen
 mpc
 mpd
 mpv

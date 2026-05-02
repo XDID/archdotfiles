@@ -9,23 +9,20 @@ mode="$(gsettings get org.gnome.desktop.interface color-scheme)"
 
 if [ "$mode" = "'prefer-light'" ]; then
   TARGET_WALLPAPER_PATH="$DARK_WALLPAPER"
-  MODE="prefer-dark"
+  GTK_MODE="prefer-dark"
+  GTK_THEME="adw-gtk3-dark"
   SIGNAL="-USR1"
+  MATUGEN_COLOR="dark"
 else
   TARGET_WALLPAPER_PATH="$LIGHT_WALLPAPER"
-  MODE="prefer-light"
+  GTK_MODE="prefer-light"
+  GTK_THEME="adw-gtk3"
   SIGNAL="-USR2"
+  MATUGEN_COLOR="light"
 fi
 
-if command -v jq >/dev/null; then
-  tmp=$(mktemp)
-  jq ".wallpaper.directory = \"$TARGET_WALLPAPER_PATH\"" "$CONFIG_FILE" > "$tmp" && mv "$tmp" "$CONFIG_FILE"
-else
-  sed -i '/"wallpaper": {/,/}/ s#\("directory": "\).*#\1'"$TARGET_WALLPAPER_PATH"'",#' "$CONFIG_FILE"
-fi
-gsettings set org.gnome.desktop.interface color-scheme "$MODE"
 kill "$SIGNAL" $(pgrep -f "foot --server")
-sleep .2
-
-qs -c noctalia-shell ipc call wallpaper random all
-qs -c noctalia-shell ipc call darkMode toggle
+matugen json "/home/harunato/.config/matugen/colors/kanagawa/$MATUGEN_COLOR.json" -m $MATUGEN_COLOR
+gsettings set org.gnome.desktop.interface color-scheme "$GTK_MODE"
+gsettings set org.gnome.desktop.interface gtk-theme ""
+gsettings set org.gnome.desktop.interface gtk-theme "$GTK_THEME"

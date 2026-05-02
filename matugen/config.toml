@@ -1,0 +1,75 @@
+[config]
+
+[templates]
+[templates.btop]
+input_path = '~/.config/matugen/templates/btop.theme'
+output_path = '~/.config/btop/themes/matugen.theme'
+post_hook = 'pkill -USR2 btop || true'
+
+[templates.cava]
+input_path = '~/.config/matugen/templates/cava-colors.ini'
+output_path = '~/.config/cava/themes/matugen'
+post_hook = 'pkill -USR1 cava || true'
+
+[templates.dunst]
+input_path = '~/.config/matugen/templates/dunstrc-colors'
+output_path = '~/.config/dunst/dunstrc'
+post_hook = 'dunstctl reload || true'
+
+[templates.gtk3]
+input_path = '~/.config/matugen/templates/gtk.css'
+output_path = '~/.config/gtk-3.0/colors.css'
+post_hook = 'gsettings set org.gnome.desktop.interface gtk-theme ""; gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-{{mode}}'
+
+[templates.gtk4]
+input_path = '~/.config/matugen/templates/gtk.css'
+output_path = '~/.config/gtk-4.0/colors.css'
+
+# [templates.kitty]
+# input_path = '~/.config/matugen/templates/kitty-colors.conf'
+# output_path = '~/.config/kitty/themes/Matugen.conf'
+# post_hook = "kitty +kitten themes --reload-in=all Matugen"
+
+# [templates.qutebrowser]
+# input_path = "~/.config/matugen/templates/qutebrowser.py"
+# output_path = "~/.config/qutebrowser/matugen.py"
+
+[templates.gtk-folder]
+input_path = '~/.config/matugen/templates/gtk-folder/recoloricons.sh'
+output_path = '~/.cache/matugen/recoloricons.sh'
+post_hook = 'bash ~/.cache/matugen/recoloricons.sh &'
+
+[templates.wmenu-color]
+input_path = '~/.config/matugen/templates/wmenu-color.sh'
+output_path = '~/.config/wmenu/color.sh'
+
+[templates.rmpc]
+input_path = '~/.config/matugen/templates/rmpc.ron'
+output_path = '~/.config/rmpc/matugen.ron'
+
+[templates.tmux]
+input_path = '~/.config/matugen/templates/tmux-color.conf'
+output_path = '~/.config/tmux/color.conf'
+post_hook = 'pgrep tmux && tmux source-file /home/harunato/.config/tmux/color.conf'
+
+[templates.niri]
+input_path = '~/.config/matugen/templates/niri-color.kdl'
+output_path = '~/.config/niri/matugen.kdl'
+post_hook = 'niri msg action load-config-file'
+
+[templates.pywalfox]
+input_path = '~/.config/matugen/templates/pywalfox-colors.json'
+output_path = '~/.cache/wal/colors.json'
+post_hook = 'pywalfox update; pywalfox {{mode}}'
+
+[templates.qt5ct]
+input_path = '~/.config/matugen/templates/qtct.conf'
+output_path = '~/.config/qt5ct/colors/matugen.conf'
+
+[templates.qt6ct]
+input_path = '~/.config/matugen/templates/qtct.conf'
+output_path = '~/.config/qt6ct/colors/matugen.conf'
+
+[templates.yazi]
+input_path = '~/.config/matugen/templates/yazi-flavor.toml'
+output_path = '~/.config/yazi/flavors/matugen.yazi/flavor.toml'
