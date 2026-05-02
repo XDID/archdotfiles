@@ -1,13 +1,14 @@
 #!/usr/bin/bash
 
 WALLPAPER_PATH="$HOME/Pictures/Wallpapers/Dark"
+BLUR_IMAGE="$HOME/Pictures/Wallpapers/cache"
 
 random_mode=true
 specified_image=""
 
 while getopts ":ri:" opt; do
     case $opt in
-        r) random_mode=true ;;              # 显式随机（其实就是默认行为）
+        r) random_mode=true ;;
         i) specified_image="$OPTARG"; random_mode=false ;;
         \?) echo "无效选项: -$OPTARG" >&2; exit 1 ;;
         :)  echo "选项 -$OPTARG 需要参数" >&2; exit 1 ;;
@@ -46,5 +47,9 @@ fi
 awww img "$image" --transition-type none
 
 if [[ "$XDG_CURRENT_DESKTOP" == "niri" ]]; then
-    awww img "$image" --transition-type none -n overview
+    blur_image="$BLUR_IMAGE/$(basename $image)"
+    if [[ ! -f "$blur_image" ]]; then
+        magick $image -resize 20% -blur 0x5 $blur_image
+    fi
+    awww img "$blur_image" --transition-type none -n overview
 fi
