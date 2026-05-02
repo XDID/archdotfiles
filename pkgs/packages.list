@@ -6,6 +6,7 @@ amd-ucode
 archlinuxcn-keyring
 arch-wiki-docs
 arch-wiki-docs-zh-cn
+awww
 base
 base-devel
 bash-language-server
@@ -120,6 +121,7 @@ unrar
 unzip
 uv
 vulkan-radeon
+waybar
 wayland-protocols
 wev
 wf-recorder

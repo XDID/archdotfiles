@@ -1,0 +1,40 @@
+/* 全局重置，去除任何边框与圆角 */
+* {
+    border: none;
+    border-radius: 0;
+    font-family: monospace, sans-serif;
+    font-size: 13px;
+    min-height: 0;
+}
+
+/* 状态栏背景与主色调，模仿 dwmbar */
+window#waybar {
+    background: #222222;
+    color: #bbbbbb;
+}
+
+/* 工作区按钮：默认灰色，活动工作区白色 */
+#workspaces button {
+    padding: 0 6px;
+    background: transparent;
+    color: #888888;
+    border: none;
+    box-shadow: none;
+}
+
+#workspaces button.active {
+    color: #ffffff;
+}
+
+/* 窗口标题 */
+#window {
+    color: #bbbbbb;
+}
+
+/* 右侧模块间距 */
+#cpu,
+#memory,
+#clock {
+    color: #bbbbbb;
+    padding: 0 8px;
+}

@@ -214,7 +214,7 @@ swayimg.viewer.on_key("Shift-i", function()
 end)
 
 swayimg.viewer.on_key("Shift-w", function()
-	exec_with_path("qs -c noctalia-shell ipc call wallpaper set % all")
+	exec_with_path("awww img %")
 	swayimg.exit()
 end)
 
