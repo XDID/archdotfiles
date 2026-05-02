@@ -30,7 +30,8 @@
     "niri/window": {
         "format": " {title} ",
         "rewrite": {
-            "(.*) 隐私浏览": "隐私: $1"
+            "(.*) 隐私浏览 ": "隐私: $1",
+            "(.*) — Mozilla Firefox.*": "$1"
         }
     },
 
@@ -107,13 +108,15 @@
 
     "pulseaudio": {
         "format": "{icon}{volume}%]",
-        "format-bluetooth": "{volume}% {icon}",
+        "format-bluetooth": "{icon}{volume}% ]",
         "format-muted": " {volume}%]",
         "format-icons": {
             "default": [" ", " ", " "]
         },
         "on-click": "pavucontrol",
-        "ignored-sinks": ["Easy Effects Sink"]
+        "on-click-right": "pactl -- set-sink-mute 0 toggle",
+        "ignored-sinks": ["Easy Effects Sink"],
+        "scroll-step": 5.0
     },
 
     "privacy": {
