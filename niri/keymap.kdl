@@ -45,8 +45,8 @@ binds {
     Shift+Alt+Equal hotkey-overlay-title="Mpd next" { spawn "mpc" "next"; }
     Shift+Alt+Minus hotkey-overlay-title="Mpd prev" { spawn "mpc" "prev"; }
     Shift+Alt+Grave hotkey-overlay-title="Mpd toggle" { spawn "mpc" "toggle"; }
-    Alt+BracketRight hotkey-overlay-title="Brightness up" { spawn "brightnessctl" "-d" "ddcci*" "set" "5%+" ; }
-    Alt+BracketLeft hotkey-overlay-title="Brightness down" { spawn "brightnessctl" "-d" "ddcci*" "set" "5%-" ; }
+    Alt+BracketRight hotkey-overlay-title="Brightness up" { spawn "brightnessctl" "-d" "ddcci*" "set" "10%+" ; }
+    Alt+BracketLeft hotkey-overlay-title="Brightness down" { spawn "brightnessctl" "-d" "ddcci*" "set" "10%-" ; }
 
     // #"Window Operation"
     Mod+O hotkey-overlay-title="Overview" repeat=false { toggle-overview; }

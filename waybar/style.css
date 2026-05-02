@@ -62,7 +62,7 @@ window#waybar {
 
 .cffi-niri-windows label {
     background: @on_primary;
-    font-size: 18px;
+    font-size: 20px;
     padding-left: 5px;
     padding-right: 5px;
 }
