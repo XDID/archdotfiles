@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+for bus in $(ddcutil detect | grep "I2C bus:" | awk -F'-' '{print $2}'); do
+    if [ -e "/sys/bus/i2c/devices/i2c-$bus/new_device" ]; then
+        echo "正在尝试绑定总线 i2c-$bus..."
+        echo "ddcci 0x37" | sudo tee "/sys/bus/i2c/devices/i2c-$bus/new_device"
+    fi
+done

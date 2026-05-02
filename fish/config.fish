@@ -16,6 +16,11 @@ export EDITOR="/usr/sbin/nvim"
 export VISUAL="/usr/sbin/nvim"
 export TERMINAL="footclient"
 
+# config go
+export GO111MODULE=on
+export GOPROXY=https://goproxy.cn,direct
+export GOPATH=$HOME/Go
+
 zoxide init fish | source
 starship init fish | source
 fzf --fish | source

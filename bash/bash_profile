@@ -14,4 +14,9 @@ export EDITOR="/usr/bin/nvim"
 export VISUAL="/usr/bin/nvim"
 export FZF_DEFAULT_OPTS_FILE="$HOME/.config/fzf/fzfrc"
 
+# config go
+export GO111MODULE=on
+export GOPROXY=https://goproxy.cn,direct
+export GOPATH=$HOME/Go
+
 [[ -f ~/.bashrc ]] && . ~/.bashrc

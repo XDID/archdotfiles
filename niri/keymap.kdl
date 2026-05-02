@@ -2,6 +2,7 @@ binds {
     // #"Applications"
     Mod+Shift+P hotkey-overlay-title="Start foot server" {spawn "/home/harunato/.local/bin/foots";}
     Mod+Shift+E hotkey-overlay-title="Start emacs server" {spawn-sh "pkill emacs || true && sleep .5 && emacs --daemon";}
+    Mod+Shift+W hotkey-overlay-title="Start waybar" {spawn-sh "pkill waybar || true && waybar";}
     Mod+X hotkey-overlay-title="Restart xremap server" { spawn-sh "pgrep xremap && echo 0411 | sudo -S pkill xremap || echo 0411 | sudo -S NIRI_SOCKET=\"$NIRI_SOCKET\" xremap --watch=config,device /home/harunato/.config/xremap/config.yml";}
     Mod+T hotkey-overlay-title="Open footclient" { spawn "footclient"; }
     Mod+Return hotkey-overlay-title="Open floatterm" { spawn-sh "$HOME/.local/bin/scratch floatterm"; }
@@ -119,11 +120,19 @@ binds {
     Mod+3 hotkey-overlay-title=null { focus-workspace "3"; }
     Mod+4 hotkey-overlay-title=null { focus-workspace "4"; }
     Mod+5 hotkey-overlay-title=null { focus-workspace "5"; }
+    Mod+6 hotkey-overlay-title=null { focus-workspace "6"; }
+    Mod+7 hotkey-overlay-title=null { focus-workspace "7"; }
+    Mod+8 hotkey-overlay-title=null { focus-workspace "8"; }
+    Mod+9 hotkey-overlay-title=null { focus-workspace "9"; }
     Mod+Ctrl+1 hotkey-overlay-title=null { move-column-to-workspace "1"; }
     Mod+Ctrl+2 hotkey-overlay-title=null { move-column-to-workspace "2"; }
     Mod+Ctrl+3 hotkey-overlay-title=null { move-column-to-workspace "3"; }
     Mod+Ctrl+4 hotkey-overlay-title=null { move-column-to-workspace "4"; }
     Mod+Ctrl+5 hotkey-overlay-title=null { move-column-to-workspace "5"; }
+    Mod+Ctrl+6 hotkey-overlay-title=null { move-column-to-workspace "6"; }
+    Mod+Ctrl+7 hotkey-overlay-title=null { move-column-to-workspace "7"; }
+    Mod+Ctrl+8 hotkey-overlay-title=null { move-column-to-workspace "8"; }
+    Mod+Ctrl+9 hotkey-overlay-title=null { move-column-to-workspace "9"; }
 
     // #"Other"
     Mod+Ctrl+V hotkey-overlay-title="Wtype paste" { spawn-sh "wtype $(wl-paste)"; }

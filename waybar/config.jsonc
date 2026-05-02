@@ -1,44 +1,177 @@
 {
-    // 与 dwm 状态栏一样，固定在屏幕顶部
     "layer": "top",
     "position": "top",
-    "height": 15,
+    "height": 24,
 
-    "modules-left": ["niri/workspaces","niri/window"],
+    "modules-left": ["niri/workspaces", "cffi/niri-windows", "niri/window"],
     "modules-center": [],
-    "modules-right": ["cpu", "memory", "clock"],
+    "modules-right": ["tray","custom/calcurse","custom/checkupdates","mpd","disk", "cpu","memory", "temperature", "bluetooth", "network", "backlight", "pulseaudio","privacy", "clock"],
 
-    // 工作区：类似 dwm 的数字标签
-    "sway/workspaces": {
-        "disable-scroll": true,       // 禁止滚轮切换，避免与 Niri 快捷键冲突
-        "all-outputs": true,          // Niri 工作区是全局的，需要在所有显示器上显示
-        "format": "{name}",           // 只显示数字名称
-        "format-icons": {
-            "1": "1", "2": "2", "3": "3", "4": "4", "5": "5",
-            "6": "6", "7": "7", "8": "8", "9": "9"
+    "niri/workspaces": {
+        "format": "{name}"
+    },
+
+    "cffi/niri-windows": {
+      "module_path": "/home/harunato/.config/waybar/waybar-niri-windows.so",
+      "options": {
+        "mode": "text",
+        "show-floating": "auto",
+        "floating-position": "right",
+        "minimum-size": 1,
+        "spacing": 1,
+        "icon-minimum-size": 0,
+        "column-borders": 0, // border on .column
+        "floating-borders": 0, // border on .floating
+        "on-tile-click": "FocusWindow", // (default: FocusWindow)
+        "on-tile-middle-click": "CloseWindow" // (default: CloseWindow)
+      }
+    },
+
+    "niri/window": {
+        "format": " {title} ",
+        "rewrite": {
+            "(.*) 隐私浏览": "隐私: $1"
         }
     },
 
-    // 窗口标题（居中对齐）
-    "sway/window": {
-        "max-length": 80              // 超长标题截断，保持极简
+    "tray": {
+        "icon-size": 18,
+        "spacing": 6,
+        "show-passive-items": false
     },
 
-    // CPU 显示：简写为 "C 12%"
+    "custom/calcurse": {
+        "exec": "calcurse -Q --filter-type apt --filter-start-after \"$(date +'%m/%d/%Y %H:%M')\" --from today --days 7 --format-apt \" - %S → %E %m\\n\" | grep \"^ - [0-9]\" | wc -l",
+        "format": "[{icon}{text}]",
+        "format-icons": " ",
+        "signal": 10
+    },
+
+    "custom/checkupdates": {
+        "exec": "cat $HOME/.cache/checkupdates-cron.num",
+        "format": "[{icon} {text}]",
+        "format-icons": "",
+        "signal": 11
+    },
+
+    "mpd": {
+        "format": "[󰎇 {title}({elapsedTime:%M:%S}/{totalTime:%M:%S})]",
+        "format-disconnected": "[]",
+        "format-stopped": "[󰎊]",
+        "interval": 10,
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+
+    "disk": {
+        "format": "[ {percentage_used}% "
+    },
+
     "cpu": {
-        "format": "C {usage}%",
-        "tooltip": false
+        "format": " {usage}% "
     },
 
-    // 内存显示：简写为 "M 45%"
     "memory": {
-        "format": "M {percentage}%",
-        "tooltip": false
+        "format": " {used}GB "
     },
 
-    // 时钟（无秒）
+    "temperature": {
+        "format": " {temperatureC}°C]"
+    },
+
+    "bluetooth": {
+        "format": "[ {status} ",
+        "format-disabled": "[󰂲 ", // an empty format will hide the module
+        "format-connected": "[ {num_connections} ",
+        "tooltip-format": "{controller_alias}\t{controller_address}",
+        "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
+    },
+
+    "network": {
+        "format": "{ifname}",
+        "format-wifi": " {essid}{ipaddr}",
+        "format-ethernet": " {ipaddr}]",
+        "format-disconnected": "󰅛 ]",
+        "tooltip-format": "{ifname} via {gwaddr}  ",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%)  ",
+        "tooltip-format-ethernet": "{ifname}  ",
+        "tooltip-format-disconnected": "Disconnected",
+        "max-length": 50
+    },
+
+    "backlight": {
+        "format": "[{icon}{percent}% ",
+        "format-icons": ["󰃝 ", "󰃟 ", "󰃠 "]
+    },
+
+    "pulseaudio": {
+        "format": "{icon}{volume}%]",
+        "format-bluetooth": "{volume}% {icon}",
+        "format-muted": " {volume}%]",
+        "format-icons": {
+            "default": [" ", " ", " "]
+        },
+        "on-click": "pavucontrol",
+        "ignored-sinks": ["Easy Effects Sink"]
+    },
+
+    "privacy": {
+        "icon-spacing": 4,
+        "icon-size": 18,
+        "transition-duration": 250,
+        "modules": [
+            {
+                "type": "screenshare",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            },
+            {
+                "type": "audio-out",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            },
+            {
+                "type": "audio-in",
+                "tooltip": true,
+                "tooltip-icon-size": 24
+            }
+        ],
+        "ignore-monitor": true,
+        "ignore": [
+            {
+                "type": "audio-in",
+                "name": "cava"
+            },
+            {
+                "type": "screenshare",
+                "name": "obs"
+            }
+        ]
+    },
+
     "clock": {
-        "format": "{:%a %d %H:%M}",
-        "tooltip-format": "{:%Y-%m-%d %H:%M:%S}"
+        "format": "[󱑄 {:%m/%d %H:%M}]",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode"          : "year",
+            "mode-mon-col"  : 3,
+            "weeks-pos"     : "right",
+            "on-scroll"     : 1,
+            "format": {
+              "months":     "<span color='#ffead3'><b>{}</b></span>",
+              "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+              "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+              "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+              "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        },
+        "actions":  {
+            "on-click-right": "mode",
+            "on-scroll-up": "tz_up",
+            "on-scroll-down": "tz_down",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
     }
 }

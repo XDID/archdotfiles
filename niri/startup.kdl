@@ -17,9 +17,11 @@ spawn-sh-at-startup "/usr/bin/xhost +si:localuser:root"
 spawn-at-startup "emacs" "--daemon"
 // temp mission for thunderbird got a bug
 spawn-sh-at-startup "/home/harunato/.local/bin/remove-thunderbird"
-// auto focus
-spawn-at-startup "niri" "msg" "action" "focus-workspace" "2"
 // wallpaper
 spawn-at-startup "awww-daemon"
 spawn-at-startup "awww-daemon" "-n" "overview"
 spawn-sh-at-startup "$HOME/.local/bin/set_wallpaper"
+// bind-monitor
+spawn-sh-at-startup "echo 0411 | sudo -S $HOME/.local/bin/bind-monitor"
+// bar
+spawn-at-startup "waybar"

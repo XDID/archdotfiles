@@ -25,8 +25,7 @@ update_cache() {
     fi
 
     wc -w "$LOG_CACHE" | awk '{print $1}' > "$NUM_CACHE"
-
-    qs -c noctalia-shell ipc call cb refresh checkupdates
+    pkill -RTMIN+11 waybar
 }
 
 while [ -n "$1" ]; do

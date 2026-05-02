@@ -73,3 +73,8 @@ output_path = '~/.config/qt6ct/colors/matugen.conf'
 [templates.yazi]
 input_path = '~/.config/matugen/templates/yazi-flavor.toml'
 output_path = '~/.config/yazi/flavors/matugen.yazi/flavor.toml'
+
+[templates.waybar]
+input_path = '~/.config/matugen/templates/waybar-color.css'
+output_path = '~/.config/waybar/colors.css'
+post_hook = 'pkill -SIGUSR2 waybar'
