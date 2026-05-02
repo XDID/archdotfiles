@@ -1,0 +1,5 @@
+[Service]
+ExecStart=/usr/bin/niri-session
+
+[Install]
+WantedBy=default.target
