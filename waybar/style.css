@@ -84,8 +84,8 @@ window#waybar {
 #clock {
     color: @on_surface;
     background: @on_primary;
-    padding-left: 3px;
-    padding-right: 3px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 
 #tray {
