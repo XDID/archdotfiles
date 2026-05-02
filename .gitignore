@@ -58,3 +58,5 @@
 /yazi/flavors/matugen.yazi
 /yazi/flavors/noctalia.yazi/flavor.toml
 /dunst/dunstrc
+/go/telemetry/local
+/waybar/colors.css
