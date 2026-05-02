@@ -2,6 +2,7 @@
 
 WALLPAPER_PATH="$HOME/Pictures/Wallpapers/Dark"
 BLUR_IMAGE="$HOME/Pictures/Wallpapers/cache"
+mkdir -p $BLUR_IMAGE
 
 random_mode=true
 specified_image=""
