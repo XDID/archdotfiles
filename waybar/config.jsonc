@@ -5,7 +5,7 @@
 
     "modules-left": ["niri/workspaces", "cffi/niri-windows", "niri/window"],
     "modules-center": [],
-    "modules-right": ["tray","custom/calcurse","custom/checkupdates","mpd","disk", "cpu","memory", "temperature", "bluetooth", "network", "backlight", "pulseaudio","privacy", "clock"],
+    "modules-right": ["tray", "custom/calcurse", "custom/checkupdates", "mpd", "disk", "cpu", "memory", "temperature", "bluetooth", "network", "backlight", "pulseaudio", "clock"],
 
     "niri/workspaces": {
         "format": "{name}"
@@ -117,40 +117,6 @@
         "on-click-right": "pactl -- set-sink-mute 0 toggle",
         "ignored-sinks": ["Easy Effects Sink"],
         "scroll-step": 5.0
-    },
-
-    "privacy": {
-        "icon-spacing": 4,
-        "icon-size": 18,
-        "transition-duration": 250,
-        "modules": [
-            {
-                "type": "screenshare",
-                "tooltip": true,
-                "tooltip-icon-size": 24
-            },
-            {
-                "type": "audio-out",
-                "tooltip": true,
-                "tooltip-icon-size": 24
-            },
-            {
-                "type": "audio-in",
-                "tooltip": true,
-                "tooltip-icon-size": 24
-            }
-        ],
-        "ignore-monitor": true,
-        "ignore": [
-            {
-                "type": "audio-in",
-                "name": "cava"
-            },
-            {
-                "type": "screenshare",
-                "name": "obs"
-            }
-        ]
     },
 
     "clock": {

@@ -91,3 +91,18 @@ window#waybar {
     padding-left: 6px;
     padding-right: 6px;
 }
+
+menuitem {
+    margin: 0px;
+    min-height: 24px;
+}
+
+menuitem:hover {
+    background: @on_primary;
+}
+
+menu separator {
+    margin: 0px;
+    min-height: 0px;
+    background: transparent;
+}
