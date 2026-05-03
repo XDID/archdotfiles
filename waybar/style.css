@@ -80,6 +80,7 @@ window#waybar {
 #backlight,
 #pulseaudio,
 #privacy,
+#custom-wttr,
 #clock {
     color: @on_surface;
     background: @on_primary;

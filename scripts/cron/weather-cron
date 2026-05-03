@@ -1,0 +1,33 @@
+#!/usr/bin/bash
+
+CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/wttr.log"
+CACHE_TTL=60
+CITY="bozhou"
+
+FORCE_REFRESH=false
+while getopts "n" opt; do
+  case $opt in
+    n) FORCE_REFRESH=true ;;
+    *) echo "Usage: $0 [-n]"; exit 1 ;;
+  esac
+done
+
+fetch_weather() {
+    raw_data=$(curl -s --max-time 5 "https://wttr.in/${CITY}?format=1")
+    if [[ $? -eq 0 && -n "$raw_data" && "$raw_data" != *"Unknown"* ]]; then
+        echo "$raw_data" | tr -d '[:space:]'
+    else
+        return 1
+    fi
+}
+
+if [[ "$FORCE_REFRESH" = false ]] && [[ -f "$CACHE_FILE" ]] && find "$CACHE_FILE" -mmin -"$CACHE_TTL" | grep -q .; then
+    exit 0
+else
+    NEW_WEATHER=$(fetch_weather)
+    if [[ -n "$NEW_WEATHER" ]]; then
+        echo "$NEW_WEATHER" > "$CACHE_FILE"
+    else
+        [[ ! -f "$CACHE_FILE" ]] && echo "N/A" > "$CACHE_FILE"
+    fi
+fi

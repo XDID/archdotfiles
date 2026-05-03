@@ -5,7 +5,7 @@
 
     "modules-left": ["niri/workspaces", "cffi/niri-windows", "niri/window"],
     "modules-center": [],
-    "modules-right": ["tray", "custom/calcurse", "custom/checkupdates", "mpd", "disk", "cpu", "memory", "temperature", "bluetooth", "network", "backlight", "pulseaudio", "clock"],
+    "modules-right": ["tray", "custom/calcurse", "custom/wttr", "custom/checkupdates", "mpd", "disk", "cpu", "memory", "temperature", "bluetooth", "network", "backlight", "pulseaudio", "clock"],
 
     "niri/workspaces": {
         "format": "{name}"
@@ -43,9 +43,15 @@
 
     "custom/calcurse": {
         "exec": "calcurse -Q --filter-type apt --filter-start-after \"$(date +'%m/%d/%Y %H:%M')\" --from today --days 7 --format-apt \" - %S → %E %m\\n\" | grep \"^ - [0-9]\" | wc -l",
-        "format": "[{icon}{text}]",
+        "format": "[{icon}{text} ",
         "format-icons": " ",
         "signal": 10
+    },
+
+    "custom/wttr": {
+        "exec": "cat $HOME/.cache/wttr.log",
+        "format": "{text}]",
+        "signal": 12
     },
 
     "custom/checkupdates": {
