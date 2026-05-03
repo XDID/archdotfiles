@@ -23,6 +23,8 @@ calcurse -i "$LOCAL_CAL_FILE"
 rm -rf *.ics all.ics
 unset GLOBIGNORE
 
+pkill -RTMIN+10 waybar
+
 
 git add .
 git commit -m "update cal"

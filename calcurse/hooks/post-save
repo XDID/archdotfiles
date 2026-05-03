@@ -1,3 +1,2 @@
 #!/usr/bin/bash
 $HOME/.local/bin/sync-cal
-pkill -RTMIN+10 waybar

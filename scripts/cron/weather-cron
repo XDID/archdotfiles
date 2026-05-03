@@ -19,6 +19,7 @@ fetch_weather() {
     else
         return 1
     fi
+    pkill -RTMIN+12 waybar
 }
 
 if [[ "$FORCE_REFRESH" = false ]] && [[ -f "$CACHE_FILE" ]] && find "$CACHE_FILE" -mmin -"$CACHE_TTL" | grep -q .; then
