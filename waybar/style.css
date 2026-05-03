@@ -4,7 +4,7 @@
     border: none;
     border-radius: 0;
     font-family: "SymbolsNerdFont", "SarasaTermSCNerd";
-    font-size: 18px;
+    font-size: 17px;
     min-height: 0;
     margin-top: -10px;
     margin-bottom: -10px;
@@ -78,7 +78,7 @@ window#waybar {
 #bluetooth,
 #network,
 #backlight,
-#pulseaudio,
+#wireplumber,
 #privacy,
 #custom-wttr,
 #clock {

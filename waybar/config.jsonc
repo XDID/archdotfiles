@@ -5,7 +5,7 @@
 
     "modules-left": ["niri/workspaces", "cffi/niri-windows", "niri/window"],
     "modules-center": [],
-    "modules-right": ["tray", "custom/calcurse", "custom/wttr", "custom/checkupdates", "mpd", "disk", "cpu", "memory", "temperature", "bluetooth", "network", "backlight", "pulseaudio", "clock"],
+    "modules-right": ["tray", "custom/calcurse", "custom/wttr", "custom/checkupdates", "mpd", "disk", "cpu", "memory", "temperature", "bluetooth", "network", "backlight", "wireplumber", "wireplumber#microphone", "clock"],
 
     "niri/workspaces": {
         "format": "{name}"
@@ -112,17 +112,25 @@
         "scroll-step": 10.0
     },
 
-    "pulseaudio": {
-        "format": "{icon}{volume}%]",
-        "format-bluetooth": "{icon}{volume}% ]",
-        "format-muted": " {volume}%]",
-        "format-icons": {
-            "default": [" ", " ", " "]
-        },
+    "wireplumber": {
+        "format": "{icon}{volume}% ",
+        "format-muted": " {volume}% ",
+        "format-icons": [" ", " ", " "],
         "on-click": "pavucontrol",
         "on-click-right": "pactl -- set-sink-mute 0 toggle",
         "ignored-sinks": ["Easy Effects Sink"],
-        "scroll-step": 5.0
+        "scroll-step": 5,
+        "max-volume": 100
+    },
+
+    "wireplumber#microphone": {
+        "node-type": "Audio/Source",
+        "format": " {volume}%]",
+        "format-muted": " {volume}]",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+        "on-click": "pavucontrol",
+        "scroll-step": 5,
+        "max-volume": 100
     },
 
     "clock": {
