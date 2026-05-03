@@ -38,4 +38,8 @@ end
 
 set -x http_proxy http://127.0.0.1:7897
 set -x https_proxy http://127.0.0.1:7897
+
+function noproxy
+    env -u http_proxy -u https_proxy $argv
+end
 # set -U fish_key_bindings fish_vi_key_bindings
