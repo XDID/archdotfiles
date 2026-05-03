@@ -90,15 +90,14 @@
     },
 
     "network": {
-        "format": "{ifname}",
-        "format-wifi": " {essid}",
+        "format": "{ifname}]",
+        "format-wifi": " {essid}]",
         "format-ethernet": " {ipaddr}]",
         "format-disconnected": "󰅛 ]",
         "tooltip-format": "{ifname} via {gwaddr}  ",
         "tooltip-format-wifi": "{essid} ({signalStrength}%) {ipaddr}  ",
         "tooltip-format-ethernet": "{ifname}  ",
-        "tooltip-format-disconnected": "Disconnected",
-        "max-length": 50
+        "tooltip-format-disconnected": "Disconnected"
     },
 
     "backlight": {

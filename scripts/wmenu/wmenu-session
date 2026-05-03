@@ -9,7 +9,7 @@ case "$SELECTION" in
     "Lock")
         swaylock ;;
     "Suspend")
-        swaylock
+        swaylock &
         systemctl suspend ;;
     "Reboot")
         systemctl reboot ;;
