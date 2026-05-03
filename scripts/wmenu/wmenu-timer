@@ -51,27 +51,27 @@ start_timer() {
 
     local total_seconds=$(parse_to_seconds "$input")
     if [ "$total_seconds" -eq 0 ]; then
-        notify-send -e "Timer" "Wrong time format"
+        notify-send -u low "Timer" "Wrong time format"
         exit 1
     fi
 
     echo "$(( $(date +%s) + total_seconds ))" > "$TARGET_FILE"
 
-    notify-send -e "Timer" "Timer start: $(seconds_to_fmt $total_seconds)"
+    notify-send -u low "Timer" "Timer start: $(seconds_to_fmt $total_seconds)"
 
     trap 'cleanup' EXIT
-    trap 'notify-send -e "Timer" "Timer stopped"; exit 0' INT TERM
+    trap 'notify-send -u low "Timer" "Timer stopped"; exit 0' INT TERM
 
     sleep "$total_seconds" &
     wait $!
 
-    notify-send -e "Timer" "Time up!"
+    notify-send -u low "Timer" "Time up!"
     [ -f "$BELL" ] && paplay "$BELL"
 }
 
 query_timer() {
     if [ ! -f "$TARGET_FILE" ]; then
-        notify-send -e "Timer" "No active timer"
+        notify-send -u low "Timer" "No active timer"
         return
     fi
 
@@ -80,9 +80,9 @@ query_timer() {
     local rem=$(( target - now ))
 
     if [ "$rem" -le 0 ]; then
-        notify-send -e "Timer" "Almost done..."
+        notify-send -u low "Timer" "Almost done..."
     else
-        notify-send -e "Timer" "Remaining: $(seconds_to_fmt $rem)"
+        notify-send -u low "Timer" "Remaining: $(seconds_to_fmt $rem)"
     fi
 }
 

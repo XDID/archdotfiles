@@ -48,19 +48,19 @@ mouse_right_click = context_all
 per_monitor_dpi = false
 
 [urgency_low]
-timeout = 3
+timeout = 1
 background = "{{colors.on_primary.default.hex}}"
 foreground = "{{colors.on_surface.default.hex}}"
 highlight = "{{colors.primary.default.hex}}"
 
 [urgency_normal]
-timeout = 6
+timeout = 3
 background = "{{colors.on_primary.default.hex}}"
 foreground = "{{colors.on_surface.default.hex}}"
 highlight = "{{colors.primary_container.default.hex}}"
 
 [urgency_critical]
-timeout = 0
+timeout = 10
 background = "{{colors.on_primary.default.hex}}"
 foreground = "{{colors.on_surface.default.hex}}"
 highlight = "{{colors.error.default.hex}}"
