@@ -108,7 +108,7 @@
 
     "backlight": {
         "format": "[{icon}{percent}% ",
-        "format-icons": ["󰃝 ", "󰃟 ", "󰃠 "],
+        "format-icons": ["󱩎 ", "󱩏 ","󱩐 ","󱩐 ","󱩑 ","󱩒 ","󱩓 ","󱩔 ","󱩕 ","󱩖 ","󰛨 "],
         "scroll-step": 10.0
     },
 

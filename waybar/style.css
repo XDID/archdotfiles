@@ -3,7 +3,7 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "SymbolsNerdFont", "SarasaTermSCNerd";
+    font-family: "SymbolsNerdFont", "LiberationSans";
     font-size: 17px;
     min-height: 0;
     margin-top: -10px;
@@ -84,8 +84,8 @@ window#waybar {
 #clock {
     color: @on_surface;
     background: @on_primary;
-    padding-left: 2px;
-    padding-right: 2px;
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 #tray {
