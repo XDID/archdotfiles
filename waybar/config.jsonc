@@ -97,8 +97,8 @@
 
     "network": {
         "format": "{ifname}]",
-        "format-wifi": " {essid}]",
-        "format-ethernet": " {ipaddr}]",
+        "format-wifi": " {essid}({ipaddr})]",
+        "format-ethernet": " wired({ipaddr})]",
         "format-disconnected": "󰅛 ]",
         "tooltip-format": "{ifname} via {gwaddr}  ",
         "tooltip-format-wifi": "{essid} ({signalStrength}%) {ipaddr}  ",
