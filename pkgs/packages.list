@@ -12,6 +12,7 @@ base-devel
 bash-language-server
 bat
 beets
+blueman
 bluez
 bluez-utils
 brightnessctl

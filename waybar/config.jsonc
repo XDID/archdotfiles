@@ -149,7 +149,7 @@
     "wireplumber#microphone": {
         "node-type": "Audio/Source",
         "format": " {volume}%]",
-        "format-muted": " {volume}]",
+        "format-muted": " {volume}%]",
         "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
         "on-click": "pavucontrol",
         "scroll-step": 5,
