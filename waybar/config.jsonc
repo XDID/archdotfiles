@@ -5,7 +5,7 @@
 
     "modules-left": ["niri/workspaces", "cffi/niri-windows", "niri/window"],
     "modules-center": [],
-    "modules-right": ["tray", "custom/calcurse", "custom/wttr", "custom/checkupdates", "mpd", "disk", "cpu", "memory", "temperature", "bluetooth", "network", "backlight", "wireplumber", "wireplumber#microphone", "clock"],
+    "modules-right": ["tray", "custom/tty", "custom/uptime", "custom/calcurse", "custom/wttr", "custom/checkupdates", "mpd", "disk", "custom/usb", "cpu", "memory", "temperature", "bluetooth", "network", "backlight", "wireplumber", "wireplumber#microphone", "custom/clock"],
 
     "niri/workspaces": {
         "format": "{name:.2}"
@@ -39,6 +39,19 @@
         "icon-size": 18,
         "spacing": 6,
         "show-passive-items": false
+    },
+
+    "custom/tty": {
+        "exec": "n=$(w -h 2>/dev/null | wc -l); [ $n -eq 1 ] && echo  1 || echo  $n",
+        "format": "[{text} ",
+        "interval": 15
+    },
+
+    "custom/uptime": {
+        "exec": "awk '{d=int($1/86400); h=int(($1%86400)/3600); m=int(($1%3600)/60); if(d>0) printf \"%dd %dh:%dm\\n\", d, h, m; else printf \"%dh:%dm\\n\", h, m}' /proc/uptime",
+        "format": "{icon}{text}]",
+        "format-icons": " ",
+        "interval": 15
     },
 
     "custom/calcurse": {
@@ -75,6 +88,13 @@
 
     "disk": {
         "format": "[ {percentage_used}% "
+    },
+
+    "custom/usb": {
+        "exec": "lsblk -o 'tran' | grep usb | wc -l",
+        "format": "{icon} {text} ",
+        "format-icons": "󱇰",
+        "interval": 15
     },
 
     "cpu": {
@@ -136,28 +156,9 @@
         "max-volume": 100
     },
 
-    "clock": {
-        "format": "[󱑄 {:%m/%d %H:%M}]",
-        "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        "calendar": {
-            "mode"          : "year",
-            "mode-mon-col"  : 3,
-            "weeks-pos"     : "right",
-            "on-scroll"     : 1,
-            "format": {
-              "months":     "<span color='#ffead3'><b>{}</b></span>",
-              "days":       "<span color='#ecc6d9'><b>{}</b></span>",
-              "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
-              "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
-              "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
-            }
-        },
-        "actions":  {
-            "on-click-right": "mode",
-            "on-scroll-up": "tz_up",
-            "on-scroll-down": "tz_down",
-            "on-scroll-up": "shift_up",
-            "on-scroll-down": "shift_down"
-        }
+    "custom/clock": {
+        "exec": "icons=(󱑊 󱐿 󱑀 󱑁 󱑂 󱑃 󱑄 󱑅 󱑆 󱑇 󱑈 󱑉); h=$(date +%-H); i=$((h % 12)); echo \"${icons[$i]} $(date '+%m/%d %H:%M')\"",
+        "format": "[{text}]",
+        "interval": 5
     }
 }

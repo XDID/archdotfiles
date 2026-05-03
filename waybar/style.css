@@ -71,6 +71,9 @@ window#waybar {
 #tray,
 #custom-calcurse,
 #custom-checkupdates,
+#custom-usb,
+#custom-tty,
+#custom-uptime,
 #mpd,
 #disk,
 #cpu,
@@ -82,7 +85,7 @@ window#waybar {
 #wireplumber,
 #privacy,
 #custom-wttr,
-#clock {
+#custom-clock {
     color: @on_surface;
     background: @on_primary;
     padding-left: 3px;
