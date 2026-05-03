@@ -12,3 +12,7 @@ sbcl --no-sysinit --no-userinit --load /tmp/ql.lisp \
      --eval '(ql:add-to-init-file)' \
      --quit
 sbcl --eval '(ql:quickload :quicklisp-slime-helper)' --quit
+
+# pacman hook
+sudo mkdir -p /etc/pacman.d/hooks/
+sudo cp ./hooks/pacman/* /etc/pacman.d/hooks/

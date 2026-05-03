@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+When = PostTransaction
+Exec = /usr/bin/bash -c 'p=/home/harunato/.config/pkgs; /usr/bin/comm -23 <(/usr/bin/pacman -Qqen | sort) <(/usr/bin/pacman -Qqm | sort) > $p/packages.list; /usr/bin/pacman -Qqm > $p/aur.list; /usr/bin/chown harunato:harunato $p/packages.list $p/aur.list'

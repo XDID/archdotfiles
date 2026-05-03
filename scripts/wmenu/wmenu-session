@@ -10,7 +10,9 @@ case "$SELECTION" in
         swaylock ;;
     "Suspend")
         swaylock &
-        systemctl suspend ;;
+        systemctl suspend
+        $HOME/.local/bin/set_wallpaper
+        ;;
     "Reboot")
         systemctl reboot ;;
     "Shutdown")
