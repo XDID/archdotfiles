@@ -7,9 +7,9 @@ SELECTION=$(printf "Lock\nSuspend\nReboot\nShutdown" | "$MENU" -l4 -i -p "Niri "
 
 case "$SELECTION" in
     "Lock")
-        swaylock ;;
+        hyprlock ;;
     "Suspend")
-        swaylock &
+        hyprlock &
         systemctl suspend
         $HOME/.local/bin/set_wallpaper
         ;;

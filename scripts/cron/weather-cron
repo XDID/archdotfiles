@@ -13,22 +13,43 @@ while getopts "n" opt; do
 done
 
 fetch_weather() {
-    raw_data=$(curl -s --max-time 5 "https://wttr.in/${CITY}?format=1")
-    if [[ $? -eq 0 && -n "$raw_data" && "$raw_data" != *"Unknown"* ]]; then
-        echo "$raw_data" | tr -d '[:space:]'
+    local summary=$(curl -s --max-time 5 "https://wttr.in/${CITY}?format=%C|%t")
+    if [[ -n "$summary" && "$summary" != *"Unknown"* ]]; then
+        condition=$(echo "$summary" | cut -d'|' -f1 | xargs | tr '[:upper:]' '[:lower:]')
+        temp=$(echo "$summary" | cut -d'|' -f2 | xargs)
+
+        case "$condition" in
+            *sunny*|*clear*) 
+                icon="󰖨" ;;       # 晴天
+            *partly\ cloudy*) 
+                icon="󰖕" ;;       # 多云转晴
+            *cloudy*|*overcast*) 
+                icon="󰖐" ;;       # 阴天/多云
+            *heavy\ rain*) 
+                icon="󰖖" ;;       # 大雨
+            *rain*|*drizzle*) 
+                icon="󰖗" ;;       # 小雨/毛毛雨/阵雨
+            *thunder*|*lightning*) 
+                icon="󰖓" ;;       # 雷暴
+            *snow*|*blizzard*|*ice*) 
+                icon="󰼶" ;;       # 雪/冰
+            *mist*|*fog*|*haze*) 
+                icon="󰖑" ;;       # 雾/霾
+            *) 
+                icon="󰼷" ;;       # 未知或未分类的默认图标 (小伞)
+        esac
+
+
+        echo "$icon $temp" > "$CACHE_FILE"
+
+        curl -s --max-time 5 "https://wttr.in/${CITY}?format=地点：%l\n概况：%C\n风速：%w\n湿度：%h\n降水：%p" >> "$CACHE_FILE"
+
+        pkill -RTMIN+12 waybar
     else
         return 1
     fi
-    pkill -RTMIN+12 waybar
 }
 
-if [[ "$FORCE_REFRESH" = false ]] && [[ -f "$CACHE_FILE" ]] && find "$CACHE_FILE" -mmin -"$CACHE_TTL" | grep -q .; then
-    exit 0
-else
-    NEW_WEATHER=$(fetch_weather)
-    if [[ -n "$NEW_WEATHER" ]]; then
-        echo "$NEW_WEATHER" > "$CACHE_FILE"
-    else
-        [[ ! -f "$CACHE_FILE" ]] && echo "N/A" > "$CACHE_FILE"
-    fi
+if [[ "$FORCE_REFRESH" = "true" ]] || [[ ! -f "$CACHE_FILE" ]] || ! find "$CACHE_FILE" -mmin -"$CACHE_TTL" | grep -q .; then
+    fetch_weather
 fi

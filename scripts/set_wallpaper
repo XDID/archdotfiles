@@ -46,6 +46,7 @@ else
 fi
 
 awww img "$image" --transition-type none
+ln -sf $image ~/Pictures/Wallpapers/current.png
 
 if [[ "$XDG_CURRENT_DESKTOP" == "niri" ]]; then
     blur_image="$BLUR_IMAGE/$(basename $image)"

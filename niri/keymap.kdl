@@ -28,7 +28,7 @@ binds {
     Shift+Alt+I hotkey-overlay-title="Audio input" {spawn-sh "$HOME/.local/bin/wmenu-audio-input";}
     Shift+Alt+A hotkey-overlay-title="Archwiki" {spawn-sh "$HOME/.local/bin/wmenu-wiki";}
     Shift+Alt+R hotkey-overlay-title="Audio record" {spawn-sh "$HOME/.local/bin/wmenu-audio-rec";}
-    Shift+Alt+D hotkey-overlay-title="AUDIo record" {spawn-sh "$HOME/.local/bin/qrdecode";}
+    Shift+Alt+D hotkey-overlay-title="qr code decode" {spawn-sh "$HOME/.local/bin/qrdecode";}
     Shift+Alt+N hotkey-overlay-title="Notes" {spawn-sh "$HOME/.local/bin/wmenu-notes";}
     Shift+Alt+G hotkey-overlay-title="Games" {spawn-sh "$HOME/.local/bin/wmenu-game -r";}
     Shift+Alt+M hotkey-overlay-title="Music" {spawn-sh "$HOME/.local/bin/wmenu-music";}
@@ -39,14 +39,14 @@ binds {
     // #"Media Control"
     Alt+0 hotkey-overlay-title="Change wallpaper" { spawn-sh "$HOME/.local/bin/set_wallpaper";}
     Alt+Slash hotkey-overlay-title="Toggle color mode" {spawn-sh "$HOME/.local/bin/toggle_dark_mode";}
-    Alt+Equal hotkey-overlay-title="Volume up" { spawn-sh "pactl -- set-sink-mute 0 false && pactl -- set-sink-volume 0 +5%"; }
-    Alt+Minus hotkey-overlay-title="Volume down" { spawn-sh "pactl -- set-sink-mute 0 false && pactl -- set-sink-volume 0 -5%"; }
-    Alt+Grave hotkey-overlay-title="Mute" { spawn "pactl" "--" "set-sink-mute" "0" "toggle"; }
+    Alt+Equal hotkey-overlay-title="Volume up" { spawn-sh "$HOME/.local/bin/volume up 5"; }
+    Alt+Minus hotkey-overlay-title="Volume down" { spawn-sh "$HOME/.local/bin/volume down 5"; }
+    Alt+Grave hotkey-overlay-title="Mute" { spawn-sh "$HOME/.local/bin/volume toggle"; }
     Shift+Alt+Equal hotkey-overlay-title="Mpd next" { spawn "mpc" "next"; }
     Shift+Alt+Minus hotkey-overlay-title="Mpd prev" { spawn "mpc" "prev"; }
     Shift+Alt+Grave hotkey-overlay-title="Mpd toggle" { spawn "mpc" "toggle"; }
-    Alt+BracketRight hotkey-overlay-title="Brightness up" { spawn "brightnessctl" "-d" "ddcci*" "set" "10%+" ; }
-    Alt+BracketLeft hotkey-overlay-title="Brightness down" { spawn "brightnessctl" "-d" "ddcci*" "set" "10%-" ; }
+    Alt+BracketRight hotkey-overlay-title="Brightness up" { spawn-sh "$HOME/.local/bin/brightness up 10" ; }
+    Alt+BracketLeft hotkey-overlay-title="Brightness down" { spawn-sh "$HOME/.local/bin/brightness down 10" ; }
 
     // #"Window Operation"
     Mod+O hotkey-overlay-title="Overview" repeat=false { toggle-overview; }
@@ -141,5 +141,5 @@ binds {
     // #"Shot"
     Print hotkey-overlay-title="Screenshot" { spawn-sh "$HOME/.local/bin/wmenu-shot"; }
     Alt+Print hotkey-overlay-title="Screen record" { spawn-sh "$HOME/.local/bin/wmenu-rec"; }
-    Ctrl+Print hotkey-overlay-title="Screenshot record region" { spawn-sh "$HOME/.local/bin/wmenu-rec -r"; }
+    Ctrl+Print hotkey-overlay-title="Screen record region" { spawn-sh "$HOME/.local/bin/wmenu-rec -r"; }
 }

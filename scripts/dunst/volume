@@ -1,0 +1,58 @@
+#!/usr/bin/bash
+
+if [ $# -eq 0 ]; then
+    echo "Usage: $(basename "$0") {up|down|toggle}"
+    exit 1
+fi
+
+STEP=${2:-5}
+
+notify() {
+    local volume=$(pamixer --get-volume)  # 获取当前音量数值
+    local is_muted=$(pamixer --get-mute)  # 获取静音状态 (yes/no)
+
+    # 静音状态下的显示逻辑
+    if [ "$is_muted" == "true" ]; then
+        # 如果处于静音状态，通知文字显示为"静音"，音量数值强制为0，以让进度条归零[reference:5]
+        dunstify -a "changeVolume" -u low -i "audio-volume-muted" \
+            -h string:x-dunst-stack-tag:volume \
+            -h int:value:"0" \
+            -t 1500 \
+            "音量: 静音"
+        return 0
+    fi
+
+
+    # 发送音量通知，显示进度条[reference:6][reference:7]
+    dunstify -a "changeVolume" -u low \
+        -h string:x-dunst-stack-tag:volume \
+        -h int:value:"$volume" \
+        -t 1500 \
+        "音量: ${volume}%" 
+}
+
+# 主逻辑: 执行用户要求的动作
+case $1 in
+  up)
+    # 音量增加时，如果未静音则先取消静音。未加 --allow-boost 则最高为100%[reference:8]
+    pamixer --unmute
+    pamixer --increase $STEP
+    notify
+    ;;
+  down)
+    pamixer --decrease $STEP
+    # 如果降为0，不会自动静音，但通知会正常显示
+    notify
+    ;;
+  toggle)
+    pamixer --toggle-mute
+    notify
+    ;;
+  *)
+    echo "错误: 未知操作 '$1'"
+    echo "请使用 'up', 'down' 或 'toggle'"
+    exit 1
+    ;;
+esac
+
+exit 0

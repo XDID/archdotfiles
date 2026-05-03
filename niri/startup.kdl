@@ -1,3 +1,5 @@
+// open lock
+spawn-at-startup "hyprlock"
 // clipboard
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 // input method

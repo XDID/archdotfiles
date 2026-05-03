@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+if [ $# -eq 0 ]; then
+    echo "Usage: $(basename "$0") {up|down}"
+    exit 1
+fi
+
+STEP=${2:-10}
+
+get_brightness() {
+    local current=$(brightnessctl g)
+    local max=$(brightnessctl m)
+    echo $(( current * 100 / max ))
+}
+
+notify() {
+    local percent=$(get_brightness)
+
+    dunstify -a "changeBrightness" \
+             -u low \
+             -h string:x-dunst-stack-tag:brightness \
+             -h int:value:"$percent" \
+             -t 1500 \
+             "亮度" "${percent}%"
+}
+
+# 主逻辑
+case $1 in
+  up)
+    brightnessctl set +${STEP}%
+    notify
+    ;;
+  down)
+    brightnessctl set ${STEP}%-
+    notify
+    ;;
+  *)
+    echo "错误: 未知操作 '$1'"
+    echo "请使用 'up' 或 'down'"
+    exit 1
+    ;;
+esac
+
+exit 0

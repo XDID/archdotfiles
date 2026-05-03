@@ -8,7 +8,7 @@
     "modules-right": ["tray", "custom/calcurse", "custom/wttr", "custom/checkupdates", "mpd", "disk", "cpu", "memory", "temperature", "bluetooth", "network", "backlight", "wireplumber", "wireplumber#microphone", "clock"],
 
     "niri/workspaces": {
-        "format": "{name}"
+        "format": "{name:.2}"
     },
 
     "cffi/niri-windows": {
@@ -42,22 +42,25 @@
     },
 
     "custom/calcurse": {
-        "exec": "calcurse -Q --filter-type apt --filter-start-after \"$(date +'%m/%d/%Y %H:%M')\" --from today --days 7 --format-apt \" - %S → %E %m\\n\" | grep \"^ - [0-9]\" | wc -l",
+        "exec": "jq -c -n --arg num \"$(cat \\\"$HOME/.cache/calcurse.num\\\" 2>/dev/null || echo 0)\" --arg log \"$(if [ -e \\\"$HOME/.cache/calcurse.log\\\" ]; then c=$(cat \\\"$HOME/.cache/calcurse.log\\\"); if [ -z \\\"$c\\\" ]; then echo 'All fresh'; else printf '%s' \\\"$c\\\"; fi; else echo 'All fresh'; fi)\" '{text:$num, tooltip:$log}'",
         "format": "[{icon}{text} ",
         "format-icons": " ",
+        "return-type": "json",
         "signal": 10
     },
 
     "custom/wttr": {
-        "exec": "cat $HOME/.cache/wttr.log",
+        "exec": "cat ~/.cache/wttr.log | (read line; echo \"{\\\"text\\\":\\\"$line\\\",\\\"tooltip\\\":\\\"$(cat | sed ':a;N;$!ba;s/\\n/\\\\n/g')\\\"}\")",
         "format": "{text}]",
+        "return-type": "json",
         "signal": 12
     },
 
     "custom/checkupdates": {
-        "exec": "cat $HOME/.cache/checkupdates-cron.num",
+        "exec": "jq -c -n --arg num \"$(cat \\\"$HOME/.cache/checkupdates-cron.num\\\" 2>/dev/null || echo 0)\" --arg log \"$(if [ -e \\\"$HOME/.cache/checkupdates-cron.log\\\" ]; then c=$(cat \\\"$HOME/.cache/checkupdates-cron.log\\\"); if [ -z \\\"$c\\\" ]; then echo 'All fresh'; else printf '%s' \\\"$c\\\"; fi; else echo 'All fresh'; fi)\" '{text:$num, tooltip:$log}'",
         "format": "[{icon} {text}]",
         "format-icons": "",
+        "return-type": "json",
         "signal": 11
     },
 
