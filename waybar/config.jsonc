@@ -12,7 +12,7 @@
     },
 
     "cffi/niri-windows": {
-      "module_path": "/home/harunato/.config/waybar/waybar-niri-windows.so",
+      "module_path": "/home/harunato/.config/waybar/modules/waybar-niri-windows.so",
       "options": {
         "mode": "text",
         "show-floating": "auto",
