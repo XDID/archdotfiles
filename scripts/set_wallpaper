@@ -54,4 +54,5 @@ if [[ "$XDG_CURRENT_DESKTOP" == "niri" ]]; then
         magick $image -resize 20% -blur 0x5 $blur_image
     fi
     awww img "$blur_image" --transition-type none -n overview
+    ln -sf $blur_image ~/Pictures/Wallpapers/current_blur.png
 fi

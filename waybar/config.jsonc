@@ -55,7 +55,7 @@
     },
 
     "custom/calcurse": {
-        "exec": "jq -c -n --arg num \"$(cat \\\"$HOME/.cache/calcurse.num\\\" 2>/dev/null || echo 0)\" --arg log \"$(if [ -e \\\"$HOME/.cache/calcurse.log\\\" ]; then c=$(cat \\\"$HOME/.cache/calcurse.log\\\"); if [ -z \\\"$c\\\" ]; then echo 'All fresh'; else printf '%s' \\\"$c\\\"; fi; else echo 'All fresh'; fi)\" '{text:$num, tooltip:$log}'",
+        "exec": "sh -c 'num=$(cat \"$HOME/.cache/calcurse.num\" 2>/dev/null || echo 0); if [ -e \"$HOME/.cache/calcurse.log\" ]; then log=$(cat \"$HOME/.cache/calcurse.log\"); [ -z \"$log\" ] && log=\"All fresh\"; else log=\"All fresh\"; fi; jq -cn --arg num \"$num\" --arg log \"$log\" \"{text:\\$num, tooltip:\\$log}\"'",
         "format": "[{icon}{text} ",
         "format-icons": " ",
         "return-type": "json",
@@ -70,7 +70,7 @@
     },
 
     "custom/checkupdates": {
-        "exec": "jq -c -n --arg num \"$(cat \\\"$HOME/.cache/checkupdates-cron.num\\\" 2>/dev/null || echo 0)\" --arg log \"$(if [ -e \\\"$HOME/.cache/checkupdates-cron.log\\\" ]; then c=$(cat \\\"$HOME/.cache/checkupdates-cron.log\\\"); if [ -z \\\"$c\\\" ]; then echo 'All fresh'; else printf '%s' \\\"$c\\\"; fi; else echo 'All fresh'; fi)\" '{text:$num, tooltip:$log}'",
+        "exec": "sh -c 'num=$(cat \"$HOME/.cache/checkupdates-cron.num\" 2>/dev/null || echo 0); if [ -e \"$HOME/.cache/checkupdates-cron.log\" ]; then log=$(cat \"$HOME/.cache/checkupdates-cron.log\"); [ -z \"$log\" ] && log=\"All fresh\"; else log=\"All fresh\"; fi; jq -cn --arg num \"$num\" --arg log \"$log\" \"{text:\\$num, tooltip:\\$log}\"'",
         "format": "[{icon} {text}]",
         "format-icons": "",
         "return-type": "json",

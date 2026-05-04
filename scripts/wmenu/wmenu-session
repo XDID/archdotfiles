@@ -9,9 +9,10 @@ case "$SELECTION" in
     "Lock")
         hyprlock ;;
     "Suspend")
-        hyprlock &
         systemctl suspend
-        $HOME/.local/bin/set_wallpaper
+        hyprlock
+        niri msg action do-screen-transition --delay-ms 500 &
+        $HOME/.local/bin/awww-daemon-server
         ;;
     "Reboot")
         systemctl reboot ;;
