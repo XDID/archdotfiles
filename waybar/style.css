@@ -59,6 +59,7 @@ window#waybar {
 #window {
     color: @on_primary;
     background: @primary;
+    padding-left: 10px;
 }
 
 .cffi-niri-windows label {

@@ -23,7 +23,7 @@ full_line=$(awk -F'|' -v engine="$engine_line" '$1 == engine {print $0; exit}' "
 if [[ -z "$full_line" ]]; then
   # 没匹配到搜索引擎 → 视为直接输入了搜索词，用 Google 搜索
   query=$engine_line
-  url="https://duckduckgo.com/?q=$(urlencode "$query")"
+  url="https://www.google.com/search?q=$(urlencode "$query")"
 else
   # 匹配到搜索引擎 → 拆分字段
   IFS='|' read -r name search_url homepage <<<"$full_line"

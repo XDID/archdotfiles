@@ -23,7 +23,7 @@ calcurse -i "$LOCAL_CAL_FILE"
 rm -rf *.ics all.ics
 unset GLOBIGNORE
 
-calcurse -Q --filter-type apt --filter-start-after "$(date +'%m/%d/%y %H:%M')" --from today --days 7 --format-apt " - %S → %E %m\n" > $HOME/.cache/calcurse.log
+calcurse -Q --filter-type apt --filter-start-after "$(date +'%m/%d/%y %H:%M')" --from today --days 7 --format-apt " - %S → %E %m\n%N" > $HOME/.cache/calcurse.log
 grep -c '^[[:space:]]*- ' "$HOME/.cache/calcurse.log" > "$HOME/.cache/calcurse.num"
 pkill -RTMIN+10 waybar
 

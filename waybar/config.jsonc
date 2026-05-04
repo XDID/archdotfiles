@@ -28,10 +28,10 @@
     },
 
     "niri/window": {
-        "format": " {title} ",
+        "format": "{title}",
         "rewrite": {
-            "(.*) 隐私浏览 ": "隐私: $1",
-            "(.*) — Mozilla Firefox.*": "$1"
+            "(.*) 隐私浏览": "隐私: $1",
+            "(.*) — Mozilla Firefox(.*)": "$1$2"
         }
     },
 
