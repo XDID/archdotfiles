@@ -5,7 +5,7 @@
 
     "modules-left": ["niri/workspaces", "cffi/niri-windows", "niri/window"],
     "modules-center": [],
-    "modules-right": ["tray", "custom/tty", "custom/uptime", "custom/calcurse", "custom/wttr", "custom/checkupdates", "mpd", "disk", "custom/usb", "cpu", "memory", "temperature", "bluetooth", "network", "backlight", "wireplumber", "wireplumber#microphone", "custom/clock"],
+    "modules-right": ["tray", "custom/tty", "custom/uptime", "custom/calcurse", "custom/wttr", "custom/checkupdates", "mpd", "disk", "custom/usb", "cpu", "memory", "temperature", "bluetooth", "network", "backlight", "pulseaudio", "wireplumber#microphone", "custom/clock"],
 
     "niri/workspaces": {
         "format": "{name:.2}"
@@ -137,10 +137,19 @@
         "scroll-step": 10.0
     },
 
-    "wireplumber": {
+    "pulseaudio": {
         "format": "{icon}{volume}% ",
         "format-muted": " {volume}% ",
-        "format-icons": [" ", " ", " "],
+        "format-bluetooth": " {volume}% ",
+        "format-icons": {
+            "default": [" ", " ", " "],
+            "headphone": " ",
+            "headset": "󱡏 ",
+            "phone": " ",
+            "phone-muted": " ",
+            "portable": " ",
+            "car": " "
+        },
         "on-click": "pavucontrol",
         "on-click-right": "pactl -- set-sink-mute 0 toggle",
         "ignored-sinks": ["Easy Effects Sink"],
