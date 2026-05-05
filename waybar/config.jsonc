@@ -3,7 +3,7 @@
     "position": "top",
     "height": 24,
 
-    "modules-left": ["niri/workspaces", "cffi/niri-windows", "niri/window"],
+    "modules-left": ["niri/workspaces", "custom/niri-workspace-win", "niri/window"],
     "modules-center": [],
     "modules-right": ["tray", "custom/tty", "custom/uptime", "custom/calcurse", "custom/wttr", "custom/checkupdates", "mpd", "disk", "custom/usb", "cpu", "memory", "temperature", "bluetooth", "network", "backlight", "pulseaudio", "wireplumber#microphone", "custom/clock"],
 
@@ -25,6 +25,12 @@
         "on-tile-click": "FocusWindow", // (default: FocusWindow)
         "on-tile-middle-click": "CloseWindow" // (default: CloseWindow)
       }
+    },
+
+    "custom/niri-workspace-win": {
+        "exec": "/home/harunato/.config/waybar/modules/niri-workspace-win",
+        "format": "[{}]",
+        "signal": 13
     },
 
     "niri/window": {
