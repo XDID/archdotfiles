@@ -84,6 +84,7 @@ noto-fonts-emoji
 npm
 ntfs-3g
 nwg-look
+obs-studio
 okular
 os-prober
 pacman-contrib
@@ -144,7 +145,6 @@ xf86-video-amdgpu
 xorg-xhost
 xwayland-satellite
 yazi
-ydotool
 yt-dlp
 zbar
 zoxide
