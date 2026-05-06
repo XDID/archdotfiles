@@ -10,9 +10,9 @@
     "niri/workspaces": {
         "format": "{icon}{name:.2}",
         "format-icons": {
-            "active": "<span rise='9000'>▪</span><span rise='-9000'>​</span>",
+            "default": "<span rise='9000'>▫</span><span rise='-9000'>​</span>",
             "empty": "<span rise='9000'>​</span><span rise='-9000'>​</span>",
-            "default": "<span rise='9000'>▫</span><span rise='-9000'>​</span>"
+            "focused": "<span rise='9000'>▪</span><span rise='-9000'>​</span>"
         }
     },
 
