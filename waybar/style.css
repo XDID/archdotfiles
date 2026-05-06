@@ -29,10 +29,10 @@ window#waybar {
 }
 
 #workspaces button {
-    color: @on_primary;
-    background: @on_surface;
-    padding-left: 5px;
-    padding-right: 5px;
+    color: @on_surface;
+    background: @on_primary;
+    padding-left: 3px;
+    padding-right: 7px;
 }
 
 #workspaces button.empty {
@@ -43,6 +43,8 @@ window#waybar {
 #workspaces button.focused {
     color: @on_primary;
     background: @primary;
+    padding-left: 3px;
+    padding-right: 7px;
 }
 
 #workspaces button:last-child {
