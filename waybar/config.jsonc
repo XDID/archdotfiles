@@ -5,7 +5,7 @@
 
     "modules-left": ["niri/workspaces", "custom/niri-workspace-win", "niri/window"],
     "modules-center": [],
-    "modules-right": ["tray", "custom/checkupdates", "custom/tty", "custom/uptime", "custom/calcurse", "custom/wttr", "mpd", "disk", "custom/usb", "cpu", "memory", "temperature", "bluetooth", "network", "backlight", "pulseaudio", "wireplumber#microphone", "custom/clock"],
+    "modules-right": ["tray", "mpd", "custom/checkupdates", "custom/tty", "custom/uptime", "custom/calcurse", "custom/wttr", "disk", "custom/usb", "cpu", "memory", "temperature", "bluetooth", "network", "backlight", "pulseaudio", "wireplumber#microphone", "custom/clock"],
 
     "niri/workspaces": {
         "format": "{icon}{name:.2}",

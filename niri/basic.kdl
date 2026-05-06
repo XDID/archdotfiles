@@ -119,7 +119,7 @@ prefer-no-csd
 screenshot-path null
 
 animations {
-    on
+    off
     slowdown 1.5
 }
 
