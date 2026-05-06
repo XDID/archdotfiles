@@ -9,7 +9,6 @@ arch-wiki-docs-zh-cn
 awww
 base
 base-devel
-bash-language-server
 bat
 beets
 blueman
@@ -20,7 +19,6 @@ btop
 btrfs-assistant
 btrfs-progs
 calcurse
-cava
 chafa
 clang
 clash-verge-rev
@@ -29,7 +27,6 @@ cronie
 ddcutil
 dunst
 efibootmgr
-emacs-wayland
 exfat-utils
 eza
 fastfetch
@@ -73,16 +70,11 @@ matugen
 mpc
 mpd
 mpv
-nautilus-image-converter
-nautilus-open-any-terminal
-ncdu
-neomutt
 neovim
 networkmanager
 niri
 noto-fonts-emoji
 npm
-ntfs-3g
 nwg-look
 obs-studio
 okular
@@ -97,9 +89,7 @@ pipewire-alsa
 pipewire-jack
 pipewire-pulse
 polkit-gnome
-power-profiles-daemon
 python-icalendar
-python-lsp-server
 qt6ct
 qt6-wayland
 reflector
@@ -110,7 +100,6 @@ rmpc
 rsync
 rustup
 satty
-sbcl
 slurp
 snapper
 sof-firmware
@@ -136,7 +125,6 @@ wf-recorder
 wget
 wireplumber
 wl-clipboard
-wlsunset
 wmenu
 wtype
 xdg-desktop-portal-gnome

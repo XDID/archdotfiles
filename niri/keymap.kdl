@@ -1,7 +1,7 @@
 binds {
     // #"Applications"
     Mod+Shift+P hotkey-overlay-title="Start foot server" {spawn "/home/harunato/.local/bin/foots";}
-    Mod+Shift+E hotkey-overlay-title="Start emacs server" {spawn-sh "pkill emacs || true && sleep .5 && emacs --daemon";}
+    // Mod+Shift+E hotkey-overlay-title="Start emacs server" {spawn-sh "pkill emacs || true && sleep .5 && emacs --daemon";}
     Mod+Shift+W hotkey-overlay-title="Start waybar" {spawn-sh "pkill waybar || true && waybar";}
     Mod+X hotkey-overlay-title="Restart xremap server" { spawn-sh "pgrep xremap && echo 0411 | sudo -S pkill xremap || echo 0411 | sudo -S NIRI_SOCKET=\"$NIRI_SOCKET\" xremap --watch=config,device /home/harunato/.config/xremap/config.yml";}
     Mod+T hotkey-overlay-title="Open footclient" { spawn "footclient"; }
@@ -11,7 +11,7 @@ binds {
     Mod+Shift+B hotkey-overlay-title="Open firefox[private]" { spawn "firefox" "--private-window"; }
     Mod+Backspace hotkey-overlay-title="Open btop" {spawn "footclient" "btop";}
     // Mod+E hotkey-overlay-title="Open nautilus" {spawn "env" "GSK_RENDERER=gl" "GTK_IM_MODULE=fcitx" "nautilus";}
-    Mod+E hotkey-overlay-title="Open emacs" {spawn "emacsclient" "-nca" "";}
+    // Mod+E hotkey-overlay-title="Open emacs" {spawn "emacsclient" "-nca" "";}
     Mod+S hotkey-overlay-title="Calendar" { spawn "footclient" "calcurse"; }
 
     // #"Wmenu Tweeks"
