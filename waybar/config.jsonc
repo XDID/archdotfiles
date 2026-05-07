@@ -92,16 +92,16 @@
 
     "custom/checkupdates": {
         "exec": "sh -c 'num=$(cat \"$HOME/.cache/checkupdates-cron.num\" 2>/dev/null || echo 0); if [ -e \"$HOME/.cache/checkupdates-cron.log\" ]; then log=$(cat \"$HOME/.cache/checkupdates-cron.log\"); [ -z \"$log\" ] && log=\"All fresh\"; else log=\"All fresh\"; fi; jq -cn --arg num \"$num\" --arg log \"$log\" \"{text:\\$num, tooltip:\\$log}\"'",
-        "format": "{icon} {text}",
-        "format-icons": "",
+        "format": "{icon}{text}",
+        "format-icons": " ",
         "return-type": "json",
         "signal": 11
     },
 
     "mpd": {
         "format": "󰎇 {title}({elapsedTime:%M:%S}/{totalTime:%M:%S})",
-        "format-disconnected": " ",
-        "format-stopped": "󰎊 ",
+        "format-disconnected": "",
+        "format-stopped": "󰎊",
         "interval": 10,
         "tooltip-format": "MPD (connected)",
         "tooltip-format-disconnected": "MPD (disconnected)"
@@ -113,8 +113,8 @@
 
     "custom/usb": {
         "exec": "lsblk -o 'tran' | grep usb | wc -l",
-        "format": "{icon} {text}",
-        "format-icons": "󱇰",
+        "format": "{icon}{text}",
+        "format-icons": "󱇰 ",
         "interval": 15
     },
 
@@ -134,7 +134,7 @@
 
     "bluetooth": {
         "format": " {status}",
-        "format-disabled": "󰂲 ", // an empty format will hide the module
+        "format-disabled": "󰂲",
         "format-connected": " {num_connections}",
         "tooltip-format": "{controller_alias}\t{controller_address}",
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
@@ -145,7 +145,7 @@
         "format": "{ifname}",
         "format-wifi": " {essid}({ipaddr})",
         "format-ethernet": " wired({ipaddr})",
-        "format-disconnected": "󰅛 ",
+        "format-disconnected": "󰅛",
         "tooltip-format": "{ifname} via {gwaddr}  ",
         "tooltip-format-wifi": "{essid} ({signalStrength}%) {ipaddr}  ",
         "tooltip-format-ethernet": "{ifname}  ",
