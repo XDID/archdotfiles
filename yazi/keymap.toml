@@ -163,6 +163,29 @@ on = "l"
 run = "plugin smart-enter"
 desc = "smart-enter"
 
+[[mgr.prepend_keymap]]
+on = ["'", "b"]
+run = '''
+shell --confirm '
+f="$1"
+i=1
+bak="$f.bak"
+
+while [ -e "$bak" ]; do
+    bak="$f.bak.$i"
+    i=$((i+1))
+done
+
+cp -- "$f" "$bak"
+' -- "$@"
+'''
+desc = "Create bak"
+
+[[mgr.prepend_keymap]]
+on = ["'", "c"]
+run = "plugin chmod"
+desc = "chmod"
+
 [tasks]
 
 keymap = [
