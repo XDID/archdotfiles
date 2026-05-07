@@ -30,4 +30,4 @@ general.periodicsave=0
 general.systemevents=yes
 notification.command=notify-send "Calendar" "$(calcurse -d 1 -l 1 --format-apt "%m ==> %S-%E" | grep ".\+:.\+-.\+")" && paplay ~/.local/share/audio/notify-l.mp3
 notification.notifyall=all
-notification.warning=300
+notification.warning=900
