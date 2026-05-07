@@ -8,7 +8,7 @@
     "modules-right": ["tray", "mpd", "custom/checkupdates", "custom/tty", "custom/uptime", "custom/calcurse", "custom/wttr", "disk", "custom/usb", "cpu", "memory", "temperature", "bluetooth", "network", "backlight", "pulseaudio", "wireplumber#microphone", "custom/clock"],
 
     "niri/workspaces": {
-        "format": "{icon}{name:.2}",
+        "format": "{icon}{name:.1}",
         "format-icons": {
             "default": "<span rise='9000'>▫</span><span rise='-9000'>​</span>",
             "empty": "<span rise='9000'>​</span><span rise='-9000'>​</span>",
