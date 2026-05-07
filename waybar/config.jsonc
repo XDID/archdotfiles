@@ -5,7 +5,17 @@
 
     "modules-left": ["niri/workspaces", "custom/niri-workspace-win", "niri/window"],
     "modules-center": [],
-    "modules-right": ["tray", "mpd", "custom/checkupdates", "custom/tty", "custom/uptime", "custom/calcurse", "custom/wttr", "disk", "custom/usb", "cpu", "memory", "temperature", "bluetooth", "network", "backlight", "pulseaudio", "wireplumber#microphone", "custom/clock"],
+    "modules-right": ["custom/leftsep", "tray", "custom/rightsep", "custom/leftsep", "mpd", "custom/rightsep", "custom/leftsep", "custom/checkupdates", "custom/tty", "custom/uptime", "custom/rightsep", "custom/leftsep", "custom/calcurse", "custom/wttr", "custom/rightsep", "custom/leftsep", "disk", "custom/usb", "cpu", "memory", "temperature", "custom/rightsep", "custom/leftsep", "bluetooth", "network", "custom/rightsep", "custom/leftsep", "backlight", "pulseaudio", "wireplumber#microphone", "custom/rightsep", "custom/leftsep", "custom/clock", "custom/rightsep"],
+
+    "custom/leftsep": {
+        "exec": "echo [",
+        "interval": "once"
+    },
+
+    "custom/rightsep": {
+        "exec": "echo ]",
+        "interval": "once"
+    },
 
     "niri/workspaces": {
         "format": "{icon}{name:.1}",
@@ -54,20 +64,20 @@
 
     "custom/tty": {
         "exec": "n=$(w -h 2>/dev/null | wc -l); [ $n -eq 1 ] && echo  1 || echo  $n",
-        "format": "{text} ",
+        "format": "{text}",
         "interval": 15
     },
 
     "custom/uptime": {
         "exec": "awk '{d=int($1/86400); h=int(($1%86400)/3600); m=int(($1%3600)/60); if(d>0) printf \"%dd %dh:%dm\\n\", d, h, m; else printf \"%dh:%dm\\n\", h, m}' /proc/uptime",
-        "format": "{icon}{text}]",
+        "format": "{icon}{text}",
         "format-icons": " ",
         "interval": 15
     },
 
     "custom/calcurse": {
         "exec": "sh -c 'num=$(cat \"$HOME/.cache/calcurse.num\" 2>/dev/null || echo 0); if [ -e \"$HOME/.cache/calcurse.log\" ]; then log=$(cat \"$HOME/.cache/calcurse.log\"); [ -z \"$log\" ] && log=\"All fresh\"; else log=\"All fresh\"; fi; jq -cn --arg num \"$num\" --arg log \"$log\" \"{text:\\$num, tooltip:\\$log}\"'",
-        "format": "[{icon}{text} ",
+        "format": "{icon}{text}",
         "format-icons": " ",
         "return-type": "json",
         "signal": 10
@@ -75,67 +85,67 @@
 
     "custom/wttr": {
         "exec": "cat ~/.cache/wttr.log | (read line; echo \"{\\\"text\\\":\\\"$line\\\",\\\"tooltip\\\":\\\"$(cat | sed ':a;N;$!ba;s/\\n/\\\\n/g')\\\"}\")",
-        "format": "{text}]",
+        "format": "{text}",
         "return-type": "json",
         "signal": 12
     },
 
     "custom/checkupdates": {
         "exec": "sh -c 'num=$(cat \"$HOME/.cache/checkupdates-cron.num\" 2>/dev/null || echo 0); if [ -e \"$HOME/.cache/checkupdates-cron.log\" ]; then log=$(cat \"$HOME/.cache/checkupdates-cron.log\"); [ -z \"$log\" ] && log=\"All fresh\"; else log=\"All fresh\"; fi; jq -cn --arg num \"$num\" --arg log \"$log\" \"{text:\\$num, tooltip:\\$log}\"'",
-        "format": "[{icon} {text} ",
+        "format": "{icon} {text}",
         "format-icons": "",
         "return-type": "json",
         "signal": 11
     },
 
     "mpd": {
-        "format": "[󰎇 {title}({elapsedTime:%M:%S}/{totalTime:%M:%S})]",
-        "format-disconnected": "[]",
-        "format-stopped": "[󰎊]",
+        "format": "󰎇 {title}({elapsedTime:%M:%S}/{totalTime:%M:%S})",
+        "format-disconnected": " ",
+        "format-stopped": "󰎊 ",
         "interval": 10,
         "tooltip-format": "MPD (connected)",
         "tooltip-format-disconnected": "MPD (disconnected)"
     },
 
     "disk": {
-        "format": "[ {percentage_used}% "
+        "format": " {used}"
     },
 
     "custom/usb": {
         "exec": "lsblk -o 'tran' | grep usb | wc -l",
-        "format": "{icon} {text} ",
+        "format": "{icon} {text}",
         "format-icons": "󱇰",
         "interval": 15
     },
 
     "cpu": {
-        "format": " {usage}% "
+        "format": " {usage}%"
     },
 
     "memory": {
-        "format": " {used}GB "
+        "format": " {used}GB"
     },
 
     "temperature": {
         "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
         "input-filename": "temp1_input",
-        "format": " {temperatureC}°C]"
+        "format": " {temperatureC}°C"
     },
 
     "bluetooth": {
-        "format": "[ {status} ",
-        "format-disabled": "[󰂲 ", // an empty format will hide the module
-        "format-connected": "[ {num_connections} ",
+        "format": " {status}",
+        "format-disabled": "󰂲 ", // an empty format will hide the module
+        "format-connected": " {num_connections}",
         "tooltip-format": "{controller_alias}\t{controller_address}",
         "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
         "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}"
     },
 
     "network": {
-        "format": "{ifname}]",
-        "format-wifi": " {essid}({ipaddr})]",
-        "format-ethernet": " wired({ipaddr})]",
-        "format-disconnected": "󰅛 ]",
+        "format": "{ifname}",
+        "format-wifi": " {essid}({ipaddr})",
+        "format-ethernet": " wired({ipaddr})",
+        "format-disconnected": "󰅛 ",
         "tooltip-format": "{ifname} via {gwaddr}  ",
         "tooltip-format-wifi": "{essid} ({signalStrength}%) {ipaddr}  ",
         "tooltip-format-ethernet": "{ifname}  ",
@@ -143,15 +153,15 @@
     },
 
     "backlight": {
-        "format": "[{icon}{percent}% ",
+        "format": "{icon}{percent}%",
         "format-icons": ["󱩎 ", "󱩏 ","󱩐 ","󱩐 ","󱩑 ","󱩒 ","󱩓 ","󱩔 ","󱩕 ","󱩖 ","󰛨 "],
         "scroll-step": 10.0
     },
 
     "pulseaudio": {
-        "format": "{icon}{volume}% ",
-        "format-muted": " {volume}% ",
-        "format-bluetooth": " {volume}% ",
+        "format": "{icon}{volume}%",
+        "format-muted": " {volume}%",
+        "format-bluetooth": " {volume}%",
         "format-icons": {
             "default": [" ", " ", " "],
             "headphone": " ",
@@ -170,8 +180,8 @@
 
     "wireplumber#microphone": {
         "node-type": "Audio/Source",
-        "format": " {volume}%]",
-        "format-muted": " {volume}%]",
+        "format": " {volume}%",
+        "format-muted": " {volume}%",
         "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
         "on-click": "pavucontrol",
         "scroll-step": 5,
@@ -180,7 +190,7 @@
 
     "custom/clock": {
         "exec": "icons=(󱑊 󱐿 󱑀 󱑁 󱑂 󱑃 󱑄 󱑅 󱑆 󱑇 󱑈 󱑉); h=$(date +%-H); i=$((h % 12)); echo \"${icons[$i]} $(LC_TIME=C date '+%b-%d %a %H:%M')\"",
-        "format": "[{text}]",
+        "format": "{text}",
         "interval": 5
     }
 }

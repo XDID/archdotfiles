@@ -107,11 +107,13 @@ window#waybar {
 #privacy,
 #custom-wttr,
 #custom-niri-workspace-win,
+#custom-leftsep,
+#custom-rightsep,
 #custom-clock {
     color: @on_surface;
     background: @on_primary;
-    padding-left: 3px;
-    padding-right: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 #custom-niri-workspace-win {
@@ -120,7 +122,7 @@ window#waybar {
     margin-bottom: -8;
 }
 
-#tray {
-    padding-left: 6px;
-    padding-right: 6px;
+#custom-leftsep,
+#custom-rightsep {
+    padding: 0px;
 }
