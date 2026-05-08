@@ -27,7 +27,7 @@
     },
 
     "cffi/niri-windows": {
-      "module_path": "/home/harunato/.config/waybar/modules/waybar-niri-windows.so",
+      "module_path": "/home/harunato/.config/waybar/niri/modules/waybar-niri-windows.so",
       "options": {
         "mode": "text",
         "show-floating": "auto",
@@ -43,9 +43,9 @@
     },
 
     "custom/niri-workspace-win": {
-        "exec": "/home/harunato/.config/waybar/modules/niri-workspace-win",
+        "exec": "/home/harunato/.config/waybar/niri/modules/niri-workspace-win",
         "format": "[{}]",
-        "signal": 13
+        "tail": true
     },
 
     "niri/window": {

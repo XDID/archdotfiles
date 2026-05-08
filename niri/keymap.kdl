@@ -2,7 +2,7 @@ binds {
     // #"Applications"
     Mod+Shift+P hotkey-overlay-title="Start foot server" {spawn "/home/harunato/.local/bin/foots";}
     // Mod+Shift+E hotkey-overlay-title="Start emacs server" {spawn-sh "pkill emacs || true && sleep .5 && emacs --daemon";}
-    Mod+Shift+W hotkey-overlay-title="Start waybar" {spawn-sh "pkill waybar || true && waybar";}
+    Mod+Shift+W hotkey-overlay-title="Start waybar" {spawn-sh "pkill waybar || true && $HOME/.local/bin/waybar-switch niri";}
     Mod+X hotkey-overlay-title="Restart xremap server" { spawn-sh "pgrep xremap && echo 0411 | sudo -S pkill xremap || echo 0411 | sudo -S NIRI_SOCKET=\"$NIRI_SOCKET\" xremap --watch=config,device /home/harunato/.config/xremap/config.yml";}
     Mod+T hotkey-overlay-title="Open footclient" { spawn "footclient"; }
     Mod+Return hotkey-overlay-title="Open floatterm" { spawn-sh "$HOME/.local/bin/scratch floatterm"; }

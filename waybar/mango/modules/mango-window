@@ -1,0 +1,59 @@
+#!/bin/bash
+
+COLORS="$HOME/.config/waybar/mango/colors.css"
+
+get_color() {
+    grep "@define-color $1 " "$COLORS" | awk '{print $3}' | tr -d ';'
+}
+
+PRIMARY=$(get_color primary)
+ON_PRIMARY=$(get_color on_primary)
+ON_SURFACE=$(get_color on_surface)
+
+render() {
+    mmsg -g -c -l 2>/dev/null | awk \
+    -v primary="$PRIMARY" \
+    -v on_primary="$ON_PRIMARY" \
+    -v on_surface="$ON_SURFACE" '
+    / layout / {
+        layout = $3
+    }
+
+    / title / {
+        sub(/^.* title /, "")
+        title = $0
+    }
+
+END {
+    printf \
+    "<span background=\"%s\" foreground=\"%s\" rise=\"9000\"> </span>" \
+    "<span background=\"%s\" foreground=\"%s\" rise=\"-9000\"> </span>" \
+    "<span background=\"%s\" foreground=\"%s\">[%s]  </span>" \
+    "<span background=\"%s\" foreground=\"%s\" rise=\"9000\"> </span>" \
+    "<span background=\"%s\" foreground=\"%s\" rise=\"-9000\"> </span>" \
+    "<span background=\"%s\" foreground=\"%s\">%s</span>\n", \
+    on_primary, on_surface, \
+    on_primary, on_surface, \
+    on_primary, on_surface, layout, \
+    primary, on_primary, \
+    primary, on_primary, \
+    primary, on_primary, title
+
+    fflush()
+}'
+}
+
+last=""
+
+current=$(render)
+echo "$current"
+last="$current"
+
+mmsg -w -c -l | while read -r _; do
+    current=$(render)
+
+    if [[ "$current" != "$last" ]]; then
+        echo "$current"
+        last="$current"
+    fi
+done

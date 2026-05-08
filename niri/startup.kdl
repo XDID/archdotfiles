@@ -24,6 +24,6 @@ spawn-sh-at-startup "$HOME/.local/bin/set_wallpaper"
 // bind-monitor
 spawn-sh-at-startup "echo 0411 | sudo -S $HOME/.local/bin/bind-monitor"
 // bar
-spawn-at-startup "waybar"
+spawn-sh-at-startup "waybar -c $HOME/.config/waybar/niri/config.jsonc -s $HOME/.config/waybar/niri/style.css"
 // auto focus workspace 1
 spawn-at-startup "niri" "msg" "action" "focus-workspace" "2" // put stash workspace at 1, remove this later when niri implement hide workspace maybe

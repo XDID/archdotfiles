@@ -1,7 +1,5 @@
 #!/bin/bash
 
-LOCKFILE="/tmp/waybar_niri_listener.lock"
-
 get_windows() {
   cur_ws=$(niri msg --json workspaces | jq -r '.[] | select(.is_focused).id')
   if [ -z "$cur_ws" ]; then
@@ -39,37 +37,16 @@ get_windows_index() {
     '
 }
 
-# 第一次执行（脚本直接输出初始值，无论谁调用）
-last=$(get_windows_index)
-echo $last
+last=""
+get_windows_index
 
-# 尝试获取锁，只能有一个实例进入监听循环
-exec 9>"$LOCKFILE"
-if flock -n 9; then
-    # 成功获取锁，开始后台监听（注意：这里实际上是前台占用了锁，但脚本在第一次输出后必须退出，
-    # 才能让 waybar 读到输出，因此我们需要把监听部分放进子进程，然后主进程退出。
-    # 但锁是在主进程中打开的，flock 锁随进程关闭而释放。所以需要把锁传给子进程。
-    # 更好的做法：监听部分在子进程里重新获取锁。
-    (
-        # 子进程重新获取锁，防止主进程退出释放锁
-        exec 9>"$LOCKFILE"
-        flock 9
-
-        # 启动事件流监听
-        niri msg --json event-stream | while read -r line; do
-            event=$(echo "$line" | grep -E "WorkspacesChanged|WorkspaceActiveWindowChanged|WindowsChanged|WindowOpenedOrChanged|WindowClosed|WindowFocusChanged|WindowLayoutsChanged")
-            if [[ -n "$event" ]]; then
-                this=$(get_windows_index)
-                if [[ "$this" != "$last" ]]; then
-                    pkill -RTMIN+13 waybar
-                    last="$this"
-                fi
-            fi
-        done
-    ) &
-    # 主进程退出，让 waybar 得到输出
-    exit 0
-else
-    # 锁已被占用，说明已有监听在跑，直接退出即可
-    exit 0
-fi
+niri msg --json event-stream | while read -r line; do
+    event=$(echo "$line" | grep -E "WorkspacesChanged|WorkspaceActiveWindowChanged|WindowsChanged|WindowOpenedOrChanged|WindowClosed|WindowFocusChanged|WindowLayoutsChanged")
+    if [[ -n "$event" ]]; then
+        this=$(get_windows_index)
+        if [[ "$this" != "$last" ]]; then
+            echo $this
+            last="$this"
+        fi
+    fi
+done

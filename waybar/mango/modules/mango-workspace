@@ -1,0 +1,102 @@
+#!/bin/bash
+
+LOCKFILE="/tmp/waybar_mango_listner.lock"
+COLORS="$HOME/.config/waybar/mango/colors.css"
+
+get_color() {
+    grep "@define-color $1 " "$COLORS" | awk '{print $3}' | tr -d ';'
+}
+
+PRIMARY=$(get_color primary)
+ON_PRIMARY=$(get_color on_primary)
+ON_SURFACE=$(get_color on_surface)
+
+render() {
+    mmsg -g -t 2>/dev/null | grep -E -o "tag [0-9] [0-9] [0-9] [0-9]" | awk \
+    -v primary="$PRIMARY" \
+    -v on_primary="$ON_PRIMARY" \
+    -v on_surface="$ON_SURFACE" '
+    BEGIN {
+        out = ""
+    }
+
+    {
+        name     = $2
+        focused  = $3
+        occupied = $4
+
+        # focused + occupied
+        if (focused == 1 && occupied == 1) {
+out = out \
+    "<span background=\"" primary \
+    "\" foreground=\"" on_primary \
+    "\" rise=\"9000\">▪</span>" \
+    "<span background=\"" primary \
+    "\" foreground=\"" on_primary \
+    "\" rise=\"-9000\"> </span>" \
+    "<span background=\"" primary \
+    "\" foreground=\"" on_primary \
+    "\">" name " </span>"
+        }
+
+        # focused + empty
+        else if (focused == 1 && occupied == 0) {
+out = out \
+    "<span background=\"" primary \
+    "\" foreground=\"" on_primary \
+    "\" rise=\"9000\"> </span>" \
+    "<span background=\"" primary \
+    "\" foreground=\"" on_primary \
+    "\" rise=\"-9000\"> </span>" \
+    "<span background=\"" primary \
+    "\" foreground=\"" on_primary \
+    "\">" name " </span>"
+        }
+
+        # unfocused + occupied
+        else if (focused == 0 && occupied == 1) {
+out = out \
+    "<span background=\"" on_primary \
+    "\" foreground=\"" on_surface \
+    "\" rise=\"9000\">▫</span>" \
+    "<span background=\"" on_primary \
+    "\" foreground=\"" on_surface \
+    "\" rise=\"-9000\"> </span>" \
+    "<span background=\"" on_primary \
+    "\" foreground=\"" on_surface \
+    "\">" name " </span>"
+        }
+
+        # unfocused + empty
+        else {
+out = out \
+    "<span background=\"" on_primary \
+    "\" foreground=\"" on_surface \
+    "\" rise=\"9000\"> </span>" \
+    "<span background=\"" on_primary \
+    "\" foreground=\"" on_surface \
+    "\" rise=\"-9000\"> </span>" \
+    "<span background=\"" on_primary \
+    "\" foreground=\"" on_surface \
+    "\">" name " </span>"
+        }
+    }
+
+    END {
+        print out
+        fflush()
+    }'
+}
+
+last=""
+
+render
+
+mmsg -w -t | while read -r _; do
+    current=$(render)
+
+    if [[ "$current" != "$last" ]]; then
+        echo $current
+        last="$current"
+    fi
+done
