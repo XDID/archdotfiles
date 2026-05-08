@@ -11,8 +11,6 @@ case "$SELECTION" in
     "Suspend")
         systemctl suspend
         hyprlock
-        niri msg action do-screen-transition --delay-ms 500 &
-        $HOME/.local/bin/awww-daemon-server
         ;;
     "Reboot")
         systemctl reboot ;;

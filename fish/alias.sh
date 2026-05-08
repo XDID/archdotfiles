@@ -80,8 +80,6 @@ alias ur="WINEPREFIX=~/.wine PROTONPATH=/home/harunato/.local/share/Steam/compat
 alias s="systemctl"
 alias ss="sudo systemctl"
 
-alias r="realesrgan-ncnn-vulkan"
-
 alias cal="calcurse"
 
 alias df="df -h -x tmpfs -x efivarfs | awk '!/^dev/' | sort"

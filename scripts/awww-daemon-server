@@ -1,6 +1,0 @@
-#!/usr/bin/bash
-pkill -x awww-daemon
-awww-daemon &
-awww-daemon -n overview &
-awww img $HOME/Pictures/Wallpapers/current.png --transition-type none
-awww img $HOME/Pictures/Wallpapers/current_blur.png --transition-type none -n overview
