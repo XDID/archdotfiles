@@ -15,6 +15,8 @@ notifyStart() {
 
 notifyStop() {
     notify-send -e -u low -r 1258 "$(basename "$0")" "录音已停止"
+    rm -rf $HOME/.cache/audio_rec.log
+    pkill -RTMIN+13 waybar
 }
 
 setSource() {
@@ -46,7 +48,11 @@ notifyStart
 trap notifyStop EXIT INT TERM
 
 if [ "$type" = "[应用音源]" ]; then
+    echo  AUD > $HOME/.cache/audio_rec.log
+    pkill -RTMIN+13 waybar
     parec --monitor-stream="$id" --file-format=wav "$filename"
 else
+    echo  AUD > $HOME/.cache/audio_rec.log
+    pkill -RTMIN+13 waybar
     parec --device="$id" --file-format=wav "$filename"
 fi

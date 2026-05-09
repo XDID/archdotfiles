@@ -68,6 +68,8 @@ window#waybar {
 #privacy,
 #custom-wttr,
 #custom-leftsep,
+#custom-audiorec,
+#custom-rec,
 #custom-rightsep,
 #custom-clock {
     color: @on_surface;

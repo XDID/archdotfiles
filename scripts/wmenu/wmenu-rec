@@ -40,6 +40,8 @@ abort() {
 
 notifyStop() {
     notify "Screening record stopped"
+    rm -rf $HOME/.cache/wf-record.log
+    pkill -RTMIN+14 waybar
     exit 0
 }
 
@@ -88,6 +90,8 @@ startCapture() {
 
     trap notifyStop EXIT INT TERM
 
+    echo  REC > $HOME/.cache/wf-record.log
+    pkill -RTMIN+14 waybar
     wf-recorder --framerate "$fps" \
                 --output "$output" \
                 --audio="$source" \
@@ -98,7 +102,7 @@ startCapture() {
 
 set_menu
 
-reg=$(printf "Region\nWindow" | "$menu" -p "Record Mode ")
+reg=$(printf "Region\nScreen" | "$menu" -p "Record Mode ")
 if [ -z "$reg" ]; then
     notifyStop
 fi
