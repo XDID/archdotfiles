@@ -133,7 +133,7 @@ xdg-terminal-exec
 xf86-video-amdgpu
 xorg-xhost
 xwayland-satellite
-yazi
+yazi-git
 yt-dlp
 zbar
 zoxide
