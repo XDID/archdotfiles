@@ -46,6 +46,7 @@ fzf
 gnome-keyring
 gnome-tweaks
 go
+grim
 grub
 grub-btrfs
 gvfs-smb
@@ -124,6 +125,7 @@ wf-recorder
 wget
 wireplumber
 wl-clipboard
+wlr-randr
 wmenu
 wtype
 xdg-desktop-portal-gnome

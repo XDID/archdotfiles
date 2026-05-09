@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+
+cliphist list | $HOME/.local/bin/wmenu-color -p "clip " -l6 | cliphist decode | wl-copy

@@ -1,14 +1,16 @@
 #!/usr/bin/bash
+set -eu
 
-# qrdecode: decode screenshot qrcode
-niri msg action screenshot &
-event=$(timeout 30 niri msg event-stream | grep -m 1 "Screenshot captured")
-if [[ -n "$event" ]]; then
-  wl-paste | zbarimg --raw - | tr -d '\r\n' | wl-copy
-  current_app=$(niri msg --json focused-window | jq -r '.app_id')
-  if [[ "$current_app" = "firefox" ]]; then
-    wtype p
-  fi
-else
-  exit 1
+grim -g "$(slurp)" - \
+| tee >(wl-copy) \
+| zbarimg --raw - \
+| tr -d '\r\n' \
+| wl-copy
+
+current_app=$(
+    mmsg -g -c | awk '$2 == "appid" {print $3; exit}'
+)
+
+if [[ "$current_app" == "firefox" ]]; then
+    wtype -M ctrl v -m ctrl
 fi

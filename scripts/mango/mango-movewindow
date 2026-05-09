@@ -1,0 +1,35 @@
+#!/usr/bin/bash
+
+read width<<< $(mmsg -g -x | grep "width" | cut -d " " -f 3)
+read height <<< $(mmsg -g -x | grep "height" | cut -d " " -f 3)
+width=${width%.*}
+height=${height%.*}
+read screen_width screen_height <<< $(
+    wlr-randr | grep -m1 "current" | awk '{print $1}' | tr 'x' ' '
+)
+screen_width=${screen_width%.*}
+screen_height=${screen_height%.*}
+
+case "${1:-}" in
+    "topleft")
+        pos_x=0
+        pos_y=0
+        ;;
+    "topright")
+        pos_x=$(($screen_width - $width))
+        pos_y=0
+        ;;
+    "bottomleft")
+        pos_x=0
+        pos_y=$(($screen_height - $height))
+        ;;
+    "bottomright")
+        pos_x=$(($screen_width - $width))
+        pos_y=$(($screen_height - $height))
+        ;;
+    *)
+        exit 1
+        ;;
+esac
+
+mmsg -s -d movewin,$pos_x,$pos_y

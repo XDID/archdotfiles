@@ -4,12 +4,6 @@ window-rule {
   open-maximized true
 }
 
-// open floating
-window-rule {
-    match app-id="org.gnome.Nautilus" title="^Rotating.*"
-    open-floating true
-}
-
 // floating and center some window
 window-rule {
     match app-id="steam"

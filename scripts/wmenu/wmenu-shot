@@ -1,36 +1,54 @@
 #!/usr/bin/bash
 set -eu
+
 MENU="$HOME/.local/bin/wmenu-color"
 
-shot() {
-  niri msg action $1 -p false &
-  event=$(timeout 30 niri msg event-stream | grep -m 1 --line-buffered "Screenshot captured")
-  if [[ -n "$event" ]]; then
-    if [[ "$choice" != "Pin" ]]; then
-      wl-paste | satty -f - &
-    else
-      wl-paste | swayimg - &
-    fi
-  fi
-  exit 0
+shot_screen() {
+    grim -
 }
 
-choice=$(printf "Screen\nApplication\nRegion\nPin" | $MENU -p "Screenshot ")
+shot_region() {
+    grim -g "$(slurp)" -
+}
+
+shot_window() {
+    read x y w h <<< $(
+        mmsg -g -x | awk '
+            $2 == "x"      {x=int($3)}
+            $2 == "y"      {y=int($3)}
+            $2 == "width"  {w=int($3)}
+            $2 == "height" {h=int($3)}
+            END {print x, y, w, h}
+        '
+    )
+
+    grim -g "${x},${y} ${w}x${h}" -
+}
+
+open_editor() {
+    tee >(wl-copy) | satty -f -
+}
+
+open_pin() {
+    tee >(wl-copy) | swayimg -
+}
+
+choice=$(printf "Screen\nApplication\nRegion\nPin" | "$MENU" -p "Screenshot ")
 
 case "$choice" in
-  Screen)
-    shot "screenshot-screen"
-    ;;
-  Application)
-    shot "screenshot-window"
-    ;;
-  Region)
-    shot "screenshot"
-    ;;
-  Pin)
-    shot "screenshot"
-    ;;
-  *)
-    exit 1
-    ;;
+    Screen)
+        shot_screen | open_editor
+        ;;
+    Application)
+        shot_window | open_editor
+        ;;
+    Region)
+        shot_region | open_editor
+        ;;
+    Pin)
+        shot_region | open_pin
+        ;;
+    *)
+        exit 1
+        ;;
 esac
