@@ -83,3 +83,8 @@ post_hook = 'pkill -SIGUSR2 waybar'
 input_path = '~/.config/matugen/templates/waybar-color.css'
 output_path = '~/.config/waybar/mango/colors.css'
 post_hook = 'pkill -SIGUSR2 waybar'
+
+[templates.mango]
+input_path = '~/.config/matugen/templates/mango-color.conf'
+output_path = '~/.config/mango/matugen.conf'
+post_hook = "mmsg -d reload_config"

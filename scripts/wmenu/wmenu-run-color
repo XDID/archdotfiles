@@ -3,7 +3,7 @@ set -eu
 
 . "$HOME/.config/wmenu/color.sh"
 
-pgrep -x wmenu > /dev/null && exit 1 ||
+pgrep -x wmenu-run > /dev/null && exit 1 ||
 timeout 20 wmenu-run -i \
   -F \
   -E "SarasaTermSCNerd 14" \
