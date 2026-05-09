@@ -12,5 +12,5 @@ current_app=$(
 )
 
 if [[ "$current_app" == "firefox" ]]; then
-    wtype -M ctrl v -m ctrl
+    wtype p
 fi
