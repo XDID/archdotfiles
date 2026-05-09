@@ -11,12 +11,16 @@ ON_PRIMARY=$(get_color on_primary)
 ON_SURFACE=$(get_color on_surface)
 
 render() {
-    mmsg -g -c -l 2>/dev/null | awk \
+    mmsg -g -c -l -b 2>/dev/null | awk \
     -v primary="$PRIMARY" \
     -v on_primary="$ON_PRIMARY" \
     -v on_surface="$ON_SURFACE" '
     / layout / {
         layout = $3
+    }
+
+    / keymode / {
+        keymode = $3
     }
 
     / title / {
@@ -25,16 +29,18 @@ render() {
     }
 
 END {
+    status = "[" layout "  " keymode "]"
+
     printf \
     "<span background=\"%s\" foreground=\"%s\" rise=\"9000\"> </span>" \
     "<span background=\"%s\" foreground=\"%s\" rise=\"-9000\"> </span>" \
-    "<span background=\"%s\" foreground=\"%s\">[%s]  </span>" \
+    "<span background=\"%s\" foreground=\"%s\">%s  </span>" \
     "<span background=\"%s\" foreground=\"%s\" rise=\"9000\"> </span>" \
     "<span background=\"%s\" foreground=\"%s\" rise=\"-9000\"> </span>" \
     "<span background=\"%s\" foreground=\"%s\">%s</span>\n", \
     on_primary, on_surface, \
     on_primary, on_surface, \
-    on_primary, on_surface, layout, \
+    on_primary, on_surface, status, \
     primary, on_primary, \
     primary, on_primary, \
     primary, on_primary, title
