@@ -1,6 +1,17 @@
 #!/bin/bash
 
-LOCKFILE="/tmp/waybar_mango_listner.lock"
+LOCKFILE="/tmp/mango-workspace.lock"
+CACHE="$HOME/.cache/mango-workspace.log"
+
+exec 200>"$LOCKFILE"
+
+flock -n 200 || exit 1
+
+clean_up() {
+    rm -rf $LOCKFILE
+    rm -rf $CACHE
+}
+
 COLORS="$HOME/.config/waybar/mango/colors.css"
 
 get_color() {
@@ -90,13 +101,17 @@ out = out \
 
 last=""
 
-render
+echo $(render) > $CACHE
+
+trap clean_up EXIT INT TERM
 
 mmsg -w -t | while read -r _; do
+    pgrep waybar || exit 1
     current=$(render)
 
     if [[ "$current" != "$last" ]]; then
-        echo $current
+        echo $current  > $CACHE
+        pkill -RTMIN+15 waybar
         last="$current"
     fi
 done

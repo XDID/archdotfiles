@@ -18,15 +18,17 @@
     },
 
     "custom/mango-workspace": {
-        "exec": "~/.config/waybar/mango/modules/mango-workspace",
+        "exec": "cat ~/.cache/mango-workspace.log",
         "escape": false,
-        "tail": true
+        "interval": "once",
+        "signal": 15
     },
 
     "custom/mango-window": {
-        "exec": "~/.config/waybar/mango/modules/mango-window",
+        "exec": "cat ~/.cache/mango-window.log",
         "escape": false,
-        "tail": true
+        "interval": "once",
+        "signal": 16
     },
 
     "custom/audiorec": {

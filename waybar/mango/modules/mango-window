@@ -1,5 +1,12 @@
 #!/bin/bash
 
+LOCKFILE="/tmp/mango-window.lock"
+CACHE="$HOME/.cache/mango-window.log"
+
+exec 200>"$LOCKFILE"
+
+flock -n 200 || exit 1
+
 COLORS="$HOME/.config/waybar/mango/colors.css"
 
 get_color() {
@@ -9,6 +16,11 @@ get_color() {
 PRIMARY=$(get_color primary)
 ON_PRIMARY=$(get_color on_primary)
 ON_SURFACE=$(get_color on_surface)
+
+clean_up() {
+    rm -rf $LOCKFILE
+    rm -rf $CACHE
+}
 
 render() {
     mmsg -g -c -l -b 2>/dev/null | awk \
@@ -52,14 +64,18 @@ END {
 last=""
 
 current=$(render)
-echo "$current"
+echo "$current" > $CACHE
 last="$current"
 
+trap clean_up EXIT INT TERM
+
 mmsg -w -c -l | while read -r _; do
+    pgrep waybar || exit 1
     current=$(render)
 
     if [[ "$current" != "$last" ]]; then
-        echo "$current"
+        echo "$current" > $CACHE
+        pkill -RTMIN+16 waybar 2>/dev/null
         last="$current"
     fi
 done

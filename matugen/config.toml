@@ -52,10 +52,10 @@ input_path = '~/.config/matugen/templates/tmux-color.conf'
 output_path = '~/.config/tmux/color.conf'
 post_hook = 'pgrep tmux && tmux source-file /home/harunato/.config/tmux/color.conf'
 
-[templates.niri]
-input_path = '~/.config/matugen/templates/niri-color.kdl'
-output_path = '~/.config/niri/matugen.kdl'
-post_hook = 'niri msg action load-config-file'
+# [templates.niri]
+# input_path = '~/.config/matugen/templates/niri-color.kdl'
+# output_path = '~/.config/niri/matugen.kdl'
+# post_hook = 'niri msg action load-config-file'
 
 [templates.pywalfox]
 input_path = '~/.config/matugen/templates/pywalfox-colors.json'
@@ -74,15 +74,15 @@ output_path = '~/.config/qt6ct/colors/matugen.conf'
 input_path = '~/.config/matugen/templates/yazi-flavor.toml'
 output_path = '~/.config/yazi/flavors/matugen.yazi/flavor.toml'
 
-[templates.waybar-niri]
-input_path = '~/.config/matugen/templates/waybar-color.css'
-output_path = '~/.config/waybar/niri/colors.css'
-post_hook = 'pkill -SIGUSR2 waybar'
+# [templates.waybar-niri]
+# input_path = '~/.config/matugen/templates/waybar-color.css'
+# output_path = '~/.config/waybar/niri/colors.css'
+# post_hook = 'pkill -SIGUSR2 waybar'
 
 [templates.waybar-mango]
 input_path = '~/.config/matugen/templates/waybar-color.css'
 output_path = '~/.config/waybar/mango/colors.css'
-post_hook = 'pkill -SIGUSR2 waybar'
+post_hook = '~/.local/bin/waybar-switch'
 
 [templates.mango]
 input_path = '~/.config/matugen/templates/mango-color.conf'

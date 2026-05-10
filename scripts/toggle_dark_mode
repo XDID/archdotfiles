@@ -1,6 +1,8 @@
 #!/usr/bin/bash
 
-niri msg action do-screen-transition --delay-ms 800 &
+if [[ $XDG_CURRENT_DESKTOP == "niri" ]]; then
+  niri msg action do-screen-transition --delay-ms 800 &
+fi
 mode="$(gsettings get org.gnome.desktop.interface color-scheme)"
 
 if [ "$mode" = "'prefer-light'" ]; then

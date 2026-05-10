@@ -7,8 +7,9 @@ height=${height%.*}
 read screen_width screen_height <<< $(
     wlr-randr | grep -m1 "current" | awk '{print $1}' | tr 'x' ' '
 )
-screen_width=${screen_width%.*}
-screen_height=${screen_height%.*}
+scale=$(wlr-randr | grep "Scale" | cut -d " " -f 4)
+screen_width=$(awk "BEGIN {print int($screen_width / $scale)}")
+screen_height=$(awk "BEGIN {print int($screen_height / $scale)}")
 
 case "${1:-}" in
     "topleft")

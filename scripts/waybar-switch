@@ -1,9 +1,17 @@
 #!/usr/bin/bash
+theme="${1:-${XDG_CURRENT_DESKTOP,,}}"
 
-theme="$1"
-
-pkill -x waybar
+killall mango-window 2>/dev/null
+killall mango-workspace 2>/dev/null
+killall waybar 2>/dev/null
 
 waybar \
   -c "$HOME/.config/waybar/$theme/config.jsonc" \
-  -s "$HOME/.config/waybar/$theme/style.css"
+  -s "$HOME/.config/waybar/$theme/style.css" > /dev/null &
+
+sleep .5
+
+if [[ $theme == "mango" ]]; then
+  $HOME/.config/waybar/mango/modules/mango-window &
+  $HOME/.config/waybar/mango/modules/mango-workspace &
+fi
