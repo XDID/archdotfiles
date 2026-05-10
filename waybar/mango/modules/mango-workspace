@@ -3,6 +3,8 @@
 LOCKFILE="/tmp/mango-workspace.lock"
 CACHE="$HOME/.cache/mango-workspace.log"
 
+trap clean_up EXIT INT TERM
+
 exec 200>"$LOCKFILE"
 
 flock -n 200 || exit 1
@@ -102,11 +104,11 @@ out = out \
 last=""
 
 echo $(render) > $CACHE
-
-trap clean_up EXIT INT TERM
+sleep .5
+pkill -RTMIN+15 waybar
 
 mmsg -w -t | while read -r _; do
-    pgrep waybar || exit 1
+    pgrep waybar > /dev/null || exit 1
     current=$(render)
 
     if [[ "$current" != "$last" ]]; then

@@ -9,7 +9,7 @@ waybar \
   -c "$HOME/.config/waybar/$theme/config.jsonc" \
   -s "$HOME/.config/waybar/$theme/style.css" > /dev/null &
 
-sleep .5
+sleep .1
 
 if [[ $theme == "mango" ]]; then
   $HOME/.config/waybar/mango/modules/mango-window &

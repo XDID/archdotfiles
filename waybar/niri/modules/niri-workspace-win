@@ -41,6 +41,7 @@ last=""
 get_windows_index
 
 niri msg --json event-stream | while read -r line; do
+    pgrep waybar || exit 1
     event=$(echo "$line" | grep -E "WorkspacesChanged|WorkspaceActiveWindowChanged|WindowsChanged|WindowOpenedOrChanged|WindowClosed|WindowFocusChanged|WindowLayoutsChanged")
     if [[ -n "$event" ]]; then
         this=$(get_windows_index)

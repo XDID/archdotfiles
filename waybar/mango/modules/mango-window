@@ -3,6 +3,8 @@
 LOCKFILE="/tmp/mango-window.lock"
 CACHE="$HOME/.cache/mango-window.log"
 
+trap clean_up EXIT INT TERM
+
 exec 200>"$LOCKFILE"
 
 flock -n 200 || exit 1
@@ -37,7 +39,12 @@ render() {
 
     / title / {
         sub(/^.* title /, "")
-        title = $0
+        max = 45
+
+        if (length($0) > max)
+            title = substr($0, 1, max) "…"
+        else
+            title = $0
     }
 
 END {
@@ -66,11 +73,11 @@ last=""
 current=$(render)
 echo "$current" > $CACHE
 last="$current"
-
-trap clean_up EXIT INT TERM
+sleep .5
+pkill -RTMIN+16 waybar
 
 mmsg -w -c -l | while read -r _; do
-    pgrep waybar || exit 1
+    pgrep waybar > /dev/null || exit 1
     current=$(render)
 
     if [[ "$current" != "$last" ]]; then
