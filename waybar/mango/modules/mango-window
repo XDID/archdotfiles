@@ -20,7 +20,6 @@ ON_PRIMARY=$(get_color on_primary)
 ON_SURFACE=$(get_color on_surface)
 
 clean_up() {
-    rm -rf $LOCKFILE
     rm -rf $CACHE
 }
 

@@ -3,6 +3,7 @@ theme="${1:-${XDG_CURRENT_DESKTOP,,}}"
 
 killall mango-window 2>/dev/null
 killall mango-workspace 2>/dev/null
+killall niri-workspace-win 2>/dev/null
 killall waybar 2>/dev/null
 
 waybar \
@@ -14,4 +15,6 @@ sleep .1
 if [[ $theme == "mango" ]]; then
   $HOME/.config/waybar/mango/modules/mango-window &
   $HOME/.config/waybar/mango/modules/mango-workspace &
+elif [[ $theme == "niri" ]]; then
+  $HOME/.config/waybar/niri/modules/niri-workspace-win &
 fi

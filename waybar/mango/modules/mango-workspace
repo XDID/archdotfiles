@@ -10,7 +10,6 @@ exec 200>"$LOCKFILE"
 flock -n 200 || exit 1
 
 clean_up() {
-    rm -rf $LOCKFILE
     rm -rf $CACHE
 }
 
