@@ -77,14 +77,14 @@ output_path = '~/.config/yazi/flavors/matugen.yazi/flavor.toml'
 [templates.waybar-niri]
 input_path = '~/.config/matugen/templates/waybar-color.css'
 output_path = '~/.config/waybar/niri/colors.css'
-post_hook = 'pkill -SIGUSR2 waybar'
+post_hook = 'pgrep niri && ~/.local/bin/waybar-switch || echo "niri not running"'
 
 [templates.waybar-mango]
 input_path = '~/.config/matugen/templates/waybar-color.css'
 output_path = '~/.config/waybar/mango/colors.css'
-post_hook = '~/.local/bin/waybar-switch'
+post_hook = 'pgrep mango && ~/.local/bin/waybar-switch || echo "mango not running"'
 
 [templates.mango]
 input_path = '~/.config/matugen/templates/mango-color.conf'
 output_path = '~/.config/mango/matugen.conf'
-post_hook = "mmsg -d reload_config"
+post_hook = 'pgrep mango && mmsg -d reload_config || echo "mango not running"'
