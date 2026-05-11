@@ -56,7 +56,7 @@ make_desktop() {
 [Desktop Entry]
 Name=${name}
 GenericName=${name}
-Exec=umu-run --config "${TOML_PATH}/${name}.toml"
+Exec=gamescope -f -W 3840 -H 2160 -r 60 -- umu-run --config "${TOML_PATH}/${name}.toml"
 Terminal=false
 Type=Application
 Categories=Game;

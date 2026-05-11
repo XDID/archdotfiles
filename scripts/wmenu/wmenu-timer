@@ -22,14 +22,18 @@ parse_to_seconds() {
 
 seconds_to_fmt() {
     local total=$1
+
     local h=$(( total / 3600 ))
     local m=$(( (total % 3600) / 60 ))
     local s=$(( total % 60 ))
-    local fmt=""
-    [ $h -gt 0 ] && fmt+="${h}h "
-    [ $m -gt 0 ] && fmt+="${m}m "
-    [ $s -gt 0 ] && fmt+="${s}s"
-    echo "${fmt:-0s}"
+
+    if (( h > 0 )); then
+        printf "%dh:%02dm:%02ds\n" "$h" "$m" "$s"
+    elif (( m > 0 )); then
+        printf "%dm:%02ds\n" "$m" "$s"
+    else
+        printf "%ds\n" "$s"
+    fi
 }
 
 cleanup() {

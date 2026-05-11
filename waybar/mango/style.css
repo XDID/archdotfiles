@@ -70,6 +70,7 @@ window#waybar {
 #custom-leftsep,
 #custom-audiorec,
 #custom-rec,
+#custom-timer,
 #custom-rightsep,
 #custom-clock {
     color: @on_surface;
