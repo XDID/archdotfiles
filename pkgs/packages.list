@@ -40,7 +40,6 @@ firefox
 firefox-tridactyl-native
 fish
 fisher
-foliate
 foot
 fzf
 gamescope
@@ -78,7 +77,6 @@ noto-fonts-emoji
 npm
 nwg-look
 obs-studio
-okular
 os-prober
 pacman-contrib
 pamixer
@@ -138,6 +136,8 @@ xorg-xhost
 xwayland-satellite
 yazi
 yt-dlp
+zathura
+zathura-pdf-mupdf
 zbar
 zoxide
 zram-generator
