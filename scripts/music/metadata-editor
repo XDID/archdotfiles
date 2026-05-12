@@ -1,0 +1,277 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+export SHELL=/bin/bash
+
+MUSIC_DIR="${1:-$HOME/Music}"
+
+require() {
+    command -v "$1" >/dev/null 2>&1 || {
+        echo "Missing dependency: $1"
+        exit 1
+    }
+}
+
+require fd
+require fzf
+require ffprobe
+require ffmpeg
+require jq
+require gum
+
+pick_song() {
+    fd . "$MUSIC_DIR" \
+        --type f \
+        --extension mp3 \
+        --extension flac \
+        --extension m4a \
+        --extension ogg \
+        --extension opus \
+    | sort \
+    | fzf \
+        --ansi \
+        --height 85% \
+        --layout reverse \
+        --border \
+        --preview-window right:60%:wrap \
+        --preview "bash -c '
+            file=\"\${1-}\"
+
+            [ -z \"\$file\" ] && exit 0
+            [ ! -f \"\$file\" ] && exit 0
+
+            echo \"========== FILE ==========\"
+            echo \"\$file\"
+            echo
+
+            echo \"======= METADATA =========\"
+
+            ffprobe \
+                -v quiet \
+                -show_entries format_tags \
+                -of default=noprint_wrappers=1:nokey=0 \
+                \"\$file\" 2>/dev/null \
+            | grep -viE \"encoder|minor_version|compatible_brands\" \
+            | sed \
+                -e \"s/^TAG://g\" \
+                -e \"s/^/  /\" \
+                -e \"s/=/ : /\"
+
+            echo
+            echo \"======== AUDIO ==========\"
+
+            ffprobe \
+                -v error \
+                -show_entries format=duration:stream=codec_name,channels,sample_rate,bit_rate \
+                -of default=noprint_wrappers=1 \
+                \"\$file\" 2>/dev/null
+        ' _ {}"
+}
+
+get_tag() {
+    local file="$1"
+    local tag="$2"
+
+    ffprobe \
+        -v quiet \
+        -show_entries format_tags:stream_tags \
+        -print_format json \
+        "$file" 2>/dev/null \
+    | jq -r "
+        .format.tags.${tag} //
+        .format.tags.${tag^^} //
+        .streams[0].tags.${tag} //
+        .streams[0].tags.${tag^^} //
+        empty
+    "
+}
+
+edit_song() {
+    local file="$1"
+
+    local title
+    local artist
+    local album
+    local genre
+    local year
+    local track
+
+    title=$(get_tag "$file" title)
+    artist=$(get_tag "$file" artist)
+    album=$(get_tag "$file" album)
+    genre=$(get_tag "$file" genre)
+    year=$(get_tag "$file" date)
+    track=$(get_tag "$file" track)
+
+    clear
+
+    gum style \
+        --border rounded \
+        --padding "1 2" \
+        --foreground 212 \
+        "Editing Metadata"
+
+    echo
+    echo "$file"
+    echo
+
+    TITLE=$(gum input \
+        --placeholder "Title" \
+        --value "$title")
+
+    ARTIST=$(gum input \
+        --placeholder "Artist" \
+        --value "$artist")
+
+    ALBUM=$(gum input \
+        --placeholder "Album" \
+        --value "$album")
+
+    GENRE=$(gum input \
+        --placeholder "Genre" \
+        --value "$genre")
+
+    YEAR=$(gum input \
+        --placeholder "Year" \
+        --value "$year")
+
+    TRACK=$(gum input \
+        --placeholder "Track" \
+        --value "$track")
+
+    tmp="$(mktemp --suffix=".${file##*.}")"
+
+    ffmpeg -y \
+        -i "$file" \
+        -map 0 \
+        -c copy \
+        -id3v2_version 3 \
+        -metadata title="$TITLE" \
+        -metadata artist="$ARTIST" \
+        -metadata album="$ALBUM" \
+        -metadata genre="$GENRE" \
+        -metadata date="$YEAR" \
+        -metadata track="$TRACK" \
+        "$tmp" \
+        >/dev/null 2>&1
+
+    mv "$tmp" "$file"
+
+    echo
+
+    gum style \
+        --foreground 2 \
+        --bold \
+        "✓ Metadata updated"
+}
+
+rename_from_metadata() {
+    local file="$1"
+
+    artist=$(get_tag "$file" artist)
+    title=$(get_tag "$file" title)
+
+    [[ -z "$artist" || -z "$title" ]] && {
+        gum style \
+            --foreground 1 \
+            "Missing artist/title"
+        return
+    }
+
+    dir=$(dirname "$file")
+    ext="${file##*.}"
+
+    new_file="$dir/${artist} - ${title}.${ext}"
+
+    mv "$file" "$new_file"
+
+    gum style \
+        --foreground 6 \
+        "Renamed:"
+    echo "$new_file"
+}
+
+preview_song() {
+    local file="$1"
+
+    command -v mpv >/dev/null 2>&1 || {
+        gum style \
+            --foreground 1 \
+            "mpv not installed"
+        return
+    }
+
+    mpv \
+        --no-video \
+        --really-quiet \
+        "$file"
+}
+
+main_menu() {
+    gum choose \
+        "Edit metadata" \
+        "Rename from metadata" \
+        "Preview song" \
+        "Choose another song" \
+        "Quit"
+}
+
+main() {
+    while true; do
+
+        song=$(pick_song)
+
+        [[ -z "$song" ]] && exit 0
+
+        while true; do
+            clear
+
+            gum style \
+                --border rounded \
+                --padding "1 2" \
+                --foreground 213 \
+                "$(basename "$song")"
+
+            echo
+
+            ffprobe \
+                -v quiet \
+                -show_entries format_tags:stream_tags \
+                -print_format json \
+                "$song" \
+            | jq
+
+            echo
+
+            choice=$(main_menu)
+
+            case "$choice" in
+
+                "Edit metadata")
+                    edit_song "$song"
+                    read -rp "Press Enter..."
+                    ;;
+
+                "Rename from metadata")
+                    rename_from_metadata "$song"
+                    read -rp "Press Enter..."
+                    ;;
+
+                "Preview song")
+                    preview_song "$song"
+                    ;;
+
+                "Choose another song")
+                    break
+                    ;;
+
+                "Quit")
+                    exit 0
+                    ;;
+            esac
+        done
+    done
+}
+
+main
