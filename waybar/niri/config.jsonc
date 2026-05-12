@@ -5,7 +5,7 @@
 
     "modules-left": ["niri/workspaces", "custom/niri-workspace-win", "niri/window"],
     "modules-center": [],
-    "modules-right": ["custom/leftsep", "tray", "custom/rightsep", "custom/leftsep", "mpd", "custom/rightsep", "custom/leftsep", "custom/checkupdates", "custom/tty", "custom/uptime", "custom/rightsep", "custom/leftsep", "custom/calcurse", "custom/wttr", "custom/rightsep", "custom/leftsep", "disk", "custom/usb", "cpu", "memory", "temperature", "custom/rightsep", "custom/leftsep", "bluetooth", "network", "custom/rightsep", "custom/leftsep", "backlight", "pulseaudio", "wireplumber#microphone", "custom/rightsep", "custom/leftsep", "custom/clock", "custom/rightsep"],
+    "modules-right": ["custom/leftsep", "tray", "custom/rightsep", "custom/leftsep", "mpd", "custom/checkupdates", "custom/tty", "custom/uptime", "custom/rightsep", "custom/leftsep", "custom/calcurse", "custom/wttr", "custom/rightsep", "custom/leftsep", "disk", "custom/usb", "cpu", "memory", "temperature", "custom/rightsep", "custom/leftsep", "bluetooth", "network", "custom/rightsep", "custom/leftsep", "backlight", "pulseaudio", "wireplumber#microphone", "custom/rightsep", "custom/leftsep", "custom/clock", "custom/rightsep"],
 
     "custom/leftsep": {
         "exec": "echo [",
