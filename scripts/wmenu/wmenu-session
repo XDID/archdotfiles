@@ -2,8 +2,9 @@
 set -eu
 
 MENU="$HOME/.local/bin/wmenu-color"
+NAME=${XDG_CURRENT_DESKTOP:-niri}
 
-SELECTION=$(printf "Lock\nSuspend\nReboot\nShutdown" | "$MENU" -l4 -i -p "Niri ") || exit 0
+SELECTION=$(printf "Lock\nSuspend\nReboot\nShutdown" | "$MENU" -l4 -i -p "$NAME ") || exit 0
 
 case "$SELECTION" in
     "Lock")

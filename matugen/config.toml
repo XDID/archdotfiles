@@ -5,11 +5,11 @@
 input_path = '~/.config/matugen/templates/btop.theme'
 output_path = '~/.config/btop/themes/matugen.theme'
 post_hook = 'pkill -USR2 btop || true'
-
-[templates.cava]
-input_path = '~/.config/matugen/templates/cava-colors.ini'
-output_path = '~/.config/cava/themes/matugen'
-post_hook = 'pkill -USR1 cava || true'
+#
+# [templates.cava]
+# input_path = '~/.config/matugen/templates/cava-colors.ini'
+# output_path = '~/.config/cava/themes/matugen'
+# post_hook = 'pkill -USR1 cava || true'
 
 [templates.dunst]
 input_path = '~/.config/matugen/templates/dunstrc-colors'
