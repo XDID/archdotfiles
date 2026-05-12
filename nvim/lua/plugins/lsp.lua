@@ -94,6 +94,7 @@ return {
 			stylua = {}, -- Used to format Lua code
 			bashls = {},
 			clangd = {},
+			prettier = {},
 
 			-- Special Lua Config, as recommended by neovim help docs
 			lua_ls = {

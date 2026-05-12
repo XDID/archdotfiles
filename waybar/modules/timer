@@ -1,6 +1,15 @@
 #!/usr/bin/bash
 
 TARGET_FILE="/tmp/my_timer_target"
+[[ -f $TARGET_FILE ]] || exit 0
+COLORS="$HOME/.config/waybar/mango/colors.css"
+
+get_color() {
+    grep "@define-color $1 " "$COLORS" | awk '{print $3}' | tr -d ';'
+}
+
+ERROR="$(get_color error)"
+ERROR="${ERROR:-#ff0000}"
 
 seconds_to_fmt() {
     local total=$1
@@ -19,7 +28,7 @@ seconds_to_fmt() {
 }
 
 if [ ! -f "$TARGET_FILE" ]; then
-    echo "󱎬 "
+    echo ""
     return
 fi
 
@@ -28,7 +37,8 @@ now=$(date +%s)
 rem=$(( target - now ))
 
 if [ "$rem" -le 0 ]; then
-    echo "󱫌  Done"
+    echo "<span foreground=\"$ERROR\">󱫌  Done</span>"
+
 else
     echo "󱎫 $(seconds_to_fmt $rem)"
 fi
