@@ -1,32 +1,32 @@
-set default-bg "{{colors.surface.default.hex}}"
-set default-fg "{{colors.on_surface.default.hex}}"
+set default-bg "{{colors.surface.default.rgba}}"
+set default-fg "{{colors.on_surface.default.rgba}}"
 
-set statusbar-bg "{{colors.primary.default.hex}}"
-set statusbar-fg "{{colors.surface.default.hex}}"
+set statusbar-bg "{{colors.primary.default.rgba}}"
+set statusbar-fg "{{colors.surface.default.rgba}}"
 
-set inputbar-bg "{{colors.surface_container_high.default.hex}}"
-set inputbar-fg "{{colors.on_surface.default.hex}}"
+set inputbar-bg "{{colors.surface_container_high.default.rgba}}"
+set inputbar-fg "{{colors.on_surface.default.rgba}}"
 
-set notification-bg "{{colors.surface_container_highest.default.hex}}"
-set notification-fg "{{colors.on_surface.default.hex}}"
+set notification-bg "{{colors.surface_container_highest.default.rgba}}"
+set notification-fg "{{colors.on_surface.default.rgba}}"
 
-set notification-error-bg "{{colors.error.default.hex}}"
-set notification-error-fg "{{colors.on_error.default.hex}}"
+set notification-error-bg "{{colors.error.default.rgba}}"
+set notification-error-fg "{{colors.on_error.default.rgba}}"
 
-set notification-warning-bg "{{colors.error_container.default.hex}}"
-set notification-warning-fg "{{colors.on_error_container.default.hex}}"
+set notification-warning-bg "{{colors.error_container.default.rgba}}"
+set notification-warning-fg "{{colors.on_error_container.default.rgba}}"
 
-set highlight-color "{{colors.secondary_container.default.hex}}"
-set highlight-active-color "{{colors.primary.default.hex}}"
+set highlight-color "{{colors.primary.default.rgba | set_alpha: 0.5}}"
+set highlight-active-color "{{colors.surface.default.rgba}}"
 
-set completion-bg "{{colors.surface_container.default.hex}}"
-set completion-fg "{{colors.on_surface.default.hex}}"
+set completion-bg "{{colors.surface_container.default.rgba}}"
+set completion-fg "{{colors.on_surface.default.rgba}}"
 
-set completion-highlight-bg "{{colors.primary.default.hex}}"
-set completion-highlight-fg "{{colors.on_primary.default.hex}}"
+set completion-highlight-bg "{{colors.primary.default.rgba}}"
+set completion-highlight-fg "{{colors.on_primary.default.rgba}}"
 
-set recolor-lightcolor "{{colors.surface.default.hex}}"
-set recolor-darkcolor "{{colors.on_surface.default.hex}}"
+set recolor-lightcolor "{{colors.surface.default.rgba}}"
+set recolor-darkcolor "{{colors.on_surface.default.rgba}}"
 
 set recolor true
 set recolor-keephue true
