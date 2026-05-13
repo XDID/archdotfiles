@@ -77,6 +77,20 @@ alias prss="paru -Ss"
 # umu
 alias ur="WINEPREFIX=~/.wine PROTONPATH=/home/harunato/.local/share/Steam/compatibilitytools.d/GE-Proton10-34 gamescope -f -W 3840 -H 2160 -r 60 --force-grab-cursor -- umu-run"
 
+# image
+function r
+    set -l input $argv[1]
+    set -l scale (test -n "$argv[2]"; and echo $argv[2]; or echo 2)
+
+    set -l output (path change-extension png $input)
+    set output (string replace ".png" "_x$scale.png" $output)
+
+    realesrgan-ncnn-vulkan \
+        -i $input \
+        -o $output \
+        -n realesr-animevideov3 \
+        -s $scale
+end
 
 alias s="systemctl"
 alias ss="sudo systemctl"

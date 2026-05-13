@@ -14,11 +14,11 @@ screen_height=$(awk "BEGIN {print int($screen_height / $scale)}")
 case "${1:-}" in
     "topleft")
         pos_x=0
-        pos_y=0
+        pos_y=23
         ;;
     "topright")
         pos_x=$(($screen_width - $width))
-        pos_y=0
+        pos_y=23
         ;;
     "bottomleft")
         pos_x=0

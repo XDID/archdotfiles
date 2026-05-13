@@ -193,6 +193,13 @@ on = ["'", "c"]
 run = "plugin chmod"
 desc = "chmod"
 
+[[mgr.prepend_keymap]]
+on = ["W"]
+run = '''
+shell --confirm '$HOME/.local/bin/set_wallpaper -i "$0"' -- "$0"
+'''
+desc = "wallpaper"
+
 [tasks]
 
 keymap = [

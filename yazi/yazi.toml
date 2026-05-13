@@ -139,6 +139,7 @@ preloaders = [
 	{ mime = "font/*", run = "font" },
 	{ mime = "application/ms-opentype", run = "font" },
 ]
+
 previewers = [
 	{ url = "*/", run = "folder" },
 	# Code
@@ -173,6 +174,34 @@ previewers = [
 	{ mime = "null/*", run = "null" },
 	# Fallback
 	{ url = "*", run = "file" },
+]
+
+prepend_preloaders = [
+	{ mime = "{audio,video,image}/*", run = "mediainfo" },
+	# { mime = "application/subrip", run = "mediainfo" },
+	# { mime = "application/postscript", run = "mediainfo" },
+	# { mime = "application/illustrator", run = "mediainfo" },
+	# { mime = "application/dvb.ait", run = "mediainfo" },
+	# { mime = "application/vnd.adobe.illustrator", run = "mediainfo" },
+	# { mime = "image/x-eps", run = "mediainfo" },
+	# { mime = "application/eps", run = "mediainfo" },
+	# { url = "*.{ai,eps,ait}", run = "mediainfo" },
+	{ mime = "{image}/*", run = "mediainfo --no-metadata" },
+	{ mime = "{video}/*", run = "mediainfo --no-preview" },
+]
+
+prepend_previewers = [
+	{ mime = "{audio,video,image}/*", run = "mediainfo"},
+	{ mime = "application/subrip", run = "mediainfo" },
+	{ mime = "application/postscript", run = "mediainfo" },
+	{ mime = "application/illustrator", run = "mediainfo" },
+	{ mime = "application/dvb.ait", run = "mediainfo" },
+	{ mime = "application/vnd.adobe.illustrator", run = "mediainfo" },
+	{ mime = "image/x-eps", run = "mediainfo" },
+	{ mime = "application/eps", run = "mediainfo" },
+	{ url = "*.{ai,eps,ait}", run = "mediainfo" },
+	{ mime = "{image}/*", run = "mediainfo --no-metadata" },
+	{ mime = "{video}/*", run = "mediainfo --no-preview" },
 ]
 
 [input]
