@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+menu="$HOME/.local/bin/wmenu-color"
+
+declare -A layouts=(
+    [tile]=T
+    [scroller]=S
+    [grid]=G
+    [monocle]=M
+    [deck]=K
+    [center_tile]=CT
+    [right_tile]=RT
+    [vertical_scroller]=VS
+    [vertical_tile]=VT
+    [vertical_grid]=VG
+    [vertical_deck]=VK
+    [dwindle]=DW
+)
+
+layout=$(
+    printf '%s\n' "${!layouts[@]}" |
+    sort |
+    $menu -l 6 -p "Layout "
+)
+
+[ -z "$layout" ] && exit 0
+echo $layout
+
+mmsg -s -l "${layouts[$layout]}"
