@@ -19,7 +19,6 @@ btrfs-assistant
 btrfs-progs
 calcurse
 chafa
-clang
 cliphist
 cronie
 ddcutil
@@ -51,7 +50,6 @@ grub-btrfs
 gvfs-smb
 htmlq
 hyprlock
-impala
 inotify-tools
 iwd
 jq
@@ -110,7 +108,6 @@ tree
 tree-sitter-cli
 ttf-liberation
 ttf-nerd-fonts-symbols-mono
-ttf-sourcecodepro-nerd
 umu-launcher
 unrar
 unzip
