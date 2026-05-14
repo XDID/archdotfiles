@@ -42,4 +42,20 @@ set -x https_proxy http://127.0.0.1:7897
 function noproxy
     env -u http_proxy -u https_proxy $argv
 end
+
+# image
+function r
+    set -l input $argv[1]
+    set -l scale (test -n "$argv[2]"; and echo $argv[2]; or echo 2)
+
+    set -l output (path change-extension png $input)
+    set output (string replace ".png" "_x$scale.png" $output)
+
+    realesrgan-ncnn-vulkan \
+        -i $input \
+        -o $output \
+        -n realesr-animevideov3 \
+        -s $scale
+end
+
 # set -U fish_key_bindings fish_vi_key_bindings
