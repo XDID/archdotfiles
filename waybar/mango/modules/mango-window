@@ -47,15 +47,15 @@ render() {
     }
 
 END {
-    status = "[" layout "  " keymode "]"
+    status = "[" layout " | " keymode "]"
 
     printf \
     "<span background=\"%s\" foreground=\"%s\" rise=\"9000\"> </span>" \
-    "<span background=\"%s\" foreground=\"%s\" rise=\"-9000\"> </span>" \
-    "<span background=\"%s\" foreground=\"%s\">%s  </span>" \
-    "<span background=\"%s\" foreground=\"%s\" rise=\"9000\"> </span>" \
-    "<span background=\"%s\" foreground=\"%s\" rise=\"-9000\"> </span>" \
-    "<span background=\"%s\" foreground=\"%s\">%s</span>\n", \
+    "<span background=\"%s\" foreground=\"%s\" rise=\"-9000\">​</span>" \
+    "<span background=\"%s\" foreground=\"%s\">%s </span>" \
+    "<span background=\"%s\" foreground=\"%s\" rise=\"9000\">​</span>" \
+    "<span background=\"%s\" foreground=\"%s\" rise=\"-9000\">​</span>" \
+    "<span background=\"%s\" foreground=\"%s\"> %s</span>\n", \
     on_primary, on_surface, \
     on_primary, on_surface, \
     on_primary, on_surface, status, \

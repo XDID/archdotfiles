@@ -3,7 +3,8 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "SymbolsNerdFont", "LiberationSans";
+    /* font-family: "SymbolsNerdFont", "LiberationSans"; */
+    font-family: "Fusion Pixel 10px Prop zh_hans";
     font-size: 17px;
     min-height: 0;
     margin-top: -10px;
