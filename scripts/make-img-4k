@@ -1,0 +1,135 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+TARGET_W=3840
+TARGET_H=2160
+
+OUTDIR="output"
+
+mkdir -p "$OUTDIR"
+
+process_image() {
+
+    local img="$1"
+
+    local W
+    local H
+
+    read -r W H < <(
+        magick identify -format "%w %h" "$img"
+    )
+
+    if [[ -z "${W:-}" || -z "${H:-}" ]]; then
+        echo "invalid: $img"
+        return
+    fi
+
+    # 两边都达到才跳过
+    if [[ "$W" -ge "$TARGET_W" && "$H" -ge "$TARGET_H" ]]; then
+        echo "skip: $img (${W}x${H})"
+        return
+    fi
+
+    local SCALE
+
+    SCALE=$(awk \
+        -v w="$W" \
+        -v h="$H" \
+        -v tw="$TARGET_W" \
+        -v th="$TARGET_H" \
+        'BEGIN{
+            sw=tw/w
+            sh=th/h
+            print (sw>sh)?sw:sh
+        }')
+
+    local NEW_W
+    local NEW_H
+
+    NEW_W=$(awk -v w="$W" -v s="$SCALE" \
+        'BEGIN{printf "%.0f", w*s}')
+
+    NEW_H=$(awk -v h="$H" -v s="$SCALE" \
+        'BEGIN{printf "%.0f", h*s}')
+
+    echo "$img -> ${NEW_W}x${NEW_H}"
+
+    local TMP
+    TMP=$(mktemp --suffix=.png)
+
+    local UPSCALE=2
+
+    awk -v s="$SCALE" 'BEGIN{exit !(s>2)}'
+
+    if [[ $? -eq 0 ]]; then
+        UPSCALE=4
+    fi
+
+    realesrgan-ncnn-vulkan \
+        -i "$img" \
+        -o "$TMP" \
+        -n realesr-animevideov3 \
+        -s "$UPSCALE"
+
+    if [[ ! -f "$TMP" ]]; then
+        echo "failed: $img"
+        return
+    fi
+
+    local REL
+    REL="${img#./}"
+
+    local OUT
+    OUT="$OUTDIR/$REL"
+
+    mkdir -p "$(dirname "$OUT")"
+
+    magick "$TMP" \
+        -resize "${NEW_W}x${NEW_H}!" \
+        "$OUT"
+
+    rm -f "$TMP"
+
+    echo "saved: $OUT"
+}
+
+process_path() {
+
+    local path="$1"
+
+    if [[ -f "$path" ]]; then
+        process_image "$path"
+        return
+    fi
+
+    if [[ -d "$path" ]]; then
+
+        find "$path" \
+            -type f \
+            \( \
+                -iname "*.jpg" -o \
+                -iname "*.jpeg" -o \
+                -iname "*.png" \
+            \) \
+            -print0 |
+        while IFS= read -r -d '' file
+        do
+            process_image "$file"
+        done
+
+        return
+    fi
+
+    echo "not found: $path"
+}
+
+if [[ $# -eq 0 ]]; then
+    process_path "."
+    exit 0
+fi
+
+for arg in "$@"
+do
+    process_path "$arg"
+done
