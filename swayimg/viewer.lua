@@ -192,11 +192,18 @@ swayimg.viewer.on_key("Shift-v", function()
 end)
 
 -- 外部脚本执行 (替换 `%` 为当前图片绝对路径)
+local function shell_escape(str)
+	return "'" .. str:gsub("'", "'\\''") .. "'"
+end
+
 local function exec_with_path(cmd_template)
 	local img = swayimg.viewer.get_image()
+
 	if img and img.path then
-		-- 将模板中的 % 替换为被引号包裹的文件路径，防止空格导致命令断裂
-		local cmd = cmd_template:gsub("%%", '"' .. img.path .. '"')
+		local escaped = shell_escape(img.path)
+
+		local cmd = cmd_template:gsub("%%", escaped)
+
 		os.execute(cmd)
 	end
 end
@@ -217,5 +224,3 @@ swayimg.viewer.on_key("Shift-w", function()
 	exec_with_path("/home/harunato/.local/bin/set_wallpaper -i %")
 	swayimg.exit()
 end)
-
--- 注意：Lua API 当前版本没有直接的 "reload" 函数（对应原 Shift+r）

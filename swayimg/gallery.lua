@@ -79,12 +79,32 @@ swayimg.gallery.on_key("i", function()
 	swayimg.gallery.set_thumb_size(size + 10)
 end)
 
+local function shell_escape(str)
+	return "'" .. str:gsub("'", "'\\''") .. "'"
+end
+
+local function exec_with_path(cmd_template, path)
+	local escaped = shell_escape(path)
+
+	local cmd = cmd_template:gsub("%%", escaped)
+
+	os.execute(cmd)
+end
+
 swayimg.gallery.on_key("Shift+d", function()
 	local img = swayimg.gallery.get_image()
-	os.execute('/home/harunato/.local/bin/swayimg-rm "' .. img.path .. '"')
+
+	if img and img.path then
+		exec_with_path("/home/harunato/.local/bin/swayimg-rm %", img.path)
+	end
 end)
+
 swayimg.gallery.on_key("Shift+w", function()
 	local img = swayimg.gallery.get_image()
-	os.execute("/home/harunato/.local/bin/set_wallpaper -i " .. img.path)
-	swayimg.exit()
+
+	if img and img.path then
+		exec_with_path("/home/harunato/.local/bin/set_wallpaper -i %", img.path)
+
+		swayimg.exit()
+	end
 end)
