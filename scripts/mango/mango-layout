@@ -8,12 +8,14 @@ declare -A layouts=(
     [grid]=G
     [monocle]=M
     [deck]=K
+    [fair]=F
     [center_tile]=CT
     [right_tile]=RT
     [vertical_scroller]=VS
     [vertical_tile]=VT
     [vertical_grid]=VG
     [vertical_deck]=VK
+    [vertical_faie]=VF
     [dwindle]=DW
 )
 

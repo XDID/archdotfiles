@@ -95,6 +95,7 @@ return {
 			bashls = {},
 			clangd = {},
 			prettier = {},
+			gopls = {},
 
 			-- Special Lua Config, as recommended by neovim help docs
 			lua_ls = {
