@@ -12,6 +12,7 @@ timeout 20 wmenu -i \
   -E "SarasaTermSCNerd 14" \
   -C "LXGWWenKaiMono Nerd Font 14" \
   -N "$colorbg" \
+  -n "$colorfg" \
   -S "$colorsbg" \
   -s "$colorbg" \
   -M "$colorsbg" \

@@ -100,7 +100,7 @@ list_games() {
 }
 
 delete_game() {
-  name=$(list_games | fzf) || exit 1
+  name=$(list_games | sort | fzf) || exit 1
 
   toml="${TOML_PATH}/${name}.toml"
   bin="${BIN_PATH}/${name}"
@@ -117,7 +117,7 @@ run_game() {
   [ -d "$BIN_PATH" ] || die "no games found"
 
   select=$(
-    list_games |
+    list_games | sort |
       "${HOME}/.local/bin/wmenu-color" -l 6 -p "Game "
   ) || exit 1
 

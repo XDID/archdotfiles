@@ -1,37 +1,35 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
-BOOKMARK="$HOME/.config/mozilla/firefox/k5rd3x5y.default-release/bookmarks.html"
+set -euo pipefail
+
+PROFILE="$HOME/.config/mozilla/firefox/k5rd3x5y.default-release"
+
+TMP="$(mktemp -d)"
+
+cp "$PROFILE"/places.sqlite* "$TMP"/
+
 MENU="$HOME/.local/bin/wmenu-color"
-BROWSER="/usr/bin/firefox"
 
-BOOKMARKS_DATA=""
-current_category=""
+choice=$(
+sqlite3 -separator '|' "$TMP/places.sqlite" "
+SELECT
+    COALESCE(parent.title, 'Bookmarks'),
+    COALESCE(bookmarks.title, '[No Title]'),
+    places.url
+FROM moz_bookmarks bookmarks
+JOIN moz_places places
+    ON bookmarks.fk = places.id
+LEFT JOIN moz_bookmarks parent
+    ON bookmarks.parent = parent.id
+WHERE places.url IS NOT NULL
+ORDER BY places.frecency DESC;
+" | "$MENU" -p "Bookmarks" -l 20
+)
 
-shopt -s nocasematch
+rm -rf "$TMP"
 
-h3_regex='<h3[^>]*>(.*)</h3>'
-a_regex='<a[^>]*href="([^"]+)"[^>]*>(.*)</a>'
+[[ -z "$choice" ]] && exit 0
 
-while IFS= read -r line; do
-    if [[ "$line" =~ $h3_regex ]]; then
-        current_category="${BASH_REMATCH[1]}"
+IFS='|' read -r _ _ url <<< "$choice"
 
-    elif [[ "$line" =~ $a_regex ]]; then
-        url="${BASH_REMATCH[1]}"
-        name="${BASH_REMATCH[2]}"
-
-        BOOKMARKS_DATA+="${current_category}|${name}|${url}"$'\n'
-    fi
-done < <(htmlq 'h3, a' < "$BOOKMARK")
-
-shopt -u nocasematch
-
-BOOKMARKS_DATA="${BOOKMARKS_DATA%$'\n'}"
-
-choice=$(echo "$BOOKMARKS_DATA" | $MENU -p "Bookmark " -l 10)
-
-[ -z "$choice" ] && exit 0
-
-url=$(echo "$choice" | awk -F'|' '{print $3}')
-
-$BROWSER "$url"
+exec firefox "$url"

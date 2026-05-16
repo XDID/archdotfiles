@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+
+menu="$HOME/.local/bin/wmenu-color"
+
+expr=$(printf "" | $menu -p "Calc ")
+
+[ -z "$expr" ] && exit 0
+
+result=$(echo "$expr" | bc -l 2>/dev/null)
+
+[ -z "$result" ] && {
+    notify-send "Calculator" "Invalid expression"
+    exit 1
+}
+
+echo -n "$result" | wl-copy
+
+notify-send "Calculator" "$expr = $result"
