@@ -127,7 +127,7 @@ out = out \
     "\" rise=\"-4200\">​</span>" \
     "<span background=\"" primary \
     "\" foreground=\"" on_primary \
-    "\" weight=\"bold\">" name "　</span>"
+    "\" weight=\"bold\">" name " </span>"
         }
 
         # focused + empty
@@ -135,13 +135,13 @@ out = out \
 out = out \
     "<span background=\"" primary \
     "\" foreground=\"" on_primary \
-    "\" rise=\"4200\">　</span>" \
+    "\" rise=\"4200\"> </span>" \
     "<span background=\"" primary \
     "\" foreground=\"" on_primary \
     "\" rise=\"-4200\">​</span>" \
     "<span background=\"" primary \
     "\" foreground=\"" on_primary \
-    "\" weight=\"bold\">" name "　</span>"
+    "\" weight=\"bold\">" name " </span>"
         }
 
         # unfocused + occupied
@@ -155,7 +155,7 @@ out = out \
     "\" rise=\"-4200\">​</span>" \
     "<span background=\"" on_primary \
     "\" foreground=\"" on_surface \
-    "\" weight=\"bold\">" name "　</span>"
+    "\" weight=\"bold\">" name " </span>"
         }
 
         # unfocused + empty
@@ -163,13 +163,13 @@ out = out \
 out = out \
     "<span background=\"" on_primary \
     "\" foreground=\"" on_surface \
-    "\" rise=\"4200\">　</span>" \
+    "\" rise=\"4200\"> </span>" \
     "<span background=\"" on_primary \
     "\" foreground=\"" on_surface \
     "\" rise=\"-4200\">​</span>" \
     "<span background=\"" on_primary \
     "\" foreground=\"" on_surface \
-    "\" weight=\"bold\">" name "　</span>"
+    "\" weight=\"bold\">" name " </span>"
         }
     }
 

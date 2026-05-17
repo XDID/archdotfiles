@@ -28,6 +28,21 @@ render() {
     -v primary="$PRIMARY" \
     -v on_primary="$ON_PRIMARY" \
     -v on_surface="$ON_SURFACE" '
+    function limit_title_width(str, max_w,    i, c, w, total_w, res) {
+            total_w = 0
+            res = ""
+            for (i = 1; i <= length(str); i++) {
+                c = substr(str, i, 1)
+                w = (c ~ /[^\x00-\x7F]/) ? 2 : 1
+                if (total_w + w > max_w) {
+                    return res "…"
+                }
+                total_w += w
+                res = res c
+            }
+            return res
+    }
+
     / layout / {
         layout = $3
     }
@@ -38,12 +53,7 @@ render() {
 
     / title / {
         sub(/^.* title /, "")
-        max = 40
-
-        if (length($0) > max)
-            title = substr($0, 1, max) "…"
-        else
-            title = $0
+        title = limit_title_width($0, 90)
     }
 
 END {
