@@ -49,18 +49,24 @@ EOF
 
 make_bin() {
   name="$1"
+  exe="$2"
 
   file="${BIN_PATH}/${name}"
 
+  game_dir="$(dirname "$(realpath "$exe")")"
+
   cat > "$file" <<EOF
 #!/usr/bin/env sh
+set -eu
+
+cd "${game_dir}"
+
 exec gamescope -f -W 3840 -H 2160 -r 60 -- \
   umu-run --config "${TOML_PATH}/${name}.toml"
 EOF
 
   chmod +x "$file"
 
-  # 你的软链接工具
   "${HOME}/.local/bin/lnk" "$file"
 }
 
@@ -76,7 +82,7 @@ add_game() {
   ensure_dirs
 
   make_toml "$name" "$id" "$exe"
-  make_bin "$name"
+  make_bin "$name" "$exe"
 
   printf "Added game: %s (id=%s)\n" "$name" "$id"
 }
