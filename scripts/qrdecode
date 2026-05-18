@@ -18,18 +18,15 @@ fi
 
 result=$(printf '%s' "$result" | tr -d '\r\n')
 
-# 保存图片到剪贴板
-wl-copy < "$tmp"
-
 # 保存二维码内容到剪贴板
 if [[ -n "$result" ]]; then
-    printf '%s' "$result" | wl-copy
-
     current_app=$(
         mmsg -g -c | awk '$2 == "appid" {print $3; exit}'
     )
 
     if [[ "$current_app" == "firefox" ]]; then
-        wtype p
+        firefox ${result}
+    else
+        printf '%s' "$result" | wl-copy
     fi
 fi
