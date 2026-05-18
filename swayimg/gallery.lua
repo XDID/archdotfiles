@@ -6,7 +6,7 @@ swayimg.gallery.set_border_color(0xffeeeeee)
 swayimg.gallery.set_aspect("fill")
 swayimg.gallery.set_selected_scale(1.20)
 swayimg.gallery.set_padding_size(5)
-swayimg.gallery.set_thumb_size(500)
+swayimg.gallery.set_thumb_size(300)
 swayimg.gallery.limit_cache(100)
 swayimg.gallery.enable_preload(true)
 swayimg.gallery.enable_pstore(false)
@@ -103,7 +103,9 @@ swayimg.gallery.on_key("Shift+w", function()
 	local img = swayimg.gallery.get_image()
 
 	if img and img.path then
-		exec_with_path("/home/harunato/.local/bin/set_wallpaper -i %", img.path)
+		local orig_path = img.path:gsub("%.cache/wallpaper_thumbs", "Pictures/Wallpapers")
+
+		exec_with_path("/home/harunato/.local/bin/set_wallpaper -i %", orig_path)
 
 		swayimg.exit()
 	end
