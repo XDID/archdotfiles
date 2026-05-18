@@ -23,7 +23,7 @@ LEFT JOIN moz_bookmarks parent
     ON bookmarks.parent = parent.id
 WHERE places.url IS NOT NULL
 ORDER BY places.frecency DESC;
-" | "$MENU" -p "Bookmarks" -l 20
+" | sort | "$MENU" -p "Bookmarks" -l 20
 )
 
 rm -rf "$TMP"

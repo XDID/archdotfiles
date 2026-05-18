@@ -2,8 +2,18 @@
 
 set -euo pipefail
 
-WALLPAPER="$HOME/Pictures/Wallpapers"
-CUR_WALLMODE=$(awww query | grep -Eo "Dark|Light")
+$HOME/.local/bin/cache-img
+
+# WALLPAPER="$HOME/Pictures/Wallpapers"
+WALLPAPER="$HOME/.cache/wallpaper_thumbs"
+
+mode="$(gsettings get org.gnome.desktop.interface color-scheme)"
+if [ "$mode" = "'prefer-light'" ]; then
+    CUR_WALLMODE="Light"
+else
+    CUR_WALLMODE="Dark"
+fi
+
 CUR_WALLPATH="$WALLPAPER/$CUR_WALLMODE"
 
 [[ -n "$CUR_WALLPATH" ]] || exit 1

@@ -17,7 +17,7 @@ process_image() {
     local H
 
     read -r W H < <(
-        magick identify -format "%w %h" "$img"
+        magick identify -format "%w %h\n" "$img"
     )
 
     if [[ -z "${W:-}" || -z "${H:-}" ]]; then
@@ -25,7 +25,7 @@ process_image() {
         return
     fi
 
-    # 两边都达到才跳过
+    # 两边都达到 4K 才跳过
     if [[ "$W" -ge "$TARGET_W" && "$H" -ge "$TARGET_H" ]]; then
         echo "skip: $img (${W}x${H})"
         return
@@ -33,42 +33,55 @@ process_image() {
 
     local SCALE
 
-    SCALE=$(awk \
-        -v w="$W" \
-        -v h="$H" \
-        -v tw="$TARGET_W" \
-        -v th="$TARGET_H" \
-        'BEGIN{
-            sw=tw/w
-            sh=th/h
-            print (sw>sh)?sw:sh
-        }')
+    SCALE=$(
+        awk \
+            -v w="$W" \
+            -v h="$H" \
+            -v tw="$TARGET_W" \
+            -v th="$TARGET_H" \
+            'BEGIN{
+                sw=tw/w
+                sh=th/h
+                print (sw>sh)?sw:sh
+            }'
+    )
 
     local NEW_W
     local NEW_H
 
-    NEW_W=$(awk -v w="$W" -v s="$SCALE" \
-        'BEGIN{printf "%.0f", w*s}')
+    NEW_W=$(
+        awk \
+            -v w="$W" \
+            -v s="$SCALE" \
+            'BEGIN{printf "%.0f", w*s}'
+    )
 
-    NEW_H=$(awk -v h="$H" -v s="$SCALE" \
-        'BEGIN{printf "%.0f", h*s}')
+    NEW_H=$(
+        awk \
+            -v h="$H" \
+            -v s="$SCALE" \
+            'BEGIN{printf "%.0f", h*s}'
+    )
 
-    echo "$img -> ${NEW_W}x${NEW_H}"
-
-    local TMP
-    TMP=$(mktemp --suffix=.png)
+    echo "$img -> target ${NEW_W}x${NEW_H}"
 
     local UPSCALE=2
 
-    awk -v s="$SCALE" 'BEGIN{exit !(s>2)}'
-
-    if [[ $? -eq 0 ]]; then
+    # SCALE > 2 时使用 4x
+    if awk -v s="$SCALE" 'BEGIN{exit !(s>2)}'
+    then
         UPSCALE=4
     fi
+
+    echo "using realesrgan ${UPSCALE}x"
+
+    local TMP
+    TMP="$(mktemp).png"
 
     realesrgan-ncnn-vulkan \
         -i "$img" \
         -o "$TMP" \
+        -f png \
         -n realesr-animevideov3 \
         -s "$UPSCALE"
 
@@ -76,6 +89,9 @@ process_image() {
         echo "failed: $img"
         return
     fi
+
+    local REAL_W=$(( W * UPSCALE ))
+    local REAL_H=$(( H * UPSCALE ))
 
     local REL
     REL="${img#./}"
@@ -85,9 +101,26 @@ process_image() {
 
     mkdir -p "$(dirname "$OUT")"
 
-    magick "$TMP" \
-        -resize "${NEW_W}x${NEW_H}!" \
-        "$OUT"
+    # 如果超分后已经达到目标尺寸
+    # 只做等比缩放，不强制拉伸
+    if [[ "$REAL_W" -ge "$TARGET_W" && "$REAL_H" -ge "$TARGET_H" ]]; then
+
+        magick "$TMP" \
+            -resize "${TARGET_W}x${TARGET_H}^" \
+            -gravity center \
+            -extent "${TARGET_W}x${TARGET_H}" \
+            "$OUT"
+
+    else
+
+        # 超分后仍不足，则继续补插值
+        magick "$TMP" \
+            -resize "${TARGET_W}x${TARGET_H}^" \
+            -gravity center \
+            -extent "${TARGET_W}x${TARGET_H}" \
+            "$OUT"
+
+    fi
 
     rm -f "$TMP"
 

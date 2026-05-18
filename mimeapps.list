@@ -27,6 +27,7 @@ image/gif=swayimg.desktop
 x-scheme-handler/mailto=userapp-Thunderbird-DMQ2N3.desktop
 message/rfc822=userapp-Thunderbird-DMQ2N3.desktop
 x-scheme-handler/mid=userapp-Thunderbird-DMQ2N3.desktop
+image/jpeg=swayimg.desktop
 
 [Added Associations]
 x-scheme-handler/http=firefox.desktop;
@@ -44,3 +45,4 @@ audio/flac=mpv.desktop;
 image/gif=swayimg.desktop;
 x-scheme-handler/mailto=userapp-Thunderbird-DMQ2N3.desktop;
 x-scheme-handler/mid=userapp-Thunderbird-DMQ2N3.desktop;
+image/jpeg=swayimg.desktop;

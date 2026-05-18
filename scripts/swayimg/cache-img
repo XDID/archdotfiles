@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+CUR_WALLPATH="$HOME/Pictures/Wallpapers"
+CUR_THUMBPATH="$HOME/.cache/wallpaper_thumbs"
+
+[[ -d "$CUR_WALLPATH" ]] || exit 1
+mkdir -p "$CUR_THUMBPATH"
+
+mapfile -t ALL_FILES < <(find "$CUR_WALLPATH" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) -printf "%P\n")
+TOTAL_FILES=${#ALL_FILES[@]}
+
+[[ "$TOTAL_FILES" -eq 0 ]] && exit 0
+
+NEED_CACHE_FILES=()
+for file in "${ALL_FILES[@]}"; do
+    orig_file="$CUR_WALLPATH/$file"
+    out_file="$CUR_THUMBPATH/$file"
+
+    if [ ! -f "$out_file" ] || [ "$orig_file" -nt "$out_file" ]; then
+        NEED_CACHE_FILES+=("$file")
+    fi
+done
+
+TOTAL_NEED=${#NEED_CACHE_FILES[@]}
+
+[[ "$TOTAL_NEED" -eq 0 ]] && exit 0
+
+(
+    COUNTER=0
+    for file in "${NEED_CACHE_FILES[@]}"; do
+        orig_file="$CUR_WALLPATH/$file"
+        out_file="$CUR_THUMBPATH/$file"
+
+        mkdir -p "$(dirname "$out_file")"
+
+        echo "# 正在缓存: $(basename "$file")"
+        convert "$orig_file" -thumbnail 300x300 "$out_file"
+
+        COUNTER=$((COUNTER + 1))
+        PROGRESS=$((COUNTER * 100 / TOTAL_NEED))
+        echo "$PROGRESS"
+    done
+) | zenity --progress \
+           --title="壁纸选择器" \
+           --text="正在检查并准备壁纸缓存..." \
+           --percentage=0 \
+           --auto-close \
+           --no-cancel \
+           --width=400
