@@ -2,6 +2,7 @@
 
 LOCKFILE="/tmp/mango-window.lock"
 CACHE="$HOME/.cache/mango-window.log"
+REWRITE="$HOME/.config/waybar/mango/modules/window-rewrite.rules"
 
 trap clean_up EXIT INT TERM
 
@@ -27,20 +28,54 @@ render() {
     mmsg -g -c -l -b 2>/dev/null | awk \
     -v primary="$PRIMARY" \
     -v on_primary="$ON_PRIMARY" \
-    -v on_surface="$ON_SURFACE" '
-    function limit_title_width(str, max_w,    i, c, w, total_w, res) {
-            total_w = 0
-            res = ""
-            for (i = 1; i <= length(str); i++) {
-                c = substr(str, i, 1)
-                w = (c ~ /[^\x00-\x7F]/) ? 2 : 1
-                if (total_w + w > max_w) {
-                    return res "…"
-                }
-                total_w += w
-                res = res c
+    -v on_surface="$ON_SURFACE" \
+    -v rewrite_file="$REWRITE" '
+    BEGIN {
+        rule_count = 0
+
+        while ((getline line < rewrite_file) > 0) {
+            if (line ~ /^[[:space:]]*$/) {
+                continue
             }
-            return res
+
+            if (line ~ /^[[:space:]]*#/) {
+                continue
+            }
+
+            split(line, parts, "\\|\\|\\|")
+
+            patterns[++rule_count] = parts[1]
+            replaces[rule_count] = parts[2]
+        }
+
+        close(rewrite_file)
+    }
+
+    function limit_title_width(str, max_w,    i, c, w, total_w, res) {
+        total_w = 0
+        res = ""
+
+        for (i = 1; i <= length(str); i++) {
+            c = substr(str, i, 1)
+            w = (c ~ /[^\x00-\x7F]/) ? 2 : 1
+
+            if (total_w + w > max_w) {
+                return res "…"
+            }
+
+            total_w += w
+            res = res c
+        }
+
+        return res
+    }
+
+    function rewrite_title(str,    i) {
+        for (i = 1; i <= rule_count; i++) {
+            str = gensub(patterns[i], replaces[i], 1, str)
+        }
+
+        return str
     }
 
     / layout / {
@@ -53,28 +88,30 @@ render() {
 
     / title / {
         sub(/^.* title /, "")
-        title = limit_title_width($0, 90)
+
+        title = rewrite_title($0)
+        title = limit_title_width(title, 90)
     }
 
-END {
-    status = "[" layout " | " keymode "]"
+    END {
+        status = "[" layout " | " keymode "]"
 
-    printf \
-    "<span background=\"%s\" foreground=\"%s\" rise=\"9000\"> </span>" \
-    "<span background=\"%s\" foreground=\"%s\" rise=\"-9000\">​</span>" \
-    "<span background=\"%s\" foreground=\"%s\">%s </span>" \
-    "<span background=\"%s\" foreground=\"%s\" rise=\"9000\">​</span>" \
-    "<span background=\"%s\" foreground=\"%s\" rise=\"-9000\">​</span>" \
-    "<span background=\"%s\" foreground=\"%s\"> %s</span>\n", \
-    on_primary, on_surface, \
-    on_primary, on_surface, \
-    on_primary, on_surface, status, \
-    primary, on_primary, \
-    primary, on_primary, \
-    primary, on_primary, title
+        printf \
+        "<span background=\"%s\" foreground=\"%s\" rise=\"9000\"> </span>" \
+        "<span background=\"%s\" foreground=\"%s\" rise=\"-9000\">​</span>" \
+        "<span background=\"%s\" foreground=\"%s\">%s </span>" \
+        "<span background=\"%s\" foreground=\"%s\" rise=\"9000\">​</span>" \
+        "<span background=\"%s\" foreground=\"%s\" rise=\"-9000\">​</span>" \
+        "<span background=\"%s\" foreground=\"%s\"> %s</span>\n", \
+        on_primary, on_surface, \
+        on_primary, on_surface, \
+        on_primary, on_surface, status, \
+        primary, on_primary, \
+        primary, on_primary, \
+        primary, on_primary, title
 
-    fflush()
-}'
+        fflush()
+    }'
 }
 
 last=""

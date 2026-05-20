@@ -1,21 +1,34 @@
 #!/usr/bin/bash
 # swayimg script for wmenu confirmation to remove an image
-# Shift+d = exec ~/.local/bin/swayimg-rm "%" && skip_file; reload
 set -eu
 
 [ $# -ge 1 ] || exit 1
 target=$1
-target_name=$(basename "$target")
+
+# 1. 自动推导两个路径 (无论用户在哪个目录下触发，都能找到成对的文件)
+if [[ "$target" == *".cache/wallpaper_thumbs"* ]]; then
+    thumb_path="$target"
+    orig_path="${target//.cache\/wallpaper_thumbs/Pictures\/Wallpapers}"
+else
+    orig_path="$target"
+    thumb_path="${target//Pictures\/Wallpapers/.cache\/wallpaper_thumbs}"
+fi
+
+target_name=$(basename "$orig_path")
 short_name=$(printf '%s\n' "$target_name" |
   awk '{if(length($0) > 80) print substr($0, 1, 35) "..." substr($0, length($0)-34, 35); else print $0}')
 
+# 2. 只做一次 wmenu 确认
 user_choice=$(printf "no\nyes" |
   "$HOME/.local/bin/wmenu-color" -p "[$(basename "$0")] rm? $short_name ")
 
 if [ "$user_choice" = "yes" ]; then
-  rm -- "$target"
+  # 3. 一键删除两个文件（如果文件存在的话）
+  [ -f "$thumb_path" ] && rm -- "$thumb_path"
+  [ -f "$orig_path" ]  && rm -- "$orig_path"
+  
   # pkill -SIGUSR1 swayimg
-  notify-send "swayimg" "$target_name is removed"
+  notify-send "swayimg" "$target_name and its thumbnail are removed"
 else
   exit 1
 fi

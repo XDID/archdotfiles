@@ -27,6 +27,7 @@ if [[ -z "$full_line" ]]; then
 else
   # 匹配到搜索引擎 → 拆分字段
   IFS='|' read -r name search_url homepage <<<"$full_line"
+  sleep 0.05
 
   # 第二级菜单：输入搜索文本 (使用 echo 即可，遇到错误或 Esc 则退出主脚本)
   query=$(printf '\n' | "$MENU" -p "$name:") || exit 0

@@ -32,4 +32,8 @@ rm -rf "$TMP"
 
 IFS='|' read -r _ _ url <<< "$choice"
 
-exec firefox "$url"
+if [[ "${1:-}" == "-p" ]]; then
+    exec firefox --private-window "$url"
+else
+    exec firefox "$url"
+fi
