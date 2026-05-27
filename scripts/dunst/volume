@@ -40,6 +40,7 @@ case $1 in
     notify
     ;;
   down)
+    pamixer --unmute
     pamixer --decrease $STEP
     # 如果降为0，不会自动静音，但通知会正常显示
     notify

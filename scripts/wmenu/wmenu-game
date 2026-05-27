@@ -124,7 +124,7 @@ run_game() {
 
   select=$(
     list_games | sort |
-      "${HOME}/.local/bin/wmenu-color" -l 6 -p "Game "
+      "${HOME}/.local/bin/wmenu-color" -l 10 -p "Game "
   ) || exit 1
 
   game_exe_path="${BIN_PATH}/${select}"
