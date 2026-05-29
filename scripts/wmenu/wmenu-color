@@ -6,7 +6,15 @@ set -eu
 
 . "$HOME/.config/wmenu/color.sh"
 
-pgrep -x wmenu > /dev/null && exit 1 ||
+# 建立文件描述符 9，指向一个锁文件
+exec 9>/tmp/wmenu_color.lock
+
+# 尝试获取排他锁 (-n 表示非阻塞)。
+# 如果获取失败（说明已经有一个 wmenu 正在运行），则静默退出(exit 0)
+if ! flock -n 9; then
+    exit 0
+fi
+
 timeout 20 wmenu -i \
   -F \
   -E "SarasaTermSCNerd 14" \
