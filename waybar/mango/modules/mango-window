@@ -73,7 +73,7 @@ render() {
         close(rewrite_file)
 
         title = rewrite_title(raw_title)
-        title = limit_title_width(title, 90)
+        title = limit_title_width(title, 95)
 
         status = "[" layout " | " keymode "]"
 
@@ -101,7 +101,7 @@ render() {
 
         for (i = 1; i <= length(str); i++) {
             c = substr(str, i, 1)
-            w = (c ~ /[^\x00-\x7F]/) ? 2 : 1
+            w = (c ~ /[^\x00-\x7F]/) ? 1.88 : 1
 
             if (total_w + w > max_w)
                 return res "…"
