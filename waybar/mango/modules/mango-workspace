@@ -23,6 +23,81 @@ PRIMARY=$(get_color primary)
 ON_PRIMARY=$(get_color on_primary)
 ON_SURFACE=$(get_color on_surface)
 
+# render() {
+#     mmsg get all-tags 2>/dev/null |
+#     jq -r '
+#         .all_tags[].tags[]
+#         | "\(.index) \(.is_active) \(.client_count)"
+#     ' |
+#     awk \
+#     -v primary="$PRIMARY" \
+#     -v on_primary="$ON_PRIMARY" \
+#     -v on_surface="$ON_SURFACE" '
+#     BEGIN {
+#         out = ""
+#     }
+#
+#     {
+#         name = $1
+#         focused = ($2 == "true")
+#         occupied = ($3 > 0)
+#
+#         if (focused && occupied) {
+#             out = out \
+#             "<span background=\"" primary \
+#             "\" foreground=\"" on_primary \
+#             "\" rise=\"4200\">▪</span>" \
+#             "<span background=\"" primary \
+#             "\" foreground=\"" on_primary \
+#             "\" rise=\"-4200\">​</span>" \
+#             "<span background=\"" primary \
+#             "\" foreground=\"" on_primary \
+#             "\" weight=\"bold\">" name " </span>"
+#         }
+#         else if (focused) {
+#             out = out \
+#             "<span background=\"" primary \
+#             "\" foreground=\"" on_primary \
+#             "\" rise=\"4200\"> </span>" \
+#             "<span background=\"" primary \
+#             "\" foreground=\"" on_primary \
+#             "\" rise=\"-4200\">​</span>" \
+#             "<span background=\"" primary \
+#             "\" foreground=\"" on_primary \
+#             "\" weight=\"bold\">" name " </span>"
+#         }
+#         else if (occupied) {
+#             out = out \
+#             "<span background=\"" on_primary \
+#             "\" foreground=\"" on_surface \
+#             "\" rise=\"4200\">▫</span>" \
+#             "<span background=\"" on_primary \
+#             "\" foreground=\"" on_surface \
+#             "\" rise=\"-4200\">​</span>" \
+#             "<span background=\"" on_primary \
+#             "\" foreground=\"" on_surface \
+#             "\" weight=\"bold\">" name " </span>"
+#         }
+#         else {
+#             out = out \
+#             "<span background=\"" on_primary \
+#             "\" foreground=\"" on_surface \
+#             "\" rise=\"4200\"> </span>" \
+#             "<span background=\"" on_primary \
+#             "\" foreground=\"" on_surface \
+#             "\" rise=\"-4200\">​</span>" \
+#             "<span background=\"" on_primary \
+#             "\" foreground=\"" on_surface \
+#             "\" weight=\"bold\">" name " </span>"
+#         }
+#     }
+#
+#     END {
+#         print out
+#     }'
+# }
+
+# normal font
 render() {
     mmsg get all-tags 2>/dev/null |
     jq -r '
@@ -46,49 +121,49 @@ render() {
             out = out \
             "<span background=\"" primary \
             "\" foreground=\"" on_primary \
-            "\" rise=\"4200\">▪</span>" \
+            "\" rise=\"4000\" size=\"xx-large\">▪</span>" \
             "<span background=\"" primary \
             "\" foreground=\"" on_primary \
-            "\" rise=\"-4200\">​</span>" \
+            "\" rise=\"-14000\">​</span>" \
             "<span background=\"" primary \
             "\" foreground=\"" on_primary \
-            "\" weight=\"bold\">" name " </span>"
+            "\" weight=\"bold\">" name "  </span>"
         }
         else if (focused) {
             out = out \
+            "<span foreground=\"" primary \
+            "\" background=\"" primary \
+            "\" rise=\"4000\" size=\"xx-large\">▪</span>" \
             "<span background=\"" primary \
             "\" foreground=\"" on_primary \
-            "\" rise=\"4200\"> </span>" \
+            "\" rise=\"-14000\">​</span>" \
             "<span background=\"" primary \
             "\" foreground=\"" on_primary \
-            "\" rise=\"-4200\">​</span>" \
-            "<span background=\"" primary \
-            "\" foreground=\"" on_primary \
-            "\" weight=\"bold\">" name " </span>"
+            "\" weight=\"bold\">" name "  </span>"
         }
         else if (occupied) {
             out = out \
             "<span background=\"" on_primary \
             "\" foreground=\"" on_surface \
-            "\" rise=\"4200\">▫</span>" \
+            "\" rise=\"4000\" size=\"xx-large\">▫</span>" \
             "<span background=\"" on_primary \
             "\" foreground=\"" on_surface \
-            "\" rise=\"-4200\">​</span>" \
+            "\" rise=\"-14000\">​</span>" \
             "<span background=\"" on_primary \
             "\" foreground=\"" on_surface \
-            "\" weight=\"bold\">" name " </span>"
+            "\" weight=\"bold\">" name "  </span>"
         }
         else {
             out = out \
             "<span background=\"" on_primary \
-            "\" foreground=\"" on_surface \
-            "\" rise=\"4200\"> </span>" \
+            "\" foreground=\"" on_primary \
+            "\" rise=\"4000\" size=\"xx-large\">▪</span>" \
             "<span background=\"" on_primary \
             "\" foreground=\"" on_surface \
-            "\" rise=\"-4200\">​</span>" \
+            "\" rise=\"-14000\">​</span>" \
             "<span background=\"" on_primary \
             "\" foreground=\"" on_surface \
-            "\" weight=\"bold\">" name " </span>"
+            "\" weight=\"bold\">" name "  </span>"
         }
     }
 
@@ -96,7 +171,6 @@ render() {
         print out
     }'
 }
-
 # --- 初始渲染 ---
 last=""
 current=$(render)
