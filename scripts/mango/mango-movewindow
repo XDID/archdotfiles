@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
-read width<<< $(mmsg -g -x | grep "width" | cut -d " " -f 3)
-read height <<< $(mmsg -g -x | grep "height" | cut -d " " -f 3)
+read width<<< $(mmsg get focusing-client | jq '.width')
+read height <<< $(mmsg get focusing-client | jq '.height')
 width=${width%.*}
 height=${height%.*}
 read screen_width screen_height <<< $(
@@ -33,4 +33,4 @@ case "${1:-}" in
         ;;
 esac
 
-mmsg -s -d movewin,$pos_x,$pos_y
+mmsg dispatch movewin,$pos_x,$pos_y

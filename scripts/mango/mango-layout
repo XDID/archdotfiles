@@ -2,30 +2,17 @@
 
 menu="$HOME/.local/bin/wmenu-color"
 
-declare -A layouts=(
-    [tile]=T
-    [scroller]=S
-    [grid]=G
-    [monocle]=M
-    [deck]=K
-    [fair]=F
-    [center_tile]=CT
-    [right_tile]=RT
-    [vertical_scroller]=VS
-    [vertical_tile]=VT
-    [vertical_grid]=VG
-    [vertical_deck]=VK
-    [vertical_faie]=VF
-    [dwindle]=DW
+layouts=(
+    tile scroller grid monocle deck fair center_tile right_tile vertical_scroller vertical_tile vertical_grid vertical_deck vertical_fair dwindle
 )
 
 layout=$(
-    printf '%s\n' "${!layouts[@]}" |
+    printf '%s\n' "${layouts[@]}" |
     sort |
     $menu -l 6 -p "Layout "
 )
 
 [ -z "$layout" ] && exit 0
-echo $layout
 
-mmsg -s -l "${layouts[$layout]}"
+mmsg dispatch setlayout,$layout
+dunstify "Layout: $layout" -h string:x-dunst-stack-tag:layout

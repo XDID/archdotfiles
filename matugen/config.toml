@@ -87,7 +87,7 @@ post_hook = 'sleep .2; pgrep mango && ~/.local/bin/waybar-switch || echo "mango 
 [templates.mango]
 input_path = '~/.config/matugen/templates/mango-color.conf'
 output_path = '~/.config/mango/matugen.conf'
-post_hook = 'pgrep mango && mmsg -d reload_config || echo "mango not running"'
+post_hook = 'pgrep mango && mmsg dispatch reload_config || echo "mango not running"'
 
 [templates.zathura]
 input_path = '~/.config/matugen/templates/zathura-color.rc'

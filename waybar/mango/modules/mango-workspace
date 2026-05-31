@@ -121,49 +121,49 @@ render() {
             out = out \
             "<span background=\"" primary \
             "\" foreground=\"" on_primary \
-            "\" rise=\"4000\" size=\"xx-large\">▪</span>" \
+            "\" rise=\"5000\" size=\"x-large\">▪</span>" \
             "<span background=\"" primary \
             "\" foreground=\"" on_primary \
-            "\" rise=\"-14000\">​</span>" \
+            "\" rise=\"-13000\">​</span>" \
             "<span background=\"" primary \
             "\" foreground=\"" on_primary \
-            "\" weight=\"bold\">" name "  </span>"
+            "\" weight=\"bold\"> " name "  </span>"
         }
         else if (focused) {
             out = out \
             "<span foreground=\"" primary \
             "\" background=\"" primary \
-            "\" rise=\"4000\" size=\"xx-large\">▪</span>" \
+            "\" rise=\"5000\" size=\"x-large\">▪</span>" \
             "<span background=\"" primary \
             "\" foreground=\"" on_primary \
-            "\" rise=\"-14000\">​</span>" \
+            "\" rise=\"-13000\">​</span>" \
             "<span background=\"" primary \
             "\" foreground=\"" on_primary \
-            "\" weight=\"bold\">" name "  </span>"
+            "\" weight=\"bold\"> " name "  </span>"
         }
         else if (occupied) {
             out = out \
             "<span background=\"" on_primary \
             "\" foreground=\"" on_surface \
-            "\" rise=\"4000\" size=\"xx-large\">▫</span>" \
+            "\" rise=\"5000\" size=\"x-large\">▫</span>" \
             "<span background=\"" on_primary \
             "\" foreground=\"" on_surface \
-            "\" rise=\"-14000\">​</span>" \
+            "\" rise=\"-13000\">​</span>" \
             "<span background=\"" on_primary \
             "\" foreground=\"" on_surface \
-            "\" weight=\"bold\">" name "  </span>"
+            "\" weight=\"bold\"> " name "  </span>"
         }
         else {
             out = out \
             "<span background=\"" on_primary \
             "\" foreground=\"" on_primary \
-            "\" rise=\"4000\" size=\"xx-large\">▪</span>" \
+            "\" rise=\"5000\" size=\"x-large\">▪</span>" \
             "<span background=\"" on_primary \
             "\" foreground=\"" on_surface \
-            "\" rise=\"-14000\">​</span>" \
+            "\" rise=\"-13000\">​</span>" \
             "<span background=\"" on_primary \
             "\" foreground=\"" on_surface \
-            "\" weight=\"bold\">" name "  </span>"
+            "\" weight=\"bold\"> " name "  </span>"
         }
     }
 

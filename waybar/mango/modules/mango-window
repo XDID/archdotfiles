@@ -101,7 +101,7 @@ render() {
 
         for (i = 1; i <= length(str); i++) {
             c = substr(str, i, 1)
-            w = (c ~ /[^\x00-\x7F]/) ? 1.88 : 1
+            w = (c ~ /[^\x00-\x7F]/) ? 1.94 : 1
 
             if (total_w + w > max_w)
                 return res "…"
