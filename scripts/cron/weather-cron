@@ -3,6 +3,7 @@
 CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/wttr.log"
 CACHE_TTL=60
 CITY="bozhou"
+FALLBACK="anhui"
 
 FORCE_REFRESH=false
 while getopts "n" opt; do
@@ -13,7 +14,13 @@ while getopts "n" opt; do
 done
 
 fetch_weather() {
-    local summary=$(curl -s --max-time 5 "https://wttr.in/${CITY}?format=%C|%t")
+    local city=$1
+
+    local summary=$(curl -s --max-time 5 "https://wttr.in/${city}?format=%C|%t")
+    if [[ -z "$summary" ]] || [[ "$summary" == *"Unknown"* ]] || [[ "$summary" == *"render failed"* ]]; then
+        return 1
+    fi
+
     if [[ -n "$summary" && "$summary" != *"Unknown"* ]]; then
         condition=$(echo "$summary" | cut -d'|' -f1 | xargs | tr '[:upper:]' '[:lower:]')
         temp=$(echo "$summary" | cut -d'|' -f2 | xargs)
@@ -42,7 +49,7 @@ fetch_weather() {
 
         echo "$icon $temp" > "$CACHE_FILE"
 
-        curl -s --max-time 5 "https://wttr.in/${CITY}?format=地点：%l\n概况：%C\n风速：%w\n湿度：%h\n降水：%p" >> "$CACHE_FILE"
+        curl -s --max-time 5 "https://wttr.in/${city}?format=地点：%l\n概况：%C\n风速：%w\n湿度：%h\n降水：%p" >> "$CACHE_FILE"
 
         pkill -RTMIN+12 waybar
     else
@@ -51,5 +58,7 @@ fetch_weather() {
 }
 
 if [[ "$FORCE_REFRESH" = "true" ]] || [[ ! -f "$CACHE_FILE" ]] || ! find "$CACHE_FILE" -mmin -"$CACHE_TTL" | grep -q .; then
-    fetch_weather
+    if ! fetch_weather "$CITY"; then
+        fetch_weather "$FALLBACK"
+    fi
 fi

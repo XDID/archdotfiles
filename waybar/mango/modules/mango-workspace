@@ -3,15 +3,15 @@
 LOCKFILE="/tmp/mango-workspace.lock"
 CACHE="$HOME/.cache/mango-workspace.log"
 
+clean_up() {
+    rm -f "$CACHE"
+    killall mmsg
+}
+
 trap clean_up EXIT INT TERM
 
 exec 200>"$LOCKFILE"
-
 flock -n 200 || exit 1
-
-clean_up() {
-    rm -rf $CACHE
-}
 
 COLORS="$HOME/.config/waybar/mango/colors.css"
 
@@ -23,87 +23,13 @@ PRIMARY=$(get_color primary)
 ON_PRIMARY=$(get_color on_primary)
 ON_SURFACE=$(get_color on_surface)
 
-# this is original
-# render() {
-#     mmsg -g -t 2>/dev/null | grep -E -o "tag [0-9] [0-9] [0-9] [0-9]" | awk \
-#     -v primary="$PRIMARY" \
-#     -v on_primary="$ON_PRIMARY" \
-#     -v on_surface="$ON_SURFACE" '
-#     BEGIN {
-#         out = ""
-#     }
-#
-#     {
-#         name     = $2
-#         focused  = $3
-#         occupied = $4
-#
-#         # focused + occupied
-#         if (focused == 1 && occupied >= 1) {
-# out = out \
-#     "<span background=\"" primary \
-#     "\" foreground=\"" on_primary \
-#     "\" rise=\"4200\">▪</span>" \
-#     "<span background=\"" primary \
-#     "\" foreground=\"" on_primary \
-#     "\" rise=\"-4200\"> </span>" \
-#     "<span background=\"" primary \
-#     "\" foreground=\"" on_primary \
-#     "\" weight=\"bold\">" name " </span>"
-#         }
-#
-#         # focused + empty
-#         else if (focused == 1 && occupied == 0) {
-# out = out \
-#     "<span background=\"" primary \
-#     "\" foreground=\"" on_primary \
-#     "\" rise=\"4200\"> </span>" \
-#     "<span background=\"" primary \
-#     "\" foreground=\"" on_primary \
-#     "\" rise=\"-4200\"> </span>" \
-#     "<span background=\"" primary \
-#     "\" foreground=\"" on_primary \
-#     "\" weight=\"bold\">" name " </span>"
-#         }
-#
-#         # unfocused + occupied
-#         else if (focused == 0 && occupied >= 1) {
-# out = out \
-#     "<span background=\"" on_primary \
-#     "\" foreground=\"" on_surface \
-#     "\" rise=\"4200\">▫</span>" \
-#     "<span background=\"" on_primary \
-#     "\" foreground=\"" on_surface \
-#     "\" rise=\"-4200\"> </span>" \
-#     "<span background=\"" on_primary \
-#     "\" foreground=\"" on_surface \
-#     "\" weight=\"bold\">" name " </span>"
-#         }
-#
-#         # unfocused + empty
-#         else {
-# out = out \
-#     "<span background=\"" on_primary \
-#     "\" foreground=\"" on_surface \
-#     "\" rise=\"4200\"> </span>" \
-#     "<span background=\"" on_primary \
-#     "\" foreground=\"" on_surface \
-#     "\" rise=\"-4200\"> </span>" \
-#     "<span background=\"" on_primary \
-#     "\" foreground=\"" on_surface \
-#     "\" weight=\"bold\">" name " </span>"
-#         }
-#     }
-#
-#     END {
-#         print out
-#         fflush()
-#     }'
-# }
-
-# this is pixel
 render() {
-    mmsg -g -t 2>/dev/null | grep -E -o "tag [0-9] [0-9] [0-9] [0-9]" | awk \
+    mmsg get all-tags 2>/dev/null |
+    jq -r '
+        .all_tags[].tags[]
+        | "\(.index) \(.is_active) \(.client_count)"
+    ' |
+    awk \
     -v primary="$PRIMARY" \
     -v on_primary="$ON_PRIMARY" \
     -v on_surface="$ON_SURFACE" '
@@ -112,86 +38,84 @@ render() {
     }
 
     {
-        name     = $2
-        focused  = $3
-        occupied = $4
+        name = $1
+        focused = ($2 == "true")
+        occupied = ($3 > 0)
 
-        # focused + occupied
-        if (focused == 1 && occupied >= 1) {
-out = out \
-    "<span background=\"" primary \
-    "\" foreground=\"" on_primary \
-    "\" rise=\"4200\">▪</span>" \
-    "<span background=\"" primary \
-    "\" foreground=\"" on_primary \
-    "\" rise=\"-4200\">​</span>" \
-    "<span background=\"" primary \
-    "\" foreground=\"" on_primary \
-    "\" weight=\"bold\">" name " </span>"
+        if (focused && occupied) {
+            out = out \
+            "<span background=\"" primary \
+            "\" foreground=\"" on_primary \
+            "\" rise=\"4200\">▪</span>" \
+            "<span background=\"" primary \
+            "\" foreground=\"" on_primary \
+            "\" rise=\"-4200\">​</span>" \
+            "<span background=\"" primary \
+            "\" foreground=\"" on_primary \
+            "\" weight=\"bold\">" name " </span>"
         }
-
-        # focused + empty
-        else if (focused == 1 && occupied == 0) {
-out = out \
-    "<span background=\"" primary \
-    "\" foreground=\"" on_primary \
-    "\" rise=\"4200\"> </span>" \
-    "<span background=\"" primary \
-    "\" foreground=\"" on_primary \
-    "\" rise=\"-4200\">​</span>" \
-    "<span background=\"" primary \
-    "\" foreground=\"" on_primary \
-    "\" weight=\"bold\">" name " </span>"
+        else if (focused) {
+            out = out \
+            "<span background=\"" primary \
+            "\" foreground=\"" on_primary \
+            "\" rise=\"4200\"> </span>" \
+            "<span background=\"" primary \
+            "\" foreground=\"" on_primary \
+            "\" rise=\"-4200\">​</span>" \
+            "<span background=\"" primary \
+            "\" foreground=\"" on_primary \
+            "\" weight=\"bold\">" name " </span>"
         }
-
-        # unfocused + occupied
-        else if (focused == 0 && occupied >= 1) {
-out = out \
-    "<span background=\"" on_primary \
-    "\" foreground=\"" on_surface \
-    "\" rise=\"4200\">▫</span>" \
-    "<span background=\"" on_primary \
-    "\" foreground=\"" on_surface \
-    "\" rise=\"-4200\">​</span>" \
-    "<span background=\"" on_primary \
-    "\" foreground=\"" on_surface \
-    "\" weight=\"bold\">" name " </span>"
+        else if (occupied) {
+            out = out \
+            "<span background=\"" on_primary \
+            "\" foreground=\"" on_surface \
+            "\" rise=\"4200\">▫</span>" \
+            "<span background=\"" on_primary \
+            "\" foreground=\"" on_surface \
+            "\" rise=\"-4200\">​</span>" \
+            "<span background=\"" on_primary \
+            "\" foreground=\"" on_surface \
+            "\" weight=\"bold\">" name " </span>"
         }
-
-        # unfocused + empty
         else {
-out = out \
-    "<span background=\"" on_primary \
-    "\" foreground=\"" on_surface \
-    "\" rise=\"4200\"> </span>" \
-    "<span background=\"" on_primary \
-    "\" foreground=\"" on_surface \
-    "\" rise=\"-4200\">​</span>" \
-    "<span background=\"" on_primary \
-    "\" foreground=\"" on_surface \
-    "\" weight=\"bold\">" name " </span>"
+            out = out \
+            "<span background=\"" on_primary \
+            "\" foreground=\"" on_surface \
+            "\" rise=\"4200\"> </span>" \
+            "<span background=\"" on_primary \
+            "\" foreground=\"" on_surface \
+            "\" rise=\"-4200\">​</span>" \
+            "<span background=\"" on_primary \
+            "\" foreground=\"" on_surface \
+            "\" weight=\"bold\">" name " </span>"
         }
     }
 
     END {
         print out
-        fflush()
     }'
 }
 
+# --- 初始渲染 ---
 last=""
+current=$(render)
 
-echo $(render) > $CACHE
-sleep .5
-pkill -RTMIN+15 waybar
+printf '%s\n' "$current" > "$CACHE"
+last="$current"
 
-mmsg -w -t | while read -r _; do
-    pgrep waybar > /dev/null || exit 1
+sleep 0.5
+pkill -RTMIN+15 waybar 2>/dev/null
+
+# --- 监听 workspace 变化 ---
+mmsg watch all-tags | while read -r _; do
+    pgrep waybar >/dev/null || exit 0
+
     current=$(render)
 
     if [[ "$current" != "$last" ]]; then
-        echo $current  > $CACHE
-        pkill -RTMIN+15 waybar
+        printf '%s\n' "$current" > "$CACHE"
+        pkill -RTMIN+15 waybar 2>/dev/null
         last="$current"
     fi
 done
