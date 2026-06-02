@@ -1,10 +1,9 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 set -eu
 
-# 默认目标目录
 TARGET_DIR="$HOME/.local/bin"
-INPUT_PATHS=""
 DELETE_MODE=false
+INPUT_PATHS=()
 
 usage() {
     cat << EOF
@@ -13,81 +12,113 @@ usage() {
 快速创建或删除到指定目录的软链接。
 
 选项:
-  -t    指定目标目录 (默认: $HOME/.local/bin)
-  -d    删除模式：删除目标目录中对应的软链接
-  -h    显示此帮助信息
+  -t DIR    指定目标目录 (默认: $HOME/.local/bin)
+  -d        删除模式
+  -h        显示帮助
+
+示例:
+  lnk foo
+  lnk foo bar baz
+
+  lnk "/path/Animal Well"
+
+  lnk dir1 dir2
+
+  lnk -d foo
 EOF
 }
 
-# 解析参数
 while [ $# -gt 0 ]; do
     case "$1" in
         -t)
-            if [ -n "${2:-}" ]; then
-                TARGET_DIR="$2"
-                shift 2
-            else
-                echo "错误: -t 选项需要一个目录参数。"
+            [ $# -ge 2 ] || {
+                echo "错误: -t 需要目录参数"
                 exit 1
-            fi
+            }
+
+            TARGET_DIR="$2"
+            shift 2
             ;;
+
         -d)
             DELETE_MODE=true
             shift
             ;;
+
         -h|--help)
             usage
             exit 0
             ;;
+
         -*)
             echo "未知选项: $1"
             usage
             exit 1
             ;;
+
         *)
-            INPUT_PATHS="$INPUT_PATHS $1"
+            INPUT_PATHS+=("$1")
             shift
             ;;
     esac
 done
 
-# 移除 TARGET_DIR 结尾的斜杠，防止拼接时出现 //
 TARGET_DIR="${TARGET_DIR%/}"
 
-if [ -z "$INPUT_PATHS" ]; then
-    echo "错误: 未指定文件或目录。"
+if [ ${#INPUT_PATHS[@]} -eq 0 ]; then
+    echo "错误: 未指定文件或目录"
     usage
     exit 1
 fi
 
-if [ ! -d "$TARGET_DIR" ] && [ "$DELETE_MODE" = false ]; then
-    echo "目录 $TARGET_DIR 不存在，正在创建..."
+if [ "$DELETE_MODE" = false ] && [ ! -d "$TARGET_DIR" ]; then
+    echo "目录不存在，正在创建: $TARGET_DIR"
     mkdir -p "$TARGET_DIR"
 fi
 
-for input_path in $INPUT_PATHS; do
+process_file() {
+    file="$1"
+
+    file_name="$(basename "$file")"
+    target_path="${TARGET_DIR}/${file_name}"
+
+    if [ "$DELETE_MODE" = true ]; then
+        if [ -L "$target_path" ]; then
+            rm -f "$target_path"
+            echo "已删除链接: $target_path"
+
+        elif [ -e "$target_path" ]; then
+            echo "警告: '$target_path' 是真实文件而非链接，已跳过"
+
+        else
+            echo "跳过: 链接 '$target_path' 不存在"
+        fi
+
+        return
+    fi
+
+    abs_path="$(realpath "$file")"
+
+    ln -snf "$abs_path" "$target_path"
+
+    echo "已链接: $file_name -> $TARGET_DIR"
+}
+
+for input_path in "${INPUT_PATHS[@]}"; do
+
     if [ ! -e "$input_path" ]; then
-        echo "跳过: '$input_path' 不存在。"
+        echo "跳过: '$input_path' 不存在"
         continue
     fi
 
-    find "$input_path" -type f -print0 | while IFS= read -r -d '' file; do
-        file_name=$(basename "$file")
-        target_path="$TARGET_DIR/$file_name"
+    if [ -f "$input_path" ] || [ -L "$input_path" ]; then
+        process_file "$input_path"
+        continue
+    fi
 
-        if [ "$DELETE_MODE" = true ]; then
-            if [ -L "$target_path" ]; then
-                rm "$target_path"
-                echo "已删除链接: $target_path"
-            elif [ -e "$target_path" ]; then
-                echo "警告: '$target_path' 是真实文件而非链接，已跳过。"
-            else
-                echo "跳过: 链接 '$target_path' 不存在。"
-            fi
-        else
-            abs_path=$(realpath "$file")
-            ln -snf "$abs_path" "$target_path"
-            echo "已链接: $file_name -> $TARGET_DIR"
-        fi
+    find "$input_path" -type f -print0 |
+    while IFS= read -r -d '' file; do
+        process_file "$file"
     done
+
 done

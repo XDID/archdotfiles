@@ -21,11 +21,21 @@ ensure_dirs() {
 usage() {
   cat <<EOF
 Usage:
-  game <name> <id> <exe_path>     Add game
-  game add <name> <id> <exe_path> Add game
-  game delete                     Delete game
-  game ls                         Show games
-  game run                        Run games
+  wmenu-game -a -n <name> -e <exe> [-id <id>] [-N <alias>]
+  wmenu-game -d
+  wmenu-game -l
+  wmenu-game -r
+
+Options:
+  -a            Add game
+  -d            Delete game
+  -l            List games
+  -r            Run game
+
+  -n  <name>     Game name
+  -e  <exe>      Executable path
+  -id <id>       Game ID
+  -N  <alias>    Display name
 EOF
 }
 
@@ -33,10 +43,15 @@ make_toml() {
   name="$1"
   id="$2"
   exe="$3"
+  alias="$4"
 
   file="${TOML_PATH}/${name}.toml"
 
   cat > "$file" <<EOF
+[game]
+name = "${name}"
+alias = "${alias}"
+
 [umu]
 prefix = "${WINE_PREFIX}"
 proton = "${PROTON}"
@@ -71,48 +86,86 @@ EOF
 }
 
 add_game() {
-  [ $# -eq 3 ] || die "add_game requires: name id exe_path"
-
-  name="$1"
-  id="$2"
-  exe="$3"
+  [ -n "${name:-}" ] || die "missing -n"
+  [ -n "${exe:-}" ] || die "missing -e"
 
   [ -f "$exe" ] || die "exe not found: $exe"
 
+  id="${id:-$name}"
+  alias="${alias:-$name}"
+
   ensure_dirs
 
-  make_toml "$name" "$id" "$exe"
+  make_toml "$name" "$id" "$exe" "$alias"
   make_bin "$name" "$exe"
 
-  printf "Added game: %s (id=%s)\n" "$name" "$id"
+  printf "Added game: %s\n" "$alias"
+}
+
+get_name_from_toml() {
+  sed -n 's/^name = "\(.*\)"/\1/p' "$1"
+}
+
+get_alias_from_toml() {
+  sed -n 's/^alias = "\(.*\)"/\1/p' "$1"
 }
 
 get_id_from_toml() {
-  name="$1"
-  file="${TOML_PATH}/${name}.toml"
+  sed -n 's/^game_id = "umu-\(.*\)"/\1/p' "$1"
+}
 
-  [ -f "$file" ] || die "toml not found: $file"
+list_games_raw() {
+  [ -d "$TOML_PATH" ] || return 0
 
-  sed -n 's/^game_id = "umu-\(.*\)"/\1/p' "$file"
+  find "$TOML_PATH" \
+    -maxdepth 1 \
+    -type f \
+    -name '*.toml'
 }
 
 list_games() {
-  [ -d "$BIN_PATH" ] || return 0
+  list_games_raw | while read -r toml; do
+    name="$(get_name_from_toml "$toml")"
+    alias="$(get_alias_from_toml "$toml")"
+    id="$(get_id_from_toml "$toml")"
 
-  fd . "$BIN_PATH" \
-    --max-depth 1 \
-    -t f \
-    --exec basename {} \;
+    printf '%s\t%s\t%s\n' \
+      "$alias" \
+      "$name" \
+      "$id"
+  done | column -t -s $'\t'
+}
+
+menu_entries() {
+  list_games_raw | while read -r toml; do
+    name="$(get_name_from_toml "$toml")"
+    alias="$(get_alias_from_toml "$toml")"
+
+    printf '%s (%s)\t%s\n' \
+      "$alias" \
+      "$name" \
+      "$name"
+  done
 }
 
 delete_game() {
-  name=$(list_games | sort | fzf) || exit 1
+  select=$(
+    menu_entries |
+      cut -f1 |
+      sort |
+      fzf
+  ) || exit 1
+
+  name=$(
+    menu_entries |
+      awk -F '\t' -v s="$select" '$1 == s { print $2 }'
+  )
 
   toml="${TOML_PATH}/${name}.toml"
   bin="${BIN_PATH}/${name}"
   link="${HOME}/.local/bin/${name}"
 
-  id="$(get_id_from_toml "$name")"
+  id="$(get_id_from_toml "$toml")"
 
   rm -f "$toml" "$bin" "$link"
 
@@ -120,58 +173,107 @@ delete_game() {
 }
 
 run_game() {
-  [ -d "$BIN_PATH" ] || die "no games found"
-
   select=$(
-    list_games | sort |
-      "${HOME}/.local/bin/wmenu-color" -l 10 -p "Game "
+    menu_entries |
+      cut -f1 |
+      sort |
+      "${HOME}/.local/bin/wmenu-color" \
+        -l 10 \
+        -p "Game "
   ) || exit 1
 
-  game_exe_path="${BIN_PATH}/${select}"
+  name=$(
+    menu_entries |
+      awk -F '\t' -v s="$select" '$1 == s { print $2 }'
+  )
 
-  if [ -x "$game_exe_path" ]; then
-    exec "$game_exe_path"
-  else
-    die "game launcher not executable: $game_exe_path"
-  fi
+  launcher="${BIN_PATH}/${name}"
+
+  [ -x "$launcher" ] ||
+    die "game launcher not executable: $launcher"
+
+  exec "$launcher"
 }
 
 main() {
-  case "${1:-}" in
-    a|add|-a)
-      shift
-      [ $# -eq 3 ] || {
-        usage
-        exit 1
-      }
+  action=""
 
-      add_game "$@"
+  name=""
+  exe=""
+  id=""
+  alias=""
+
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      -a)
+        action="add"
+        ;;
+
+      -d)
+        action="delete"
+        ;;
+
+      -l)
+        action="list"
+        ;;
+
+      -r)
+        action="run"
+        ;;
+
+      -n)
+        shift
+        name="$1"
+        ;;
+
+      -e)
+        shift
+        exe="$1"
+        ;;
+
+      -id)
+        shift
+        id="$1"
+        ;;
+
+      -N)
+        shift
+        alias="$1"
+        ;;
+
+      -h|--help)
+        usage
+        exit 0
+        ;;
+
+      *)
+        die "unknown option: $1"
+        ;;
+    esac
+
+    shift
+  done
+
+  case "$action" in
+    add)
+      add_game
       ;;
 
-    l|ls|-l)
+    delete)
+      delete_game
+      ;;
+
+    list)
       list_games
       ;;
 
-    d|delete|-d)
-      shift
-      delete_game "$@"
-      ;;
-
-    r|run|-r)
+    run)
       run_game
       ;;
 
-    ""|help|-h|--help)
-      usage
-      ;;
-
     *)
-      [ $# -eq 3 ] || {
-        usage
-        exit 1
-      }
-
-      add_game "$@"
+      usage
+      exit 1
       ;;
   esac
 }

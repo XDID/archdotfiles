@@ -127,7 +127,7 @@ render() {
             "\" rise=\"-13000\">​</span>" \
             "<span background=\"" primary \
             "\" foreground=\"" on_primary \
-            "\" weight=\"bold\"> " name "  </span>"
+            "\" weight=\"bold\"> " name "   </span>"
         }
         else if (focused) {
             out = out \
@@ -139,7 +139,7 @@ render() {
             "\" rise=\"-13000\">​</span>" \
             "<span background=\"" primary \
             "\" foreground=\"" on_primary \
-            "\" weight=\"bold\"> " name "  </span>"
+            "\" weight=\"bold\"> " name "   </span>"
         }
         else if (occupied) {
             out = out \
@@ -151,7 +151,7 @@ render() {
             "\" rise=\"-13000\">​</span>" \
             "<span background=\"" on_primary \
             "\" foreground=\"" on_surface \
-            "\" weight=\"bold\"> " name "  </span>"
+            "\" weight=\"bold\"> " name "   </span>"
         }
         else {
             out = out \
@@ -163,7 +163,7 @@ render() {
             "\" rise=\"-13000\">​</span>" \
             "<span background=\"" on_primary \
             "\" foreground=\"" on_surface \
-            "\" weight=\"bold\"> " name "  </span>"
+            "\" weight=\"bold\"> " name "   </span>"
         }
     }
 

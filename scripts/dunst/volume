@@ -14,21 +14,21 @@ notify() {
     # 静音状态下的显示逻辑
     if [ "$is_muted" == "true" ]; then
         # 如果处于静音状态，通知文字显示为"静音"，音量数值强制为0，以让进度条归零[reference:5]
-        dunstify -a "changeVolume" -u low \
+        dunstify -a "changeVolume" \
+            -u low \
             -h string:x-dunst-stack-tag:volume \
             -h int:value:"0" \
             -t 1500 \
-            "音量: 静音"
+            "音量" "静音"
         return 0
     fi
-
 
     # 发送音量通知，显示进度条[reference:6][reference:7]
     dunstify -a "changeVolume" -u low \
         -h string:x-dunst-stack-tag:volume \
         -h int:value:"$volume" \
         -t 1500 \
-        "音量: ${volume}%" 
+        "音量" "${volume}%" 
 }
 
 # 主逻辑: 执行用户要求的动作

@@ -73,7 +73,7 @@ render() {
         close(rewrite_file)
 
         title = rewrite_title(raw_title)
-        title = limit_title_width(title, 95)
+        title = limit_title_width(title, 90)
 
         status = "[" layout " | " keymode "]"
 
