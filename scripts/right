@@ -1,0 +1,15 @@
+#!/bin/bash
+
+running_kernel=$(uname -r)
+
+installed_kernel=$(ls /usr/lib/modules | head -n1)
+
+if [[ "$running_kernel" == "$installed_kernel" ]]; then
+    echo "OK: 内核版本一致 ($running_kernel)"
+    exit 0
+else
+    echo "ERROR: 内核版本不一致"
+    echo "运行中的内核: $running_kernel"
+    echo "已安装模块: $installed_kernel"
+    exit 1
+fi
