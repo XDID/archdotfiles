@@ -79,8 +79,8 @@ alias prsi="paru -Si"
 alias prss="paru -Ss"
 
 # umu
-alias ur="WINEPREFIX=~/.wine PROTONPATH=/home/harunato/.local/share/Steam/compatibilitytools.d/GE-Proton10-34 gamescope -f -W 3840 -H 2160 -r 60 --force-grab-cursor -- umu-run"
-alias hur="WINEPREFIX=~/.gal PROTONPATH=/home/harunato/.local/share/Steam/compatibilitytools.d/GE-Proton10-34 gamescope -f -W 3840 -H 2160 -r 60 --force-grab-cursor -- umu-run"
+alias ur="WINEPREFIX=~/.local/share/wineprefixes/wine11 PROTONPATH=/home/harunato/.local/share/Steam/compatibilitytools.d/GE-Proton11-1 gamescope -f -W 3840 -H 2160 -r 60 --force-grab-cursor -- umu-run"
+alias hur="WINEPREFIX=~/.local/share/wineprefixes/gal PROTONPATH=/home/harunato/.local/share/Steam/compatibilitytools.d/GE-Proton10-34 gamescope -f -W 3840 -H 2160 -r 60 --force-grab-cursor -- umu-run"
 
 alias s="systemctl"
 alias ss="sudo systemctl"

@@ -17,4 +17,4 @@ fi
 CUR_WALLPATH="$WALLPAPER/$CUR_WALLMODE"
 
 [[ -n "$CUR_WALLPATH" ]] || exit 1
-pgrep -x swayimg >/dev/null 2>&1 || /usr/bin/swayimg -g --class="wallpaper_selector" --size=640,360 "$CUR_WALLPATH"
+pgrep -x swayimg >/dev/null 2>&1 || /usr/bin/swayimg -g --appid="wallpaper_selector" --size=640,360 "$CUR_WALLPATH"

@@ -4,8 +4,8 @@ set -eu
 TOML_PATH="${HOME}/.config/games"
 BIN_PATH="${TOML_PATH}/bin"
 
-WINE_PREFIX="${HOME}/.wine"
-PROTON="${HOME}/.local/share/Steam/compatibilitytools.d/GE-Proton10-34"
+WINE_PREFIX="${HOME}/.local/share/wineprefixes/wine11/"
+PROTON="${HOME}/.local/share/Steam/compatibilitytools.d/GE-Proton11-1"
 
 STORE="steam"
 

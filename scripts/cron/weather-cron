@@ -2,8 +2,8 @@
 
 CACHE_FILE="${XDG_CACHE_HOME:-$HOME/.cache}/wttr.log"
 CACHE_TTL=60
-CITY="bozhou"
-FALLBACK="anhui"
+CITY="suzhou"
+FALLBACK="jiangsu"
 
 FORCE_REFRESH=false
 while getopts "n" opt; do

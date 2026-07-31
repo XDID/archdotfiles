@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+CONFIG="$HOME/.config/xremap/config.yml"
+
+if pgrep -x xremap >/dev/null; then
+    echo 0411 | sudo -S pkill -x xremap
+    echo "󰰰 off" > ~/.cache/xremap.log
+    dunstify -a "XREMAP" \
+             -u low \
+             -h string:x-dunst-stack-tag:Xremap \
+             -t 1500 \
+             "xremap ❌"
+else
+    echo 0411 | sudo -S -E xremap --watch=config,device "$CONFIG" >/dev/null 2>&1 &
+    disown
+    echo "󰰰 on" > ~/.cache/xremap.log
+    dunstify -a "XREMAP" \
+             -u low \
+             -h string:x-dunst-stack-tag:Xremap \
+             -t 1500 \
+             "xremap ✅"
+fi
+
+pkill -RTMIN+17 waybar

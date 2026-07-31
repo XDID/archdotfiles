@@ -1,6 +1,6 @@
 swayimg.viewer.set_window_background(0xff111111)
 swayimg.viewer.set_image_background(0xff111111)
-swayimg.viewer.set_default_scale("width")
+swayimg.viewer.set_default_scale("fit")
 swayimg.viewer.set_default_position("center")
 swayimg.viewer.enable_loop(true)
 swayimg.viewer.limit_preload(1)
