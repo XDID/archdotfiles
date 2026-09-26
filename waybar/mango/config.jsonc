@@ -142,7 +142,7 @@
 
     "network": {
         "format": "{ifname}",
-        "format-wifi": " {essid}({ipaddr})",
+        "format-wifi": " ({ipaddr})",
         "format-ethernet": " wired({ipaddr})",
         "format-disconnected": "󰅛",
         "tooltip-format": "{ifname} via {gwaddr}  ",
